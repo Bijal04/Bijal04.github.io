@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Bijal Panchal — Data Analyst</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  :root {
+    --bg: #f9f8f6;
+    --surface: #ffffff;
+    --surface2: #f2f0ed;
+    --border: #e4e1db;
+    --text: #1a1917;
+    --muted: #6b6860;
+    --accent: #1a56db;
+    --accent-soft: #dbeafe;
+    --green: #0f6e56;
+    --green-soft: #d1fae5;
+    --amber: #92400e;
+    --amber-soft: #fef3c7;
+    --teal: #0e7490;
+    --teal-soft: #cffafe;
+    --coral: #9a3412;
+    --coral-soft: #fee2e2;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+    --radius: 10px;
+    --radius-lg: 14px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    text-align: center;
+    padding-bottom: 36px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 36px;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .tagline-code {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--green);
+    letter-spacing: 0.08em;
+    margin-bottom: 14px;
+    opacity: 0;
+    animation: fadeUp 0.5s 0.1s ease forwards;
+  }
+
+  .name {
+    font-size: 36px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+    opacity: 0;
+    animation: fadeUp 0.5s 0.15s ease forwards;
+  }
+
+  .role {
+    font-size: 15px;
+    color: var(--muted);
+    margin-bottom: 18px;
+    opacity: 0;
+    animation: fadeUp 0.5s 0.2s ease forwards;
+  }
+
+  .badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeUp 0.5s 0.25s ease forwards;
+  }
+
+  .badge {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 13px;
+    border-radius: 20px;
+    border: 1px solid;
+  }
+  .b-blue  { background: var(--accent-soft); color: #1e40af; border-color: #93c5fd; }
+  .b-green { background: var(--green-soft);  color: #065f46; border-color: #6ee7b7; }
+  .b-amber { background: var(--amber-soft);  color: var(--amber); border-color: #fcd34d; }
+  .b-teal  { background: var(--teal-soft);   color: var(--teal);  border-color: #67e8f9; }
+
+  /* ── SECTION ── */
+  .section { margin-bottom: 36px; animation: fadeUp 0.5s ease both; }
+  .section-hd {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-hd .ico { font-size: 16px; }
+  .divider { height: 1px; background: var(--border); margin: 32px 0; }
+
+  /* ── WHOAMI CODE BLOCK ── */
+  .code-block {
+    background: #1e1e2e;
+    border-radius: var(--radius-lg);
+    padding: 20px 24px;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    line-height: 1.9;
+    position: relative;
+    overflow: hidden;
+  }
+  .code-block::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #1a56db, #0f6e56, #92400e);
+  }
+  .cb-bar {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+  .cb-dot { width: 11px; height: 11px; border-radius: 50%; }
+  .ck { color: #89b4fa; }
+  .cv { color: #a6e3a1; }
+  .cs { color: #fab387; }
+  .cm { color: #6c7086; }
+  .copy-btn {
+    position: absolute;
+    top: 14px; right: 16px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: #6c7086;
+    background: #2a2a3e;
+    border: 1px solid #3c3c52;
+    border-radius: 6px;
+    padding: 3px 9px;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .copy-btn:hover { color: #a6e3a1; }
+
+  /* ── TOOLS ── */
+  .tools-wrap { display: flex; flex-wrap: wrap; gap: 7px; }
+  .tp {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11.5px;
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 7px;
+    border: 1px solid;
+    transition: transform 0.15s;
+    cursor: default;
+  }
+  .tp:hover { transform: translateY(-1px); }
+  .tp-py { background: var(--accent-soft); color: #1e40af; border-color: #93c5fd; }
+  .tp-gr { background: var(--green-soft);  color: #065f46; border-color: #6ee7b7; }
+  .tp-am { background: var(--amber-soft);  color: var(--amber); border-color: #fcd34d; }
+  .tp-te { background: var(--teal-soft);   color: var(--teal);  border-color: #67e8f9; }
+  .tp-co { background: #fee2e2; color: #9a3412; border-color: #fca5a5; }
+  .tp-gy { background: var(--surface2); color: var(--muted); border-color: var(--border); }
+
+  /* ── REPOS ── */
+  .repos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .repo-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 18px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .repo-card:hover { border-color: #93c5fd; transform: translateY(-2px); }
+  .repo-name { font-size: 13.5px; font-weight: 500; color: var(--accent); margin-bottom: 8px; display: flex; align-items: center; gap: 7px; }
+  .repo-desc { font-size: 12px; color: var(--muted); line-height: 1.7; margin-bottom: 12px; }
+  .repo-hi { font-weight: 500; color: var(--text); }
+  .repo-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+  .rtag { font-size: 10px; padding: 2px 8px; border-radius: 20px; background: var(--surface2); color: var(--muted); border: 1px solid var(--border); }
+
+  /* ── TECH STACK PILLS ── */
+  .stack-group { margin-bottom: 16px; }
+  .stack-lbl { font-size: 10.5px; font-weight: 500; color: var(--muted); letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 8px; }
+  .stack-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+  .sp {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 11px;
+    border-radius: 20px;
+    border: 1px solid;
+  }
+
+  /* ── STATS ── */
+  .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 28px; }
+  .stat-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 12px; text-align: center; }
+  .stat-n { font-size: 22px; font-weight: 500; }
+  .stat-l { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  /* ── CHARTS ── */
+  .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 0; }
+  .chart-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 18px;
+  }
+  .chart-title { font-size: 12px; font-weight: 500; color: var(--muted); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .chart-wrap { position: relative; width: 100%; }
+  .chart-wrap-bar { height: 200px; }
+  .chart-wrap-doughnut { height: 180px; display: flex; align-items: center; justify-content: center; }
+  .doughnut-inner { position: relative; width: 100%; height: 180px; }
+  .legend-list { display: flex; flex-direction: column; gap: 5px; margin-top: 12px; }
+  .legend-item { display: flex; align-items: center; gap: 7px; font-size: 11px; color: var(--muted); }
+  .legend-dot { width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0; }
+
+  /* ── TERMINAL ── */
+  .terminal {
+    background: #1e1e2e;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .term-bar {
+    background: #2a2a3e;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .tdot { width: 11px; height: 11px; border-radius: 50%; }
+  .term-body {
+    padding: 16px 22px 20px;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    line-height: 2;
+  }
+  .t-prompt { color: #a6e3a1; }
+  .t-cmd    { color: #cdd6f4; }
+  .t-arrow  { color: #f38ba8; }
+  .t-txt    { color: #a6adc8; }
+  .t-hi     { color: #a6e3a1; font-weight: 500; }
+  .t-link   { color: #89b4fa; }
+
+  /* ── CONTACT ── */
+  .contact-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .cbtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    color: var(--text);
+    background: var(--surface);
+    text-decoration: none;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s, transform 0.15s;
+  }
+  .cbtn:hover { border-color: #93c5fd; background: var(--accent-soft); transform: translateY(-1px); }
+  .cbtn svg { width: 16px; height: 16px; }
+
+  /* ── FOOTER ── */
+  .footer { text-align: center; font-size: 11px; color: var(--muted); margin-top: 48px; font-family: var(--mono); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .s1 { animation-delay: 0.1s; }
+  .s2 { animation-delay: 0.2s; }
+  .s3 { animation-delay: 0.3s; }
+  .s4 { animation-delay: 0.35s; }
+  .s5 { animation-delay: 0.4s; }
+  .s6 { animation-delay: 0.45s; }
+  .s7 { animation-delay: 0.5s; }
+  .s8 { animation-delay: 0.55s; }
+
+  .section { opacity: 0; animation: fadeUp 0.5s ease forwards; }
+
+  @media (max-width: 600px) {
+    .repos-grid, .charts-grid, .stats-row { grid-template-columns: 1fr; }
+    .name { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="tagline-code">// from raw data to real decisions.</div>
+    <h1 class="name">Bijal Panchal</h1>
+    <p class="role">Data Analyst &amp; ML Engineer &nbsp;·&nbsp; Brampton, CA &nbsp;·&nbsp; Open to work</p>
+    <div class="badges">
+      <span class="badge b-blue">M.S. Data Analytics · 2026</span>
+      <span class="badge b-green">GPA 3.89 · President's Honour Roll</span>
+      <span class="badge b-amber">Time Series · RFM · ETL · BI</span>
+      <span class="badge b-teal">Open to Data Analyst &amp; DS Roles</span>
+    </div>
+  </div>
+
+  <!-- WHOAMI -->
+  <div class="section s1">
+    <div class="section-hd"><span class="ico">🧑‍💻</span> whoami</div>
+    <div class="code-block">
+      <div class="cb-bar">
+        <div class="cb-dot" style="background:#ff5f57"></div>
+        <div class="cb-dot" style="background:#ffbd2e"></div>
+        <div class="cb-dot" style="background:#28c840"></div>
+      </div>
+      <button class="copy-btn" onclick="navigator.clipboard.writeText(document.querySelector('.code-block').innerText);this.textContent='copied!'">copy</button>
+      <div><span style="color:#cdd6f4">bijal</span> <span class="cm">=</span> {</div>
+      <div>&nbsp;&nbsp;<span class="ck">"role"</span><span class="cm"> : </span><span class="cv">"Data Analyst &amp; ML Engineer"</span>,</div>
+      <div>&nbsp;&nbsp;<span class="ck">"education"</span><span class="cm"> : </span><span class="cv">"M.S. Data Analytics – University of Niagara Falls (2026)"</span>,</div>
+      <div>&nbsp;&nbsp;<span class="ck">"location"</span><span class="cm"> : </span><span class="cv">"Brampton, CA · Open to Remote"</span>,</div>
+      <div>&nbsp;&nbsp;<span class="ck">"available"</span><span class="cm"> : </span><span class="cs">True</span>,</div>
+      <div>&nbsp;&nbsp;<span class="ck">"focus"</span><span class="cm"> : </span>[<span class="cv">"Time Series Forecasting"</span>, <span class="cv">"RFM Segmentation"</span>, <span class="cv">"ETL Pipelines"</span>, <span class="cv">"BI Dashboards"</span>],</div>
+      <div>&nbsp;&nbsp;<span class="ck">"currently"</span><span class="cm"> : </span><span class="cv">"Building production-grade forecasting &amp; anomaly detection systems"</span>,</div>
+      <div>&nbsp;&nbsp;<span class="ck">"philosophy"</span><span class="cm"> : </span><span class="cv">"Data without decisions is just noise."</span>,</div>
+      <div style="color:#cdd6f4">}</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- TOOLS -->
+  <div class="section s2">
+    <div class="section-hd"><span class="ico">🛠️</span> Languages &amp; tools I've placed my hands on</div>
+    <div class="tools-wrap">
+      <span class="tp tp-py">🐍 Python</span>
+      <span class="tp tp-py">🗄️ SQL</span>
+      <span class="tp tp-co">📊 R</span>
+      <span class="tp tp-am">🐼 Pandas</span>
+      <span class="tp tp-am">🔢 NumPy</span>
+      <span class="tp tp-gr">🤖 Scikit-learn</span>
+      <span class="tp tp-gr">🧠 TensorFlow</span>
+      <span class="tp tp-gr">⚡ XGBoost</span>
+      <span class="tp tp-gr">📈 Prophet</span>
+      <span class="tp tp-gr">📉 Statsmodels</span>
+      <span class="tp tp-am">📊 Power BI</span>
+      <span class="tp tp-am">📋 Tableau</span>
+      <span class="tp tp-am">📗 Excel / DAX</span>
+      <span class="tp tp-te">🗃️ MySQL</span>
+      <span class="tp tp-te">🗂️ SQLite</span>
+      <span class="tp tp-gy">🔧 Git</span>
+      <span class="tp tp-gy">🐙 GitHub</span>
+      <span class="tp tp-gy">📓 Jupyter</span>
+      <span class="tp tp-gy">💻 VS Code</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- BEST REPOS -->
+  <div class="section s3">
+    <div class="section-hd"><span class="ico">🚀</span> Best repositories</div>
+    <div class="repos-grid">
+      <div class="repo-card">
+        <div class="repo-name">
+          <svg viewBox="0 0 16 16" fill="currentColor" style="width:14px;height:14px;opacity:0.5"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9z"/></svg>
+          walmart-sales-forecasting
+        </div>
+        <div class="repo-desc">
+          End-to-end forecasting &amp; anomaly detection on <span class="repo-hi">421,570+ weekly records</span> across 45 stores. Prophet + NeuralProphet achieving <span class="repo-hi">93% accuracy (MAPE 7.2%)</span>, outperforming ARIMA by 11%. Isolation Forest flags 3.2% anomalous events. Power BI dashboard cuts query time by <span class="repo-hi">35%</span>.
+        </div>
+        <div class="repo-tags">
+          <span class="rtag">Python</span><span class="rtag">Prophet</span><span class="rtag">TensorFlow</span><span class="rtag">SQL</span><span class="rtag">Power BI</span><span class="rtag">R</span>
+        </div>
+      </div>
+      <div class="repo-card">
+        <div class="repo-name">
+          <svg viewBox="0 0 16 16" fill="currentColor" style="width:14px;height:14px;opacity:0.5"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9z"/></svg>
+          retail-demand-planning
+        </div>
+        <div class="repo-desc">
+          Cleaned <span class="repo-hi">1M+ transactional records</span> across 43 countries &amp; 4,735 products. SARIMA vs Holt-Winters comparison, star schema ETL warehouse, RFM segmentation identifying <span class="repo-hi">843 Champions</span> averaging <span class="repo-hi">£5,689 spend</span>.
+        </div>
+        <div class="repo-tags">
+          <span class="rtag">Python</span><span class="rtag">SARIMA</span><span class="rtag">SQLite</span><span class="rtag">Power BI</span><span class="rtag">RFM</span><span class="rtag">ETL</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- TECH STACK -->
+  <div class="section s4">
+    <div class="section-hd"><span class="ico">⚙️</span> Tech stack</div>
+    <div class="stack-group">
+      <div class="stack-lbl">AI / ML / Forecasting</div>
+      <div class="stack-pills">
+        <span class="sp b-blue">Python</span><span class="sp b-blue">Pandas</span><span class="sp b-blue">NumPy</span>
+        <span class="sp b-green">Scikit-learn</span><span class="sp b-green">TensorFlow</span><span class="sp b-green">XGBoost</span><span class="sp b-green">Prophet</span><span class="sp b-green">NeuralProphet</span><span class="sp b-green">SARIMA</span><span class="sp b-green">Holt-Winters</span><span class="sp b-green">Isolation Forest</span><span class="sp b-green">K-Means</span><span class="sp b-green">PCA</span>
+        <span class="sp b-teal">R</span><span class="sp b-teal">Statsmodels</span><span class="sp b-teal">tidyverse</span><span class="sp b-teal">ggplot2</span>
+      </div>
+    </div>
+    <div class="stack-group">
+      <div class="stack-lbl">BI &amp; Visualization</div>
+      <div class="stack-pills">
+        <span class="sp b-amber">Power BI</span><span class="sp b-amber">Tableau</span><span class="sp b-amber">Excel</span><span class="sp b-amber">DAX</span><span class="sp b-amber">Power Query</span><span class="sp b-amber">Matplotlib</span><span class="sp b-amber">Seaborn</span><span class="sp b-amber">ggplot2</span>
+      </div>
+    </div>
+    <div class="stack-group">
+      <div class="stack-lbl">Databases &amp; Warehousing</div>
+      <div class="stack-pills">
+        <span class="sp b-teal">SQL</span><span class="sp b-teal">MySQL</span><span class="sp b-teal">SQLite</span><span class="sp b-teal">Star Schema</span><span class="sp b-teal">ETL Pipelines</span><span class="sp b-teal">SQLAlchemy</span><span class="sp b-teal">OLAP</span>
+      </div>
+    </div>
+    <div class="stack-group">
+      <div class="stack-lbl">Tools &amp; Platforms</div>
+      <div class="stack-pills">
+        <span class="sp" style="background:var(--surface2);color:var(--muted);border-color:var(--border);border:1px solid">Git</span>
+        <span class="sp" style="background:var(--surface2);color:var(--muted);border-color:var(--border);border:1px solid">GitHub</span>
+        <span class="sp" style="background:var(--surface2);color:var(--muted);border-color:var(--border);border:1px solid">Jupyter</span>
+        <span class="sp" style="background:var(--surface2);color:var(--muted);border-color:var(--border);border:1px solid">VS Code</span>
+        <span class="sp" style="background:var(--surface2);color:var(--muted);border-color:var(--border);border:1px solid">DBeaver</span>
+        <span class="sp" style="background:var(--surface2);color:var(--muted);border-color:var(--border);border:1px solid">Tableau Public</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- IMPACT STATS -->
+  <div class="section s5">
+    <div class="section-hd"><span class="ico">📊</span> Impact stats</div>
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="stat-n" style="color:#1a56db">93%</div>
+        <div class="stat-l">Forecast accuracy</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-n" style="color:#0f6e56">1M+</div>
+        <div class="stat-l">Records processed</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-n" style="color:#92400e">87%</div>
+        <div class="stat-l">Classification accuracy</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-n" style="color:#9a3412">10+</div>
+        <div class="stat-l">Production dashboards</div>
+      </div>
+    </div>
+
+    <!-- CHARTS -->
+    <div class="charts-grid">
+      <div class="chart-card">
+        <div class="chart-title">Skill proficiency</div>
+        <div class="chart-wrap chart-wrap-bar">
+          <canvas id="skillChart" role="img" aria-label="Horizontal bar chart showing skill proficiency levels">Python 95, SQL 90, Pandas 92, Power BI 85, Tableau 82, Scikit-learn 80, TensorFlow 72, R 78.</canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Tech stack breakdown</div>
+        <div class="chart-wrap chart-wrap-doughnut">
+          <div class="doughnut-inner">
+            <canvas id="stackChart" role="img" aria-label="Doughnut chart of tech stack by category">ML/Forecasting 40%, BI Tools 25%, Databases 20%, DevTools 15%.</canvas>
+          </div>
+        </div>
+        <div class="legend-list">
+          <div class="legend-item"><div class="legend-dot" style="background:#1a56db"></div> ML / Forecasting — 40%</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#f59e0b"></div> BI &amp; Visualization — 25%</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#0e7490"></div> Databases &amp; ETL — 20%</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#6b7280"></div> Dev Tools — 15%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- CURRENTLY WORKING ON -->
+  <div class="section s6">
+    <div class="section-hd"><span class="ico">🔥</span> Currently working on</div>
+    <div class="terminal">
+      <div class="term-bar">
+        <div class="tdot" style="background:#ff5f57"></div>
+        <div class="tdot" style="background:#ffbd2e"></div>
+        <div class="tdot" style="background:#28c840"></div>
+      </div>
+      <div class="term-body">
+        <div><span class="t-prompt">$</span> <span class="t-cmd">git log --oneline -4</span></div>
+        <div><span class="t-arrow">→</span>  <span class="t-txt">Walmart Forecasting: extending to </span><span class="t-hi">department-level Prophet ensembles</span></div>
+        <div><span class="t-arrow">→</span>  <span class="t-txt">Finishing M.S. Capstone: </span><span class="t-hi">end-to-end demand planning system</span><span class="t-txt"> with anomaly alerts</span></div>
+        <div><span class="t-arrow">→</span>  <span class="t-txt">Deepening MLOps: </span><span class="t-hi">model drift detection</span><span class="t-txt"> &amp; auto-retraining pipelines</span></div>
+        <div><span class="t-arrow">→</span>  <span class="t-txt">Open to </span><span class="t-hi">Data Analyst &amp; Data Science roles</span><span class="t-link"> — May 2026 onward</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- CONTACT -->
+  <div class="section s7">
+    <div class="section-hd"><span class="ico">📬</span> Contact me</div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:14px">Let's build something at the edge of data and real decisions.</p>
+    <div class="contact-row">
+      <a class="cbtn" href="https://linkedin.com/in/bijalpanchal" target="_blank">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a class="cbtn" href="mailto:b.panchal04career@gmail.com">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
+        Gmail
+      </a>
+      <a class="cbtn" href="https://github.com/bijalpanchal" target="_blank">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+        GitHub
+      </a>
+    </div>
+  </div>
+
+  <div class="footer">bijalpanchal — built with data, deployed with purpose.</div>
+
+</div>
+
+<script>
+  const skillCtx = document.getElementById('skillChart');
+  new Chart(skillCtx, {
+    type: 'bar',
+    data: {
+      labels: ['Python', 'Pandas', 'SQL', 'Power BI', 'Tableau', 'Scikit-learn', 'R', 'TensorFlow'],
+      datasets: [{
+        label: 'Proficiency',
+        data: [95, 92, 90, 85, 82, 80, 78, 72],
+        backgroundColor: ['#1a56db','#1a56db','#1a56db','#f59e0b','#f59e0b','#0f6e56','#9a3412','#0f6e56'],
+        borderRadius: 4,
+        borderSkipped: false,
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ' ' + ctx.raw + '%' } } },
+      scales: {
+        x: { min: 0, max: 100, ticks: { color: '#6b6860', font: { size: 10 }, callback: v => v + '%' }, grid: { color: '#e4e1db' }, border: { display: false } },
+        y: { ticks: { color: '#1a1917', font: { size: 11 } }, grid: { display: false }, border: { display: false } }
+      }
+    }
+  });
+
+  const stackCtx = document.getElementById('stackChart');
+  new Chart(stackCtx, {
+    type: 'doughnut',
+    data: {
+      labels: ['ML / Forecasting', 'BI & Visualization', 'Databases & ETL', 'Dev Tools'],
+      datasets: [{
+        data: [40, 25, 20, 15],
+        backgroundColor: ['#1a56db', '#f59e0b', '#0e7490', '#9ca3af'],
+        borderWidth: 2,
+        borderColor: '#ffffff',
+        hoverOffset: 6,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      cutout: '68%',
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ' ' + ctx.raw + '%' } } }
+    }
+  });
+</script>
+</body>
+</html>
