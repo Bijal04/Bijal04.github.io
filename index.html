@@ -37,7 +37,7 @@ body:has(a:hover) #cur-o,body:has(button:hover) #cur-o{width:56px;height:56px}
 .loader-b{font-family:var(--display);font-size:clamp(4rem,14vw,9rem);color:#fff;letter-spacing:-.02em;font-style:italic;transform:translateY(110%);animation:slideUp .7s .1s cubic-bezier(.16,1,.3,1) forwards;line-height:1}
 .loader-underscore{font-family:var(--mono);font-size:clamp(3rem,10vw,6.5rem);color:rgba(255,255,255,.5);transform:translateY(110%);animation:slideUp .7s .2s cubic-bezier(.16,1,.3,1) forwards;line-height:1}
 .loader-role{font-family:var(--mono);font-size:clamp(.9rem,2.5vw,1.3rem);letter-spacing:.25em;text-transform:uppercase;color:#fff;overflow:hidden;white-space:nowrap;width:0;border-right:2px solid rgba(255,255,255,.8);animation:typeWriter 1.4s steps(12,end) .55s forwards,cursorBlink .5s step-end .55s 6}
-@keyframes typeWriter{from{width:0}to{width:16em}}
+@keyframes typeWriter{from{width:0}to{width:10.5em}}
 @keyframes cursorBlink{0%,100%{border-color:rgba(255,255,255,.8)}50%{border-color:transparent}}
 .loader-bar-track{width:180px;height:2px;background:rgba(255,255,255,.25);overflow:hidden;border-radius:1px;opacity:0;animation:fadeUp .4s .5s forwards}
 .loader-bar{height:100%;background:#fff;width:0;animation:loadBar 1.5s .55s cubic-bezier(.16,1,.3,1) forwards}
@@ -56,7 +56,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .theme-toggle svg{width:14px;height:14px}
 
 /* DARK THEME */
-body.dark{--bg:#0f0a0d;--bg2:#150d11;--white:#0f0a0d;--dark:#fff0f5;--mid:#e0a0c0;--muted:#9a6080;--pink-pale:rgba(255,45,126,.15)}
+body.dark{--bg:#0f0a0d;--bg2:#150d11;--white:#0f0a0d;--dark:#fff0f5;--mid:#e0a0c0;--muted:#9a6080;--pink:#ff2d7e;--pink-light:#ff8ab8;--pink-pale:rgba(255,45,126,.15)}
 body.dark nav{background:rgba(15,10,13,.85)}
 body.dark .skill-card{background:#1a0f15;border-color:rgba(255,45,126,.2)}
 body.dark .about-cards .acard{background:#1a0f15}
@@ -64,10 +64,10 @@ body.dark .stack-row{background:#1a0f15}
 body.dark footer{background:#0a060a}
 
 /* LIGHT THEME (default) already set */
-body.theme-pastel{--bg:#fdf4ff;--bg2:#f8ebff;--pink:#7b00e0;--pink-light:#a855f7;--pink-pale:#e9d5ff;--dark:#1a0a2e;--mid:#4a2070;--muted:#7c3aed}
-body.theme-pastel nav{background:rgba(253,244,255,.85)}
-body.theme-pastel #prog{background:#9b30ff}
-body.theme-pastel .hero-orb{background:radial-gradient(circle,#eedeff 0%,#d4a8ff 45%,rgba(212,168,255,0) 70%)}
+body.theme-pastel{--bg:#fff8f6;--bg2:#fff0ec;--pink:#ff2d7e;--pink-light:#ff8ab8;--pink-pale:#ffe0ee;--dark:#1a0a12;--mid:#6b3a52;--muted:#b08090}
+body.theme-pastel nav{background:rgba(255,248,246,.85)}
+body.theme-pastel #prog{background:#ff2d7e}
+body.theme-pastel .hero-orb{background:radial-gradient(circle,#ffe0ee 0%,#ffb8d4 45%,rgba(255,184,212,0) 70%)}
 .nav-logo{font-family:var(--display);font-size:1.1rem;letter-spacing:-.01em;color:var(--dark);font-style:italic}
 .nav-logo span{color:var(--pink)}
 .nav-links{display:flex;gap:2rem;list-style:none}
@@ -88,7 +88,7 @@ body.theme-pastel .hero-orb{background:radial-gradient(circle,#eedeff 0%,#d4a8ff
 .hero-content{position:relative;z-index:3;max-width:800px}
 .hero-pre{font-family:var(--mono);font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;color:var(--pink);margin-bottom:1.5rem;display:flex;align-items:center;gap:.8rem;opacity:0;animation:fadeUp .6s 2s forwards}
 .hero-pre::before{content:'';display:inline-block;width:32px;height:1.5px;background:var(--pink)}
-.hero-name{font-family:var(--display);font-size:clamp(5rem,11vw,10rem);letter-spacing:-.02em;color:var(--dark);line-height:.9;overflow:hidden;font-style:italic}
+.hero-name{font-family:var(--display);font-size:clamp(3.5rem,8vw,7rem);letter-spacing:-.02em;color:var(--dark);line-height:.9;overflow:hidden;font-style:italic}
 .hero-name-line{display:block;overflow:visible;padding-bottom:.05em}
 .hero-name-line span{display:block;transform:translateY(110%);animation:slideUp .9s cubic-bezier(.16,1,.3,1) 2.1s forwards}
 .hero-name-accent{color:var(--pink)}
@@ -256,7 +256,7 @@ footer span{color:var(--pink)}
 
 <!-- NAV -->
 <nav>
-  <span class="nav-logo">Bijal <span>Panchal</span></span>
+
   <div class="nav-right">
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
@@ -583,13 +583,15 @@ dots.forEach(d=>d.addEventListener('click',()=>goTo(+d.dataset.i)));
 document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')goTo(cur_slide+1);if(e.key==='ArrowLeft')goTo(cur_slide-1)});
 
 /* THEME SWITCHER */
-const themes=['light','dark','theme-pastel'];
-const labels=['Dark','Pastel','Light'];
-let themeIdx=0;
+const themes=['dark','theme-pastel'];
+const labels=['Light','Dark'];
+let themeIdx=1;
+document.body.classList.add(themes[1]);
+document.getElementById('themeLabel').textContent=labels[1];
 document.getElementById('themeBtn').addEventListener('click',()=>{
   document.body.classList.remove(...themes);
   themeIdx=(themeIdx+1)%themes.length;
-  if(themes[themeIdx]!=='light') document.body.classList.add(themes[themeIdx]);
+  document.body.classList.add(themes[themeIdx]);
   document.getElementById('themeLabel').textContent=labels[themeIdx];
 });
 </script>
