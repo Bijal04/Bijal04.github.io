@@ -85,15 +85,6 @@ body.theme-pastel .hero-orb{background:radial-gradient(circle,#eedeff 0%,#d4a8ff
 .hero-orb::after{content:'';position:absolute;inset:-18%;border-radius:50%;background:radial-gradient(circle,transparent 55%,rgba(255,45,126,.1) 75%,transparent 85%);animation:orbSpin 6s linear infinite}
 @keyframes orbSpin{0%{transform:rotate(0deg) scale(1)}25%{transform:rotate(90deg) scale(1.04)}50%{transform:rotate(180deg) scale(1)}75%{transform:rotate(270deg) scale(1.04)}100%{transform:rotate(360deg) scale(1)}}
 
-/* floating data chips */
-.data-chips{position:absolute;right:5vw;top:50%;transform:translateY(-50%);z-index:2;display:flex;flex-direction:column;gap:1rem}
-.chip{font-family:var(--mono);font-size:.72rem;padding:.5rem 1rem;border-radius:50px;background:#fff;box-shadow:0 4px 24px rgba(255,45,126,.15);color:var(--dark);display:flex;align-items:center;gap:.5rem;animation:chipFloat 5s ease-in-out infinite}
-.chip-dot{width:8px;height:8px;border-radius:50%;background:var(--pink);flex-shrink:0}
-.chip:nth-child(2){animation-delay:.8s}
-.chip:nth-child(3){animation-delay:1.6s}
-.chip:nth-child(4){animation-delay:2.4s}
-@keyframes chipFloat{0%,100%{transform:translateX(0)}50%{transform:translateX(-8px)}}
-
 .hero-content{position:relative;z-index:3;max-width:800px}
 .hero-pre{font-family:var(--mono);font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;color:var(--pink);margin-bottom:1.5rem;display:flex;align-items:center;gap:.8rem;opacity:0;animation:fadeUp .6s 2s forwards}
 .hero-pre::before{content:'';display:inline-block;width:32px;height:1.5px;background:var(--pink)}
@@ -242,7 +233,6 @@ footer span{color:var(--pink)}
   .about-layout,.skills-grid,.exp-card{grid-template-columns:1fr}
   .proj-body{grid-template-columns:1fr}
   .hero-orb{width:90vw;height:90vw;right:-20vw;top:-5vh}
-  .data-chips{display:none}
   .about-cards{grid-template-columns:1fr 1fr}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
@@ -286,13 +276,6 @@ footer span{color:var(--pink)}
 <section id="hero">
   <div class="hero-orb"></div>
 
-  <div class="data-chips">
-    <div class="chip"><div class="chip-dot"></div>GPA 3.89 / 4.0</div>
-    <div class="chip"><div class="chip-dot"></div>MAPE 25.54%</div>
-    <div class="chip"><div class="chip-dot"></div>1M+ Records Processed</div>
-    <div class="chip"><div class="chip-dot"></div>87% ML Accuracy</div>
-  </div>
-
   <div class="hero-content">
     <p class="hero-pre">Data Analyst · Brampton, Ontario</p>
     <h1 class="hero-name">
@@ -319,8 +302,6 @@ footer span{color:var(--pink)}
       </div>
     </div>
   </div>
-
-
 </section>
 
 <!-- ABOUT -->
@@ -545,8 +526,6 @@ footer span{color:var(--pink)}
   <p>© 2026 <span>Bijal Panchal</span></p>
   <p>Data Analyst · <span>Open to Work</span></p>
 </footer>
-
-
 
 <script>
 /* LOADER */
