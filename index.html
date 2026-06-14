@@ -63,7 +63,6 @@ body.dark .about-cards .acard{background:#1a0f15}
 body.dark .stack-row{background:#1a0f15}
 body.dark footer{background:#0a060a}
 
-/* LIGHT THEME (default) already set */
 body.theme-pastel{--bg:#fff8f6;--bg2:#fff0ec;--pink:#ff2d7e;--pink-light:#ff8ab8;--pink-pale:#ffe0ee;--dark:#1a0a12;--mid:#6b3a52;--muted:#b08090}
 body.theme-pastel nav{background:rgba(255,248,246,.85)}
 body.theme-pastel #prog{background:#ff2d7e}
@@ -76,15 +75,12 @@ body.theme-pastel .hero-orb{background:radial-gradient(circle,#ffe0ee 0%,#ffb8d4
 .nav-links a:hover{color:var(--pink)}
 .nav-links a:hover::after{width:100%}
 
-/* ── HERO ── */
+/* HERO */
 #hero{position:relative;min-height:100vh;background:var(--bg);display:flex;align-items:center;padding:10vh 5vw 0;overflow:hidden}
-
-/* large decorative circle */
 .hero-orb{position:absolute;right:-10vw;top:-10vh;width:65vw;height:65vw;max-width:800px;max-height:800px;border-radius:50%;background:radial-gradient(circle,#ffe0ee 0%,#ffb8d4 45%,rgba(255,184,212,0) 70%);z-index:0;animation:orbSpin 12s linear infinite}
 .hero-orb::before{content:'';position:absolute;inset:-8%;border-radius:50%;background:radial-gradient(circle,transparent 40%,rgba(255,140,184,.25) 70%,transparent 80%);animation:orbSpin 8s linear infinite reverse}
 .hero-orb::after{content:'';position:absolute;inset:-18%;border-radius:50%;background:radial-gradient(circle,transparent 55%,rgba(255,45,126,.1) 75%,transparent 85%);animation:orbSpin 6s linear infinite}
 @keyframes orbSpin{0%{transform:rotate(0deg) scale(1)}25%{transform:rotate(90deg) scale(1.04)}50%{transform:rotate(180deg) scale(1)}75%{transform:rotate(270deg) scale(1.04)}100%{transform:rotate(360deg) scale(1)}}
-
 .hero-content{position:relative;z-index:3;max-width:800px}
 .hero-pre{font-family:var(--mono);font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;color:var(--pink);margin-bottom:1.5rem;display:flex;align-items:center;gap:.8rem;opacity:0;animation:fadeUp .6s 2s forwards}
 .hero-pre::before{content:'';display:inline-block;width:32px;height:1.5px;background:var(--pink)}
@@ -98,25 +94,20 @@ body.theme-pastel .hero-orb{background:radial-gradient(circle,#ffe0ee 0%,#ffb8d4
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(255,45,126,.35)}
 .btn-outline{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;padding:.85rem 2rem;background:transparent;color:var(--dark);border:1.5px solid rgba(26,10,18,.2);border-radius:50px;cursor:pointer;text-decoration:none;display:inline-block;transition:all .2s}
 .btn-outline:hover{border-color:var(--pink);color:var(--pink)}
-
-/* hero stats row */
 .hero-stats{margin-top:4rem;display:flex;gap:3rem;flex-wrap:wrap;padding-top:3rem;border-top:1px solid rgba(255,45,126,.12);opacity:0;animation:fadeUp .8s 3s forwards}
 .hstat-num{font-family:var(--display);font-size:2.2rem;color:var(--pink);font-style:italic;letter-spacing:-.02em}
 .hstat-label{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);margin-top:.4rem;line-height:1.7}
-
-/* scroll hint */
 .scroll-hint{position:absolute;left:5vw;bottom:3vh;z-index:2;display:flex;align-items:center;gap:.8rem;opacity:0;animation:fadeUp .8s 3.2s forwards}
 .scroll-hint span{font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
 .scroll-line{width:50px;height:1px;background:linear-gradient(to right, var(--pink), transparent)}
 
-/* ── ABOUT ── */
+/* ABOUT */
 #about{background:var(--white);padding:12vh 5vw}
 .section-eyebrow{font-family:var(--mono);font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:var(--pink);margin-bottom:1.5rem;display:flex;align-items:center;gap:.8rem}
 .section-eyebrow::before{content:'';display:inline-block;width:24px;height:1.5px;background:var(--pink)}
 .section-title{font-family:var(--display);font-size:clamp(3rem,8vw,7rem);color:var(--dark);line-height:.9;letter-spacing:-.02em;font-style:italic;margin-bottom:3rem;overflow:visible;padding-bottom:.15em}
 .section-title .g-line{display:block;transform:translateY(60px);opacity:0;transition:transform .9s cubic-bezier(.16,1,.3,1),opacity .9s}
 .section-title .g-line.vis{transform:none;opacity:1}
-
 .about-layout{display:grid;grid-template-columns:1fr 1fr;gap:6vw;align-items:start}
 .about-body{font-size:1.05rem;color:var(--mid);line-height:1.9}
 .about-body strong{color:var(--dark)}
@@ -129,7 +120,7 @@ body.theme-pastel .hero-orb{background:radial-gradient(circle,#ffe0ee 0%,#ffb8d4
 .acard.highlight .acard-label{color:rgba(255,255,255,.7)}
 .acard.highlight .acard-val{color:#fff;font-family:var(--mono);font-size:.82rem}
 
-/* ── SKILLS ── */
+/* SKILLS */
 #skills{background:var(--bg2);padding:12vh 5vw}
 .skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;max-width:1000px;margin-top:3rem}
 .skill-card{padding:2rem 2rem 2rem;border-radius:20px;background:#fff;border:1px solid var(--pink-pale);opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s;position:relative;overflow:hidden}
@@ -141,8 +132,6 @@ body.theme-pastel .hero-orb{background:radial-gradient(circle,#ffe0ee 0%,#ffb8d4
 .skill-tags{display:flex;flex-wrap:wrap;gap:.4rem}
 .stag{font-family:var(--mono);font-size:.65rem;padding:.3rem .7rem;border-radius:50px;background:var(--pink-pale);color:var(--pink);transition:all .2s}
 .stag:hover{background:var(--pink);color:#fff}
-
-/* stack row */
 .stack-row{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;margin-top:4rem;padding:3rem;background:#fff;border-radius:24px;border:1px solid var(--pink-pale)}
 .stack-icon{display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:0;transform:translateY(16px);transition:opacity .4s,transform .4s}
 .stack-icon.vis{opacity:1;transform:none}
@@ -150,7 +139,7 @@ body.theme-pastel .hero-orb{background:radial-gradient(circle,#ffe0ee 0%,#ffb8d4
 .stack-icon:hover .stack-icon-bg{transform:translateY(-4px);box-shadow:0 8px 24px rgba(255,45,126,.2)}
 .stack-icon span{font-family:var(--mono);font-size:.55rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 
-/* ── PROJECTS ── */
+/* PROJECTS */
 #projects{background:#1a0a12;padding:12vh 5vw}
 #projects .section-eyebrow{color:#ff8ab8}
 #projects .section-eyebrow::before{background:#ff8ab8}
@@ -169,7 +158,7 @@ body.theme-pastel .hero-orb{background:radial-gradient(circle,#ffe0ee 0%,#ffb8d4
 .proj-meta{min-width:220px}
 .proj-stack-label{font-family:var(--mono);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.5) !important;margin-bottom:.6rem}
 .proj-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.5rem}
-.ptag{font-family:var(--mono);font-size:.65rem;padding:.3rem .7rem;border-radius:50px;border:1px solid rgba(255,45,126,.3);color:#ff8ab8 !important;transition:all .2s}
+.ptag{font-family:var(--mono);font-size:.68rem;padding:.35rem .9rem;border-radius:50px;border:1.5px solid rgba(255,45,126,.45);color:#ff8ab8 !important;background:transparent;transition:all .2s;letter-spacing:.03em}
 .ptag:hover{background:#ff2d7e;border-color:#ff2d7e;color:#fff !important}
 .proj-link{font-family:var(--mono);font-size:.7rem;color:rgba(255,255,255,.5) !important;text-decoration:none;letter-spacing:.08em;display:flex;align-items:center;gap:.4rem;transition:color .2s;margin-bottom:.4rem}
 .proj-link:hover{color:#ff8ab8 !important}
@@ -184,7 +173,12 @@ body.theme-pastel .hero-orb{background:radial-gradient(circle,#ffe0ee 0%,#ffb8d4
 .pn-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);cursor:pointer;transition:all .2s}
 .pn-dot.active{background:#ff2d7e;width:24px;border-radius:4px}
 
-/* ── EXPERIENCE ── */
+/* index pills */
+.index-pills{display:flex;flex-wrap:wrap;gap:.5rem;margin:.8rem 0 1.2rem}
+.ipill{font-family:var(--mono);font-size:.6rem;padding:.25rem .65rem;border-radius:50px;border:1px solid rgba(255,45,126,.25);color:rgba(255,255,255,.6);display:flex;align-items:center;gap:.35rem}
+.ipill-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+
+/* EXPERIENCE */
 #experience{background:var(--white);padding:12vh 5vw}
 .exp-list{max-width:860px;margin-top:3rem}
 .exp-card{padding:2.5rem 0;border-bottom:1px solid var(--pink-pale);display:grid;grid-template-columns:180px 1fr;gap:2rem;opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}
@@ -197,7 +191,7 @@ body.theme-pastel .hero-orb{background:radial-gradient(circle,#ffe0ee 0%,#ffb8d4
 .exp-bullets li::before{content:'→';position:absolute;left:0;color:var(--pink);font-family:var(--mono);font-size:.75rem;top:.12rem}
 .exp-highlight{color:var(--dark);font-weight:600}
 
-/* ── CONTACT ── */
+/* CONTACT */
 #contact{background:var(--pink);padding:14vh 5vw;text-align:center;position:relative;overflow:hidden}
 .contact-orb{position:absolute;left:-20vw;top:-20vh;width:60vw;height:60vw;border-radius:50%;background:rgba(255,255,255,.08);pointer-events:none}
 .contact-orb2{position:absolute;right:-15vw;bottom:-15vh;width:50vw;height:50vw;border-radius:50%;background:rgba(255,255,255,.06);pointer-events:none}
@@ -214,17 +208,9 @@ body.theme-pastel .hero-orb{background:radial-gradient(circle,#ffe0ee 0%,#ffb8d4
 .c-link.solid{color:var(--pink);background:#fff}
 .c-link.solid:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.15)}
 
-/* FOOTER */
 footer{background:var(--dark);padding:1.5rem 5vw;display:flex;justify-content:space-between;align-items:center}
 footer p{font-family:var(--mono);font-size:.65rem;letter-spacing:.1em;color:#444}
 footer span{color:var(--pink)}
-
-.skills-eyebrow{overflow:visible;gap:.6rem}
-.ey-word{font-family:var(--mono);font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:var(--pink);display:inline-block;opacity:0;transform:translateY(8px);animation:eyeWordIn .4s cubic-bezier(.16,1,.3,1) forwards}
-.skills-eyebrow.vis .ey-word{animation:eyeWordIn .4s cubic-bezier(.16,1,.3,1) forwards}
-@keyframes eyeWordIn{to{opacity:1;transform:none}}
-.ey-cursor{font-family:var(--mono);font-size:.75rem;color:var(--pink);animation:cursorPulse .7s step-end infinite;margin-left:2px}
-@keyframes cursorPulse{0%,100%{opacity:1}50%{opacity:0}}
 
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}
 .reveal.vis{opacity:1;transform:none}
@@ -243,7 +229,6 @@ footer span{color:var(--pink)}
 <div id="cur"></div>
 <div id="cur-o"></div>
 
-<!-- LOADER -->
 <div id="loader">
   <div class="loader-line">
     <span class="loader-b">B</span><span class="loader-underscore">_</span>
@@ -254,9 +239,7 @@ footer span{color:var(--pink)}
 
 <div id="prog"></div>
 
-<!-- NAV -->
 <nav>
-
   <div class="nav-right">
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
@@ -275,7 +258,6 @@ footer span{color:var(--pink)}
 <!-- HERO -->
 <section id="hero">
   <div class="hero-orb"></div>
-
   <div class="hero-content">
     <h1 class="hero-name">
       <span class="hero-name-line"><span>Bijal</span></span>
@@ -293,7 +275,7 @@ footer span{color:var(--pink)}
       </div>
       <div>
         <div class="hstat-num">25.54%</div>
-        <div class="hstat-label">Forecast Accuracy</div>
+        <div class="hstat-label">Forecast MAPE</div>
       </div>
       <div>
         <div class="hstat-num">843</div>
@@ -312,8 +294,8 @@ footer span{color:var(--pink)}
   </h2>
   <div class="about-layout">
     <div class="about-body reveal">
-      <p>I'm Bijal — a <strong>Data Analyst</strong> who builds things that reach decisions, not just reports. I work at the intersection of <strong>Python, SQL, and Business Intelligence</strong>, engineering ETL pipelines, forecasting models, and star-schema warehouses from the ground up.</p>
-      <p>Backed by tools like <strong>Power BI, Tableau, and Scikit-learn</strong>, I care about the part most analysts skip — making it <strong>reliable enough to actually use</strong>. Anyone can run a model. Knowing what to build around it is the skill.</p>
+      <p>I'm Bijal — a Data Analyst specialising in forecasting, machine learning, and business intelligence. I work across Python, SQL, R, Pandas, NumPy, Scikit-learn, XGBoost, Power BI, and Tableau, holding a Master's in Data Analytics (GPA 3.89, President's Honour Roll).</p>
+      <p>I've built customer segmentation models, star-schema warehouses, and executive dashboards across two internships in two countries — directly supporting retention and revenue decisions.</p>
     </div>
     <div class="about-cards reveal">
       <div class="acard highlight">
@@ -326,7 +308,7 @@ footer span{color:var(--pink)}
       </div>
       <div class="acard">
         <div class="acard-label">Education</div>
-        <div class="acard-val">M.Data Analytics · Oct 2024</div>
+        <div class="acard-val">Master's in Data Analytics</div>
       </div>
       <div class="acard">
         <div class="acard-label">Specialisation</div>
@@ -343,7 +325,6 @@ footer span{color:var(--pink)}
     <span class="g-line">My</span>
     <span class="g-line">Skills</span>
   </h2>
-
   <div class="skills-grid">
     <div class="skill-card">
       <div class="skill-num">01</div>
@@ -378,7 +359,6 @@ footer span{color:var(--pink)}
       </div>
     </div>
   </div>
-
   <div class="stack-row">
     <div class="stack-icon"><div class="stack-icon-bg" style="background:#e8f0fb;color:#3776ab">Py</div><span>Python</span></div>
     <div class="stack-icon"><div class="stack-icon-bg" style="background:#fef3e2;color:#e48e00">SQL</div><span>SQL</span></div>
@@ -404,22 +384,34 @@ footer span{color:var(--pink)}
   <div class="proj-slider">
     <div class="proj-track" id="proj-track">
 
-      <!-- SLIDE 1 -->
+      <!-- SLIDE 1: City Stress Index -->
       <div class="proj-slide">
         <div class="proj-card reveal">
-          <div class="proj-type">Data Engineering · Forecasting · BI</div>
+          <div class="proj-type">Data Engineering · Multi-Source ETL · Time-Series Forecasting · BI Dashboard</div>
           <div class="proj-status ps-wip">In Progress</div>
-          <h3 class="proj-title">Global City Traffic<br/>Intelligence Platform</h3>
+          <h3 class="proj-title">City Stress Index</h3>
           <div class="proj-body">
             <div class="proj-desc">
-              <p>A real-time multi-city traffic collection and forecasting system targeting <strong>5 global cities</strong> — Toronto, New York, London, Tokyo, Mumbai — via the TomTom Traffic Flow API.</p>
-              <p>Built modular Python collectors capturing congestion indices, free-flow speeds, and road segment metrics across <strong>50+ monitored corridors</strong> into automated timestamped JSON pipelines with error handling and retry logic.</p>
-              <p>Designed a production-grade SQLite star schema with 1 central Traffic Fact table and 4 dimension tables. Engineering 15+ derived time-series features with Prophet forecasting targeting <strong>MAPE &lt; 10%</strong>. Culminating in a 4-page interactive Power BI dashboard.</p>
+              <p>A multi-source urban intelligence platform that scores and ranks <strong>5 global cities</strong> — Toronto, New York, London, Tokyo, Mumbai — across five real-world stress dimensions, collapsing them into a single composite <strong>City Stress Index</strong>.</p>
+
+              <p>Engineered modular Python collectors against the <strong>TomTom Traffic Flow API</strong> — capturing congestion indices, free-flow speeds, and road segment metrics across <strong>50+ monitored corridors</strong> — alongside <strong>Numbeo API</strong> feeds for cost-of-living indicators and crime indices, and weather severity scoring, all piped into automated timestamped JSON archives with retry logic and error handling.</p>
+
+              <p>Designed a production-grade <strong>SQLite star schema</strong> — 1 central Traffic Fact table, 4 dimension tables (City, Road Segment, Date, Time) — ingesting multi-source raw data via a Python ETL pipeline (Pandas, SQLAlchemy), improving cross-city query performance by <strong>40%</strong> over flat-file processing. Phase 5 feature engineering computes <strong>15+ derived metrics</strong>: normalised index scores, rolling 7-day averages, volatility bands, peak-hour spike flags, trend indicators, and a <strong>weighted composite stress score</strong> across all five dimensions.</p>
+
+              <p>Next phase: <strong>Prophet forecasting models</strong> targeting MAPE &lt; 10% across all 5 city corridors, followed by a <strong>4-page interactive Power BI dashboard</strong> with city heatmaps, anomaly detection alerts, forecast vs. actual overlays, and cross-city benchmarking panels.</p>
             </div>
             <div class="proj-meta">
               <div class="proj-stack-label">Tech Stack</div>
               <div class="proj-tags">
-                <span class="ptag">Python</span><span class="ptag">TomTom API</span><span class="ptag">SQLite</span><span class="ptag">Pandas</span><span class="ptag">Prophet</span><span class="ptag">Power BI</span>
+                <span class="ptag">Python</span><span class="ptag">TomTom API</span><span class="ptag">Numbeo API</span><span class="ptag">SQLite</span><span class="ptag">Pandas</span><span class="ptag">NumPy</span><span class="ptag">SQLAlchemy</span><span class="ptag">Prophet</span><span class="ptag">Power BI</span>
+              </div>
+              <div class="proj-stack-label" style="margin-top:1.2rem">Index Metrics</div>
+              <div class="index-pills" style="margin:.6rem 0 0">
+                <span class="ipill"><span class="ipill-dot" style="background:#ff2d7e"></span>Traffic Congestion</span>
+                <span class="ipill"><span class="ipill-dot" style="background:#ff8ab8"></span>Crime Rate</span>
+                <span class="ipill"><span class="ipill-dot" style="background:#ffb8d4"></span>Weather Severity</span>
+                <span class="ipill"><span class="ipill-dot" style="background:#e0007a"></span>Cost of Living</span>
+                <span class="ipill"><span class="ipill-dot" style="background:#c9005e"></span>Urban Safety</span>
               </div>
               <div class="proj-stack-label" style="margin-top:1.2rem">Links</div>
               <a href="#" class="proj-link">VIEW ON GITHUB</a>
@@ -428,22 +420,31 @@ footer span{color:var(--pink)}
         </div>
       </div>
 
-      <!-- SLIDE 2 -->
+      <!-- SLIDE 2: Retail Sales Forecasting -->
       <div class="proj-slide">
         <div class="proj-card reveal">
-          <div class="proj-type">Forecasting · Data Warehousing · BI</div>
+          <div class="proj-type">Forecasting · Data Warehousing · RFM Segmentation · BI Dashboard</div>
           <div class="proj-status ps-done">Completed</div>
           <h3 class="proj-title">Retail Sales Forecasting<br/>& Demand Planning</h3>
           <div class="proj-body">
             <div class="proj-desc">
-              <p>Ingested and cleaned <strong>1M+ transactional records</strong> across 2 years using Python — resolving 34K duplicates, 19K cancellations, and 243K missing customer IDs across 43 countries and 4,735 products.</p>
-              <p>Built and benchmarked <strong>SARIMA and Holt-Winters</strong> forecasting models on monthly revenue data, with SARIMA achieving 74.5% accuracy (MAPE 25.54%) on an 80/20 chronological split.</p>
-              <p>Designed a SQL star schema warehouse in SQLite loaded via a Python ETL pipeline. Built a <strong>4-page Power BI dashboard</strong> with RFM segmentation across 6 segments — identifying 843 Champions averaging £5,689 spend.</p>
+              <p>Ingested and cleaned <strong>1M+ transactional records</strong> spanning 2 years using Python (Pandas, NumPy) — resolving <strong>34K duplicates, 19K cancellations, and 243K missing customer IDs</strong> across 43 countries and 4,735 products, enforcing completeness, accuracy, and schema consistency throughout.</p>
+
+              <p>Built and benchmarked <strong>SARIMA and Holt-Winters</strong> (Statsmodels) forecasting models on monthly revenue data using a chronological 80/20 train-test split. SARIMA achieved a <strong>MAPE of 25.54% (74.5% accuracy)</strong> — with model evaluation documented across MAE, RMSE, and AIC for rigorous comparison. Designed a SQL star schema warehouse (SQLite) with 1 fact table and 4 dimension tables, loading the full 1M+ record dataset via a Python ETL pipeline (SQLAlchemy).</p>
+
+              <p>Built a <strong>4-page Power BI dashboard</strong> — dynamic KPI cards, seasonal revenue trend lines, actual vs. forecast overlays with 80% confidence intervals, and inventory risk flags with traffic-light formatting. Applied RFM scoring to segment <strong>5,861 customers</strong> across 6 tiers: identifying <strong>843 Champions</strong> averaging £5,689 spend, and <strong>409 At Risk</strong> customers flagged as the highest-priority re-engagement target for retention campaigns.</p>
             </div>
             <div class="proj-meta">
               <div class="proj-stack-label">Tech Stack</div>
               <div class="proj-tags">
-                <span class="ptag">Python</span><span class="ptag">SQL</span><span class="ptag">Power BI</span><span class="ptag">SARIMA</span><span class="ptag">Holt-Winters</span><span class="ptag">SQLAlchemy</span>
+                <span class="ptag">Python</span><span class="ptag">Pandas</span><span class="ptag">NumPy</span><span class="ptag">SQL</span><span class="ptag">SQLite</span><span class="ptag">SQLAlchemy</span><span class="ptag">SARIMA</span><span class="ptag">Holt-Winters</span><span class="ptag">Statsmodels</span><span class="ptag">Power BI</span><span class="ptag">DAX</span>
+              </div>
+              <div class="proj-stack-label" style="margin-top:1.2rem">Key Results</div>
+              <div class="proj-tags">
+                <span class="ptag">1M+ Records</span>
+                <span class="ptag">74.5% Accuracy</span>
+                <span class="ptag">843 Champions</span>
+                <span class="ptag">6 RFM Segments</span>
               </div>
               <div class="proj-stack-label" style="margin-top:1.2rem">Links</div>
               <a href="#" class="proj-link">VIEW ON GITHUB</a>
