@@ -24,6 +24,8 @@
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--dark);font-family:var(--body);overflow-x:hidden;cursor:none}
 
+/* SECTION ROUNDING - removed */
+
 /* CURSOR */
 #cur{position:fixed;width:12px;height:12px;background:var(--pink);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .15s,width .2s,height .2s}
 #cur-o{position:fixed;width:40px;height:40px;border:1.5px solid var(--pink-light);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:left .08s,top .08s,width .3s,height .3s}
@@ -102,7 +104,7 @@ body.theme-pastel .hero-orb{background:radial-gradient(circle,#ffe0ee 0%,#ffb8d4
 .scroll-line{width:50px;height:1px;background:linear-gradient(to right, var(--pink), transparent)}
 
 /* ABOUT */
-#about{background:var(--white);padding:12vh 5vw}
+#about{background:var(--white);padding:12vh 5vw;overflow:hidden}
 .section-eyebrow{font-family:var(--mono);font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:var(--pink);margin-bottom:1.5rem;display:flex;align-items:center;gap:.8rem}
 .section-eyebrow::before{content:'';display:inline-block;width:24px;height:1.5px;background:var(--pink)}
 .section-title{font-family:var(--display);font-size:clamp(3rem,8vw,7rem);color:var(--dark);line-height:.9;letter-spacing:-.02em;font-style:italic;margin-bottom:3rem;overflow:visible;padding-bottom:.15em}
@@ -121,7 +123,7 @@ body.theme-pastel .hero-orb{background:radial-gradient(circle,#ffe0ee 0%,#ffb8d4
 .acard.highlight .acard-val{color:#fff;font-family:var(--mono);font-size:.82rem}
 
 /* SKILLS */
-#skills{background:var(--bg2);padding:12vh 5vw}
+#skills{background:var(--bg2);padding:12vh 5vw;overflow:hidden}
 .skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;max-width:1000px;margin-top:3rem}
 .skill-card{padding:2rem 2rem 2rem;border-radius:20px;background:#fff;border:1px solid var(--pink-pale);opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s;position:relative;overflow:hidden}
 .skill-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(to right,var(--pink),var(--pink-light))}
@@ -140,7 +142,7 @@ body.theme-pastel .hero-orb{background:radial-gradient(circle,#ffe0ee 0%,#ffb8d4
 .stack-icon span{font-family:var(--mono);font-size:.55rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 
 /* PROJECTS */
-#projects{background:#1a0a12;padding:12vh 5vw}
+#projects{background:#1a0a12;padding:12vh 5vw;overflow:hidden}
 #projects .section-eyebrow{color:#ff8ab8}
 #projects .section-eyebrow::before{background:#ff8ab8}
 #projects .section-title{color:#fff !important}
@@ -152,7 +154,7 @@ body.theme-pastel .hero-orb{background:radial-gradient(circle,#ffe0ee 0%,#ffb8d4
 .proj-type{font-family:var(--mono);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:#ff8ab8 !important;margin-bottom:1rem}
 .proj-title{font-family:var(--display);font-size:clamp(2rem,4vw,3.5rem);color:#fff !important;letter-spacing:-.01em;font-style:italic;line-height:1.1;margin-bottom:1.5rem}
 .proj-body{display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:start}
-.proj-desc{font-size:.92rem;color:rgba(255,255,255,.9) !important;line-height:1.85}
+.proj-desc{font-size:.72rem;color:rgba(255,255,255,.9) !important;line-height:1.7}
 .proj-desc p+p{margin-top:.8rem}
 .proj-desc strong{color:#fff !important;font-weight:600}
 .proj-meta{min-width:220px}
@@ -179,7 +181,7 @@ body.theme-pastel .hero-orb{background:radial-gradient(circle,#ffe0ee 0%,#ffb8d4
 .ipill-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
 
 /* EXPERIENCE */
-#experience{background:var(--white);padding:12vh 5vw}
+#experience{background:var(--white);padding:12vh 5vw;overflow:hidden}
 .exp-list{max-width:860px;margin-top:3rem}
 .exp-card{padding:2.5rem 0;border-bottom:1px solid var(--pink-pale);display:grid;grid-template-columns:180px 1fr;gap:2rem;opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}
 .exp-card.vis{opacity:1;transform:none}
@@ -208,7 +210,7 @@ body.theme-pastel .hero-orb{background:radial-gradient(circle,#ffe0ee 0%,#ffb8d4
 .c-link.solid{color:var(--pink);background:#fff}
 .c-link.solid:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.15)}
 
-footer{background:var(--dark);padding:1.5rem 5vw;display:flex;justify-content:space-between;align-items:center}
+footer{background:var(--dark);padding:1.5rem 5vw;display:flex;justify-content:space-between;align-items:center;overflow:hidden}
 footer p{font-family:var(--mono);font-size:.65rem;letter-spacing:.1em;color:#444}
 footer span{color:var(--pink)}
 
@@ -392,13 +394,9 @@ footer span{color:var(--pink)}
           <h3 class="proj-title">City Stress Index</h3>
           <div class="proj-body">
             <div class="proj-desc">
-              <p>A multi-source urban intelligence platform that scores and ranks <strong>5 global cities</strong> — Toronto, New York, London, Tokyo, Mumbai — across five real-world stress dimensions, collapsing them into a single composite <strong>City Stress Index</strong>.</p>
-
-              <p>Engineered modular Python collectors against the <strong>TomTom Traffic Flow API</strong> — capturing congestion indices, free-flow speeds, and road segment metrics across <strong>50+ monitored corridors</strong> — alongside <strong>Numbeo API</strong> feeds for cost-of-living indicators and crime indices, and weather severity scoring, all piped into automated timestamped JSON archives with retry logic and error handling.</p>
-
-              <p>Designed a production-grade <strong>SQLite star schema</strong> — 1 central Traffic Fact table, 4 dimension tables (City, Road Segment, Date, Time) — ingesting multi-source raw data via a Python ETL pipeline (Pandas, SQLAlchemy), improving cross-city query performance by <strong>40%</strong> over flat-file processing. Phase 5 feature engineering computes <strong>15+ derived metrics</strong>: normalised index scores, rolling 7-day averages, volatility bands, peak-hour spike flags, trend indicators, and a <strong>weighted composite stress score</strong> across all five dimensions.</p>
-
-              <p>Next phase: <strong>Prophet forecasting models</strong> targeting MAPE &lt; 10% across all 5 city corridors, followed by a <strong>4-page interactive Power BI dashboard</strong> with city heatmaps, anomaly detection alerts, forecast vs. actual overlays, and cross-city benchmarking panels.</p>
+              <p>A multi-source urban intelligence platform scoring <strong>5 global cities</strong> — Toronto, New York, London, Tokyo, Mumbai — across traffic congestion, crime rate, weather severity, cost of living, and urban safety into a single composite <strong>City Stress Index</strong>.</p>
+              <p>Built modular Python collectors against the <strong>TomTom</strong> and <strong>Numbeo APIs</strong> into a production-grade <strong>SQLite star schema</strong> (1 fact table, 4 dimensions) via a Pandas/SQLAlchemy ETL pipeline — improving cross-city query performance by <strong>40%</strong>. Phase 5 engineers <strong>15+ derived metrics</strong> including rolling averages, volatility bands, and a weighted composite stress score.</p>
+              <p>Next: <strong>Prophet forecasting</strong> (MAPE &lt; 10%) and a <strong>4-page Power BI dashboard</strong> with city heatmaps, anomaly alerts, and cross-city benchmarking.</p>
             </div>
             <div class="proj-meta">
               <div class="proj-stack-label">Tech Stack</div>
@@ -428,11 +426,9 @@ footer span{color:var(--pink)}
           <h3 class="proj-title">Retail Sales Forecasting<br/>& Demand Planning</h3>
           <div class="proj-body">
             <div class="proj-desc">
-              <p>Ingested and cleaned <strong>1M+ transactional records</strong> spanning 2 years using Python (Pandas, NumPy) — resolving <strong>34K duplicates, 19K cancellations, and 243K missing customer IDs</strong> across 43 countries and 4,735 products, enforcing completeness, accuracy, and schema consistency throughout.</p>
-
-              <p>Built and benchmarked <strong>SARIMA and Holt-Winters</strong> (Statsmodels) forecasting models on monthly revenue data using a chronological 80/20 train-test split. SARIMA achieved a <strong>MAPE of 25.54% (74.5% accuracy)</strong> — with model evaluation documented across MAE, RMSE, and AIC for rigorous comparison. Designed a SQL star schema warehouse (SQLite) with 1 fact table and 4 dimension tables, loading the full 1M+ record dataset via a Python ETL pipeline (SQLAlchemy).</p>
-
-              <p>Built a <strong>4-page Power BI dashboard</strong> — dynamic KPI cards, seasonal revenue trend lines, actual vs. forecast overlays with 80% confidence intervals, and inventory risk flags with traffic-light formatting. Applied RFM scoring to segment <strong>5,861 customers</strong> across 6 tiers: identifying <strong>843 Champions</strong> averaging £5,689 spend, and <strong>409 At Risk</strong> customers flagged as the highest-priority re-engagement target for retention campaigns.</p>
+              <p>Ingested and cleaned <strong>1M+ transactional records</strong> across 2 years using Python — resolving 34K duplicates, 19K cancellations, and 243K missing customer IDs across <strong>43 countries and 4,735 products</strong>. Designed a SQL <strong>star schema warehouse</strong> (SQLite, SQLAlchemy) with 1 fact table and 4 dimension tables.</p>
+              <p>Benchmarked <strong>SARIMA vs. Holt-Winters</strong> on monthly revenue with an 80/20 train-test split — SARIMA achieved <strong>MAPE 25.54% (74.5% accuracy)</strong>. Built a <strong>4-page Power BI dashboard</strong> with KPI cards, forecast overlays with 80% confidence intervals, and inventory risk flags.</p>
+              <p>Applied RFM scoring to segment <strong>5,861 customers</strong> — identifying <strong>843 Champions</strong> (avg. £5,689 spend) and <strong>409 At Risk</strong> customers as the top re-engagement priority.</p>
             </div>
             <div class="proj-meta">
               <div class="proj-stack-label">Tech Stack</div>
@@ -518,7 +514,8 @@ footer span{color:var(--pink)}
   <div class="contact-links reveal">
     <a href="https://github.com/" target="_blank" class="c-link ghost">GitHub</a>
     <a href="https://linkedin.com/in/" target="_blank" class="c-link ghost">LinkedIn</a>
-    <a href="mailto:b.panchal04career@gmail.com" class="c-link solid">Email Me</a>
+    <a href="#" target="_blank" class="c-link ghost">Resume</a>
+    <a href="mailto:b.panchal04career@gmail.com" class="c-link ghost">Email Me</a>
   </div>
 </section>
 
