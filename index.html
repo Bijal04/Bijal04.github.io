@@ -46,6 +46,44 @@ body{
 body:has(a:hover) #cur,body:has(button:hover) #cur{width:14px;height:14px}
 body:has(a:hover) #cur-o,body:has(button:hover) #cur-o{width:48px;height:48px;border-color:rgba(232,92,184,.5)}
 
+/* ── sparkle glitter particles ── */
+.cur-trail{
+  position:fixed;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:9997;
+  transform:translate(-50%,-50%);
+  animation:sparkFade .55s ease-out forwards;
+}
+@keyframes sparkFade{
+  0%  {opacity:1;transform:translate(-50%,-50%) scale(1);}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(0);}
+}
+.cur-glitter{
+  position:fixed;
+  pointer-events:none;
+  z-index:9996;
+  transform:translate(-50%,-50%);
+  animation:glitterFly var(--dur,.65s) ease-out forwards;
+}
+@keyframes glitterFly{
+  0%  {opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0deg);}
+  60% {opacity:.8;}
+  100%{opacity:0;transform:translate(calc(-50% + var(--gx,0px)), calc(-50% + var(--gy,0px))) scale(0) rotate(var(--gr,45deg));}
+}
+.cur-star{
+  position:fixed;
+  pointer-events:none;
+  z-index:9995;
+  transform:translate(-50%,-50%);
+  animation:starPop var(--dur,.5s) ease-out forwards;
+  clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+}
+@keyframes starPop{
+  0%  {opacity:.9;transform:translate(-50%,-50%) scale(1) rotate(0deg);}
+  100%{opacity:0;transform:translate(calc(-50% + var(--gx,0px)), calc(-50% + var(--gy,0px))) scale(0) rotate(180deg);}
+}
+
 /* ── scroll progress ── */
 #prog{position:fixed;top:0;left:0;height:2px;background:var(--grad);z-index:8999;width:0;box-shadow:0 0 12px #8a5cf6}
 
@@ -91,9 +129,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .hero-stats{display:flex;gap:3rem;flex-wrap:wrap;justify-content:center;padding-top:2rem;margin-top:2rem;border-top:1px solid var(--glass-bd);opacity:0;animation:fadeUp .8s 2.9s forwards}
 .hstat-n{font-family:var(--display);font-size:2rem;font-style:italic;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hstat-l{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:.3rem}
-
-
-
 
 /* ── shared section styles ── */
 .section-eyebrow{font-family:var(--mono);font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--magenta);margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem}
@@ -373,9 +408,7 @@ footer span{color:var(--magenta)}
           <h3 class="proj-title">City Stress Index</h3>
           <div class="proj-body">
             <div class="proj-desc">
-              <p>A multi-source urban intelligence platform scoring <strong>5 global cities</strong> — Toronto, New York, London, Tokyo, Mumbai — across traffic congestion, crime rate, weather severity, cost of living, and urban safety into a single composite <strong>City Stress Index</strong>.</p>
-              <p>Built modular Python collectors against the <strong>TomTom</strong> and <strong>Numbeo APIs</strong> into a production-grade <strong>SQLite star schema</strong> (1 fact table, 4 dimensions) via a Pandas/SQLAlchemy ETL pipeline — improving cross-city query performance by <strong>40%</strong>. Phase 5 engineers <strong>15+ derived metrics</strong> including rolling averages, volatility bands, and a weighted composite stress score.</p>
-              <p>Next: <strong>Prophet forecasting</strong> (MAPE &lt; 10%) and a <strong>4-page Power BI dashboard</strong> with city heatmaps, anomaly alerts, and cross-city benchmarking.</p>
+              <p>A multi-source urban intelligence platform scoring <strong>5 global cities</strong> across traffic, crime, weather, cost of living, and safety into a single composite index — powered by a <strong>SQLite star schema</strong> ETL pipeline with 40% faster cross-city queries.</p>
             </div>
             <div class="proj-meta">
               <div class="proj-stack-label">Tech Stack</div>
@@ -402,9 +435,7 @@ footer span{color:var(--magenta)}
           <h3 class="proj-title">Retail Sales Forecasting<br/>& Demand Planning</h3>
           <div class="proj-body">
             <div class="proj-desc">
-              <p>Ingested and cleaned <strong>1M+ transactional records</strong> across 2 years using Python — resolving 34K duplicates, 19K cancellations, and 243K missing customer IDs across <strong>43 countries and 4,735 products</strong>. Designed a SQL <strong>star schema warehouse</strong> (SQLite, SQLAlchemy) with 1 fact table and 4 dimension tables.</p>
-              <p>Benchmarked <strong>SARIMA vs. Holt-Winters</strong> on monthly revenue with an 80/20 train-test split — SARIMA achieved <strong>MAPE 25.54% (74.5% accuracy)</strong>. Built a <strong>4-page Power BI dashboard</strong> with KPI cards, forecast overlays with 80% confidence intervals, and inventory risk flags.</p>
-              <p>Applied RFM scoring to segment <strong>5,861 customers</strong> — identifying <strong>843 Champions</strong> (avg. £5,689 spend) and <strong>409 At Risk</strong> customers as the top re-engagement priority.</p>
+              <p>Cleaned <strong>1M+ transactional records</strong> across 43 countries, built a SQL star schema warehouse, and benchmarked SARIMA vs. Holt-Winters — achieving <strong>74.5% forecast accuracy</strong> with RFM segmentation identifying <strong>843 Champions</strong> across 5,861 customers.</p>
             </div>
             <div class="proj-meta">
               <div class="proj-stack-label">Tech Stack</div>
@@ -444,12 +475,6 @@ footer span{color:var(--magenta)}
       </div>
       <div>
         <div class="exp-role">Data Analyst Intern</div>
-        <ul class="exp-bullets">
-          <li>Processed datasets from 3 partners (GLICO, JUMIA, STAR) using Python and SQL — reducing data inconsistencies by <span class="exp-hi">30%</span> through automated cleaning pipelines.</li>
-          <li>Architected a star schema data model with 4 dimension tables, improving cross-partner query performance by <span class="exp-hi">40%</span>.</li>
-          <li>Applied RFM segmentation to classify customer loyalty tiers across 3 transaction networks.</li>
-          <li>Designed and delivered <span class="exp-hi">10+ production-ready Tableau dashboards</span> covering KPIs, partner performance, and geo-regional analytics — directly adopted for internal decision-making.</li>
-        </ul>
       </div>
     </div>
     <div class="exp-card">
@@ -459,12 +484,6 @@ footer span{color:var(--magenta)}
       </div>
       <div>
         <div class="exp-role">Data Analytics & ML Intern</div>
-        <ul class="exp-bullets">
-          <li>Built a customer segmentation model using K-Means and XGBoost, achieving <span class="exp-hi">87% classification accuracy</span> on high-value IT service clients.</li>
-          <li>Engineered 12+ behavioural features, reducing data noise by <span class="exp-hi">28%</span> through PCA and feature selection.</li>
-          <li>Built interactive Power BI dashboards across 4+ service verticals for real-time revenue tracking.</li>
-          <li>Delivered insights that supported decisions improving client retention by <span class="exp-hi">18%</span>.</li>
-        </ul>
       </div>
     </div>
   </div>
@@ -503,28 +522,89 @@ setTimeout(()=>document.getElementById('loader').classList.add('done'), 2600);
 // ─── CURSOR ──────────────────────────────────────────────────────────────
 const cur=document.getElementById('cur'), curo=document.getElementById('cur-o');
 let mx=0,my=0,ox=0,oy=0,lastTrail=0;
-const TRAIL_COLORS=['rgba(138,92,246,','rgba(232,92,184,','rgba(192,168,255,'];
+
+// Palette for sparkles — violet, magenta, soft lavender, white
+const SPARK_COLORS=[
+  'rgba(138,92,246,',   // violet
+  'rgba(232,92,184,',   // magenta
+  'rgba(192,168,255,',  // soft lavender
+  'rgba(255,255,255,',  // white
+  'rgba(200,160,255,',  // lilac
+];
+
 document.addEventListener('mousemove',e=>{
-  mx=e.clientX;my=e.clientY;
-  cur.style.left=mx+'px';cur.style.top=my+'px';
-  // spawn trail particle
+  mx=e.clientX; my=e.clientY;
+  cur.style.left=mx+'px'; cur.style.top=my+'px';
+
   const now=Date.now();
-  if(now-lastTrail>28){
+  if(now-lastTrail>20){
     lastTrail=now;
-    const t=document.createElement('div');
-    t.className='cur-trail';
-    const sz=Math.random()*10+4;
-    const col=TRAIL_COLORS[Math.floor(Math.random()*TRAIL_COLORS.length)];
-    const op=(Math.random()*.4+.15).toFixed(2);
-    t.style.cssText=`left:${mx}px;top:${my}px;width:${sz}px;height:${sz}px;background:${col}${op});`;
-    document.body.appendChild(t);
-    setTimeout(()=>t.remove(),600);
+
+    // ── 1. Tiny core dot (always) ──────────────────────────────────────
+    const dot=document.createElement('div');
+    dot.className='cur-trail';
+    const dsz=(Math.random()*3+1.5).toFixed(1);
+    const dcol=SPARK_COLORS[Math.floor(Math.random()*SPARK_COLORS.length)];
+    const dop=(Math.random()*.55+.25).toFixed(2);
+    dot.style.cssText=`left:${mx}px;top:${my}px;width:${dsz}px;height:${dsz}px;background:${dcol}${dop});`;
+    document.body.appendChild(dot);
+    setTimeout(()=>dot.remove(),550);
+
+    // ── 2. Glitter flick (most frames) ────────────────────────────────
+    if(Math.random()<0.55){
+      const g=document.createElement('div');
+      g.className='cur-glitter';
+      const gsz=(Math.random()*2.5+1).toFixed(1);
+      const gx=((Math.random()-.5)*30).toFixed(1);
+      const gy=(-(Math.random()*24+6)).toFixed(1);
+      const gdur=(.45+Math.random()*.35).toFixed(2);
+      const gcol=SPARK_COLORS[Math.floor(Math.random()*SPARK_COLORS.length)];
+      const gop=(Math.random()*.7+.3).toFixed(2);
+      const gr=((Math.random()-.5)*180).toFixed(0);
+      g.style.cssText=`left:${mx}px;top:${my}px;width:${gsz}px;height:${gsz}px;`
+        +`background:${gcol}${gop});border-radius:50%;`
+        +`--gx:${gx}px;--gy:${gy}px;--gr:${gr}deg;--dur:${gdur}s;`;
+      document.body.appendChild(g);
+      setTimeout(()=>g.remove(), gdur*1000+100);
+    }
+
+    // ── 3. Tiny diamond spark (occasional) ────────────────────────────
+    if(Math.random()<0.20){
+      const s=document.createElement('div');
+      s.className='cur-glitter';
+      const ss=(Math.random()*1.8+.8).toFixed(1);
+      const sx=((Math.random()-.5)*22).toFixed(1);
+      const sy=(-(Math.random()*18+4)).toFixed(1);
+      const sdur=(.38+Math.random()*.28).toFixed(2);
+      const scol=SPARK_COLORS[Math.floor(Math.random()*SPARK_COLORS.length)];
+      s.style.cssText=`left:${mx}px;top:${my}px;width:${ss}px;height:${ss}px;`
+        +`background:${scol}0.92);border-radius:1px;`
+        +`--gx:${sx}px;--gy:${sy}px;--gr:45deg;--dur:${sdur}s;`;
+      document.body.appendChild(s);
+      setTimeout(()=>s.remove(), sdur*1000+100);
+    }
+
+    // ── 4. Tiny 4-point star (rare, extra magic) ──────────────────────
+    if(Math.random()<0.08){
+      const st=document.createElement('div');
+      st.className='cur-star';
+      const stSz=(Math.random()*3+2).toFixed(1);
+      const stX=((Math.random()-.5)*26).toFixed(1);
+      const stY=(-(Math.random()*20+8)).toFixed(1);
+      const stDur=(.4+Math.random()*.3).toFixed(2);
+      st.style.cssText=`left:${mx}px;top:${my}px;width:${stSz}px;height:${stSz}px;`
+        +`background:rgba(255,255,255,0.95);`
+        +`--gx:${stX}px;--gy:${stY}px;--dur:${stDur}s;`;
+      document.body.appendChild(st);
+      setTimeout(()=>st.remove(), stDur*1000+100);
+    }
   }
 });
+
 // smooth lagging outer ring
 (function lag(){
-  ox+=(mx-ox)*.09;oy+=(my-oy)*.09;
-  curo.style.left=ox+'px';curo.style.top=oy+'px';
+  ox+=(mx-ox)*.09; oy+=(my-oy)*.09;
+  curo.style.left=ox+'px'; curo.style.top=oy+'px';
   requestAnimationFrame(lag);
 })();
 
@@ -814,7 +894,6 @@ document.addEventListener('mousemove',e=>{mouseX=(e.clientX/window.innerWidth)*2
 let t0=performance.now(),rotY=0;
 function render(now){
   requestAnimationFrame(render);
-  // only render when hero is visible
   if(window.scrollY>window.innerHeight*1.1){return;}
 
   const time=(now-t0)/1000;
@@ -841,7 +920,6 @@ function render(now){
   const groupModel=mat4Mul(mat4Mul(mat4RotX(gRX),mat4RotY(gRY)),mat4Scale(breathe,breathe,breathe));
   const pvgm=mat4Mul(pv,groupModel);
 
-  // stars
   gl.depthMask(false);
   gl.useProgram(starProg);
   ba(starProg,'aPos',_stars.posBuf,3);ba(starProg,'aSize',_stars.szBuf,1);ba(starProg,'aBright',_stars.brBuf,1);
@@ -850,11 +928,9 @@ function render(now){
   gl.drawArrays(gl.POINTS,0,_stars.count);
   gl.depthMask(true);
 
-  // petals
   gl.disable(gl.CULL_FACE);
   for(let li=0;li<LAYERS.length;li++) drawPetalLayer(li,pvgm,groupModel,time,openAmt,masterAlpha);
 
-  // tendrils
   if(masterAlpha>.02){
     gl.useProgram(tendProg);
     const tMVP=mat4Mul(pv,mat4Mul(groupModel,mat4Trans(0,-.05,0)));
@@ -864,7 +940,6 @@ function render(now){
     for(const t of TENDRILS){ba(tendProg,'aPos',t.pb,3);ba(tendProg,'aT',t.tb,1);gl.drawArrays(gl.LINE_STRIP,0,t.count);}
   }
 
-  // glow core
   if(masterAlpha>.02){
     gl.depthMask(false);
     gl.blendFunc(gl.SRC_ALPHA,gl.ONE);
@@ -878,7 +953,6 @@ function render(now){
     gl.depthMask(true);
   }
 
-  // loose petal
   if(masterAlpha>.02){
     gl.useProgram(petalProg);
     ba(petalProg,'aPos',looseGeo.posBuf,3);ba(petalProg,'aUV',looseGeo.uvBuf,2);ba(petalProg,'aSide',looseGeo.sdBuf,1);
