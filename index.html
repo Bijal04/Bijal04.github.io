@@ -6,9 +6,6 @@
 <title>Bijal Panchal — Data Analyst</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
-/* ═══════════════════════════════════════════════
-   ROOT TOKENS — all derived from lotus palette
-═══════════════════════════════════════════════ */
 :root{
   --bg:        #060410;
   --bg2:       #0c0820;
@@ -40,13 +37,11 @@ body{
   cursor:none;
 }
 
-/* ── custom cursor ── */
 #cur{position:fixed;width:8px;height:8px;background:var(--soft);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen;transition:width .15s,height .15s}
 #cur-o{position:fixed;width:32px;height:32px;border:1px solid rgba(192,168,255,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:left .08s,top .08s,width .2s,height .2s}
 body:has(a:hover) #cur,body:has(button:hover) #cur{width:14px;height:14px}
 body:has(a:hover) #cur-o,body:has(button:hover) #cur-o{width:48px;height:48px;border-color:rgba(232,92,184,.5)}
 
-/* ── sparkle glitter particles ── */
 .cur-trail{
   position:fixed;
   border-radius:50%;
@@ -84,12 +79,8 @@ body:has(a:hover) #cur-o,body:has(button:hover) #cur-o{width:48px;height:48px;bo
   100%{opacity:0;transform:translate(calc(-50% + var(--gx,0px)), calc(-50% + var(--gy,0px))) scale(0) rotate(180deg);}
 }
 
-/* ── scroll progress ── */
 #prog{position:fixed;top:0;left:0;height:2px;background:var(--grad);z-index:8999;width:0;box-shadow:0 0 12px #8a5cf6}
 
-
-
-/* ── nav ── */
 nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 5vw;background:rgba(6,4,16,.7);backdrop-filter:blur(20px);border-bottom:1px solid var(--glass-bd)}
 .nav-logo{font-family:var(--display);font-size:1rem;font-style:italic;color:var(--soft)}
 .nav-logo span{background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
@@ -99,7 +90,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .nav-links a:hover{color:var(--soft)}
 .nav-links a:hover::after{width:100%}
 
-/* ── HERO ── */
 #hero-wrap{position:relative;height:100vh;overflow:hidden}
 #lotus-canvas{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0}
 .hero-content{position:absolute;bottom:0;left:0;right:0;z-index:2;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 2rem 5rem;background:linear-gradient(to top,rgba(6,4,16,.85) 0%,rgba(6,4,16,.2) 60%,transparent 100%)}
@@ -119,7 +109,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .hstat-n{font-family:var(--display);font-size:2rem;font-style:italic;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hstat-l{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:.3rem}
 
-/* ── shared section styles ── */
 .section-eyebrow{font-family:var(--mono);font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--magenta);margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem}
 .section-eyebrow::before{content:'';display:inline-block;width:20px;height:1px;background:var(--grad)}
 .section-title{font-family:var(--display);font-size:clamp(2.8rem,7vw,6rem);color:var(--white);line-height:.92;letter-spacing:-.02em;font-style:italic;margin-bottom:2.5rem}
@@ -127,11 +116,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .section-title .g-line.vis{transform:none;opacity:1}
 .section-title .g-line:nth-child(2){transition-delay:.08s}
 
-/* reveal utility */
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s,transform .7s}
 .reveal.vis{opacity:1;transform:none}
 
-/* ── ABOUT ── */
 #about{background:var(--bg2);padding:11vh 5vw;overflow:hidden;position:relative}
 #about::before{content:'';position:absolute;top:-200px;right:-100px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(138,92,246,.06) 0%,transparent 70%);pointer-events:none}
 .about-layout{display:grid;grid-template-columns:1fr 1fr;gap:5vw;align-items:start;margin-top:1rem}
@@ -145,10 +132,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .acard.highlight{background:linear-gradient(135deg,rgba(138,92,246,.18),rgba(232,92,184,.12));border-color:var(--glass-bd2)}
 .acard.highlight .acard-val{background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-family:var(--mono);font-size:.8rem}
 
-/* ── SKILLS ── */
+/* ── SKILLS — full width, no max-width cap ── */
 #skills{background:var(--bg3);padding:11vh 5vw;overflow:hidden;position:relative}
 #skills::before{content:'';position:absolute;bottom:-150px;left:-80px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(232,92,184,.05) 0%,transparent 70%);pointer-events:none}
-.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:960px;margin-top:1rem}
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;width:100%;margin-top:1rem}
 .skill-card{padding:1.8rem;border-radius:20px;background:var(--glass-bg);border:1px solid var(--glass-bd);backdrop-filter:blur(16px);position:relative;overflow:hidden;opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s}
 .skill-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad)}
 .skill-card.vis{opacity:1;transform:none}
@@ -166,7 +153,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .stack-icon:hover .sicon-bg{transform:translateY(-3px);box-shadow:0 6px 20px rgba(138,92,246,.25);border-color:var(--glass-bd2)}
 .sicon-label{font-family:var(--mono);font-size:.5rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 
-/* ── PROJECTS ── */
 #projects{background:var(--bg);padding:11vh 5vw;overflow:hidden}
 .proj-slider{margin-top:1rem}
 .proj-track{display:flex;align-items:stretch;transition:transform .75s cubic-bezier(.16,1,.3,1)}
@@ -200,9 +186,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .pn-dot{width:7px;height:7px;border-radius:50%;background:rgba(192,168,255,.2);cursor:pointer;transition:all .2s}
 .pn-dot.active{background:var(--grad);width:22px;border-radius:4px}
 
-/* ── EXPERIENCE ── */
+/* ── EXPERIENCE — full width, no max-width cap ── */
 #experience{background:var(--bg2);padding:11vh 5vw;overflow:hidden}
-.exp-list{max-width:820px;margin-top:1rem}
+.exp-list{width:100%;margin-top:1rem}
 .exp-card{padding:2.2rem 0;border-bottom:1px solid var(--glass-bd);display:grid;grid-template-columns:160px 1fr;gap:2rem;opacity:0;transform:translateY(20px);transition:opacity .7s,transform .7s}
 .exp-card.vis{opacity:1;transform:none}
 .exp-card:last-child{border-bottom:none}
@@ -214,7 +200,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .exp-bullets li::before{content:'→';position:absolute;left:0;color:var(--violet);font-family:var(--mono);font-size:.7rem;top:.12rem}
 .exp-hi{color:var(--soft);font-weight:500}
 
-/* ── CONTACT ── */
 #contact{background:var(--bg3);padding:13vh 5vw;text-align:center;position:relative;overflow:hidden}
 .contact-orb{position:absolute;left:-15vw;top:-10vh;width:55vw;height:55vw;border-radius:50%;background:radial-gradient(circle,rgba(138,92,246,.08) 0%,transparent 65%);pointer-events:none}
 .contact-orb2{position:absolute;right:-15vw;bottom:-10vh;width:50vw;height:50vw;border-radius:50%;background:radial-gradient(circle,rgba(232,92,184,.07) 0%,transparent 65%);pointer-events:none}
@@ -231,16 +216,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .c-link.solid{background:var(--grad);color:#fff;border:1px solid transparent}
 .c-link.solid:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(138,92,246,.35)}
 
-/* ── FOOTER ── */
 footer{background:var(--bg);padding:1.4rem 5vw;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--glass-bd)}
 footer p{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;color:rgba(138,122,200,.4)}
 footer span{color:var(--magenta)}
 
-/* ── animations ── */
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 @keyframes slideUp{to{transform:translateY(0)}}
 
-/* ── responsive ── */
 @media(max-width:768px){
   .nav-links{display:none}
   .about-layout,.skills-grid{grid-template-columns:1fr}
@@ -513,13 +495,12 @@ footer span{color:var(--magenta)}
 const cur=document.getElementById('cur'), curo=document.getElementById('cur-o');
 let mx=0,my=0,ox=0,oy=0,lastTrail=0;
 
-// Palette for sparkles — violet, magenta, soft lavender, white
 const SPARK_COLORS=[
-  'rgba(138,92,246,',   // violet
-  'rgba(232,92,184,',   // magenta
-  'rgba(192,168,255,',  // soft lavender
-  'rgba(255,255,255,',  // white
-  'rgba(200,160,255,',  // lilac
+  'rgba(138,92,246,',
+  'rgba(232,92,184,',
+  'rgba(192,168,255,',
+  'rgba(255,255,255,',
+  'rgba(200,160,255,',
 ];
 
 document.addEventListener('mousemove',e=>{
@@ -530,7 +511,6 @@ document.addEventListener('mousemove',e=>{
   if(now-lastTrail>20){
     lastTrail=now;
 
-    // ── 1. Tiny core dot (always) ──────────────────────────────────────
     const dot=document.createElement('div');
     dot.className='cur-trail';
     const dsz=(Math.random()*3+1.5).toFixed(1);
@@ -540,7 +520,6 @@ document.addEventListener('mousemove',e=>{
     document.body.appendChild(dot);
     setTimeout(()=>dot.remove(),550);
 
-    // ── 2. Glitter flick (most frames) ────────────────────────────────
     if(Math.random()<0.55){
       const g=document.createElement('div');
       g.className='cur-glitter';
@@ -558,7 +537,6 @@ document.addEventListener('mousemove',e=>{
       setTimeout(()=>g.remove(), gdur*1000+100);
     }
 
-    // ── 3. Tiny diamond spark (occasional) ────────────────────────────
     if(Math.random()<0.20){
       const s=document.createElement('div');
       s.className='cur-glitter';
@@ -574,7 +552,6 @@ document.addEventListener('mousemove',e=>{
       setTimeout(()=>s.remove(), sdur*1000+100);
     }
 
-    // ── 4. Tiny 4-point star (rare, extra magic) ──────────────────────
     if(Math.random()<0.08){
       const st=document.createElement('div');
       st.className='cur-star';
@@ -591,7 +568,6 @@ document.addEventListener('mousemove',e=>{
   }
 });
 
-// smooth lagging outer ring
 (function lag(){
   ox+=(mx-ox)*.09; oy+=(my-oy)*.09;
   curo.style.left=ox+'px'; curo.style.top=oy+'px';
@@ -632,7 +608,7 @@ document.addEventListener('keydown',e=>{
 });
 
 // ═══════════════════════════════════════════════════════════════════════
-// LOTUS WEBGL — full scene
+// LOTUS WEBGL
 // ═══════════════════════════════════════════════════════════════════════
 const canvas=document.getElementById('lotus-canvas');
 const gl=canvas.getContext('webgl',{antialias:true,premultipliedAlpha:false,alpha:true});
@@ -690,7 +666,6 @@ function c3(a,b){return[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b
 function d3(a,b){return a[0]*b[0]+a[1]*b[1]+a[2]*b[2];}
 function n3(a){const l=Math.sqrt(d3(a,a))||1;return[a[0]/l,a[1]/l,a[2]/l];}
 
-// shaders
 const PETAL_VS=`
 attribute vec3 aPos;attribute vec2 aUV;attribute float aSide;
 uniform mat4 uMVP;uniform mat4 uModel;uniform float uCurl;uniform float uOpenAmt;uniform float uWave;
@@ -808,7 +783,6 @@ const LAYERS=[
 ];
 const petalGeos=LAYERS.map(l=>buildPetalGeo(l.L,l.W));
 
-// starfield
 const _stars=(()=>{
   const N=1800,pos=new Float32Array(N*3),sz=new Float32Array(N),br=new Float32Array(N);
   for(let i=0;i<N;i++){
@@ -820,7 +794,6 @@ const _stars=(()=>{
   return{posBuf:b(pos),szBuf:b(sz),brBuf:b(br),count:N};
 })();
 
-// tendrils
 const TENDRILS=[];
 function mkTendril(ox,oz,len,twist){
   const N=30,pos=new Float32Array(N*3),ts=new Float32Array(N);
