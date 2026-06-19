@@ -223,15 +223,110 @@ footer span{color:var(--magenta)}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 @keyframes slideUp{to{transform:translateY(0)}}
 
-@media(max-width:768px){
-  .nav-links{display:none}
-  .about-layout,.skills-grid{grid-template-columns:1fr}
-  .about-cards{grid-template-columns:1fr 1fr}
-  .proj-body{grid-template-columns:1fr}
-  .exp-card{grid-template-columns:1fr;gap:.6rem}
-  .hero-stats{gap:1.5rem}
-  #about,#skills,#projects,#experience,#contact{padding:8vh 6vw}
+/* ── HAMBURGER MENU ── */
+.nav-hamburger{
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  cursor:pointer;
+  padding:4px;
+  background:none;
+  border:none;
+  z-index:600;
 }
+.nav-hamburger span{
+  display:block;
+  width:24px;
+  height:2px;
+  background:var(--soft);
+  border-radius:2px;
+  transition:transform .3s,opacity .3s;
+}
+.nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+.mobile-menu{
+  display:none;
+  position:fixed;
+  top:0;left:0;right:0;bottom:0;
+  background:rgba(6,4,16,.97);
+  backdrop-filter:blur(24px);
+  z-index:550;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:2.5rem;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .3s;
+}
+.mobile-menu.open{opacity:1;pointer-events:all}
+.mobile-menu a{
+  font-family:var(--display);
+  font-size:2.2rem;
+  font-style:italic;
+  color:var(--muted);
+  text-decoration:none;
+  transition:color .2s;
+}
+.mobile-menu a:hover{color:var(--soft)}
+
+/* ── TABLET (<=900px) ── */
+@media(max-width:900px){
+  .proj-body{grid-template-columns:1fr}
+}
+
+/* ── MOBILE (<=768px) ── */
+@media(max-width:768px){
+  body{cursor:auto}
+  #cur,#cur-o{display:none}
+
+  .nav-links{display:none}
+  .nav-hamburger{display:flex}
+  .mobile-menu{display:flex}
+
+  #about,#skills,#projects,#experience,#contact{padding:8vh 6vw}
+
+  .hero-content{padding:0 1.4rem 3.5rem}
+  .hero-tagline{font-size:.9rem;max-width:100%}
+  .hero-cta{flex-direction:column;align-items:center;gap:.75rem}
+  .hero-cta .btn-p,.hero-cta .btn-o{width:100%;max-width:280px;text-align:center}
+  .hero-stats{gap:1.2rem;padding-top:1.4rem;margin-top:1.4rem}
+  .hstat-n{font-size:1.5rem}
+  .hstat-l{font-size:.52rem}
+
+  .about-layout{grid-template-columns:1fr;gap:2.5rem}
+  .about-cards{grid-template-columns:1fr 1fr;gap:.65rem}
+  .about-body{font-size:.9rem}
+
+  .skills-grid{grid-template-columns:1fr}
+  .stack-row{gap:.6rem;padding:1.5rem}
+  .sicon-bg{width:42px;height:42px;font-size:.6rem}
+
+  .proj-card{padding:1.6rem}
+  .proj-title{font-size:1.6rem}
+  .proj-body{grid-template-columns:1fr;gap:1.5rem}
+
+  .exp-card{grid-template-columns:1fr;gap:.5rem;padding:1.6rem 0}
+  .exp-role{font-size:1.15rem}
+  .exp-bullets li{font-size:.8rem}
+
+  .contact-links{flex-direction:column;align-items:center}
+  .c-link{width:100%;max-width:260px;text-align:center}
+
+  footer{flex-direction:column;gap:.5rem;text-align:center;padding:1.2rem 6vw}
+}
+
+/* ── SMALL MOBILE (<=420px) ── */
+@media(max-width:420px){
+  .about-cards{grid-template-columns:1fr}
+  .hero-stats{flex-direction:column;gap:1rem;align-items:center}
+  .section-title{font-size:clamp(2.2rem,10vw,3.5rem)}
+  .proj-title{font-size:1.35rem}
+  .contact-giant{font-size:clamp(3rem,14vw,5rem)}
+}
+
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -253,7 +348,19 @@ footer span{color:var(--magenta)}
     <li><a href="#experience">Experience</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE MENU OVERLAY -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#about"      class="mobile-nav-link">About</a>
+  <a href="#skills"     class="mobile-nav-link">Skills</a>
+  <a href="#projects"   class="mobile-nav-link">Projects</a>
+  <a href="#experience" class="mobile-nav-link">Experience</a>
+  <a href="#contact"    class="mobile-nav-link">Contact</a>
+</div>
 
 <!-- HERO -->
 <section id="hero-wrap">
@@ -573,6 +680,20 @@ document.addEventListener('mousemove',e=>{
   curo.style.left=ox+'px'; curo.style.top=oy+'px';
   requestAnimationFrame(lag);
 })();
+
+// ─── HAMBURGER MENU ──────────────────────────────────────────────────────
+const hamburger=document.getElementById('hamburger');
+const mobileMenu=document.getElementById('mobile-menu');
+function toggleMenu(force){
+  const open = force !== undefined ? force : !hamburger.classList.contains('open');
+  hamburger.classList.toggle('open', open);
+  mobileMenu.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+hamburger.addEventListener('click', ()=>toggleMenu());
+document.querySelectorAll('.mobile-nav-link').forEach(a=>{
+  a.addEventListener('click', ()=>toggleMenu(false));
+});
 
 // ─── SCROLL PROGRESS BAR ─────────────────────────────────────────────────
 const prog=document.getElementById('prog');
