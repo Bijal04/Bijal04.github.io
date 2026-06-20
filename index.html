@@ -34,49 +34,6 @@ body{
   color:var(--white);
   font-family:var(--body);
   overflow-x:hidden;
-  cursor:none;
-}
-
-#cur{position:fixed;width:8px;height:8px;background:var(--soft);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen;transition:width .15s,height .15s}
-#cur-o{position:fixed;width:32px;height:32px;border:1px solid rgba(192,168,255,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:left .08s,top .08s,width .2s,height .2s}
-body:has(a:hover) #cur,body:has(button:hover) #cur{width:14px;height:14px}
-body:has(a:hover) #cur-o,body:has(button:hover) #cur-o{width:48px;height:48px;border-color:rgba(232,92,184,.5)}
-
-.cur-trail{
-  position:fixed;
-  border-radius:50%;
-  pointer-events:none;
-  z-index:9997;
-  transform:translate(-50%,-50%);
-  animation:sparkFade .55s ease-out forwards;
-}
-@keyframes sparkFade{
-  0%  {opacity:1;transform:translate(-50%,-50%) scale(1);}
-  100%{opacity:0;transform:translate(-50%,-50%) scale(0);}
-}
-.cur-glitter{
-  position:fixed;
-  pointer-events:none;
-  z-index:9996;
-  transform:translate(-50%,-50%);
-  animation:glitterFly var(--dur,.65s) ease-out forwards;
-}
-@keyframes glitterFly{
-  0%  {opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0deg);}
-  60% {opacity:.8;}
-  100%{opacity:0;transform:translate(calc(-50% + var(--gx,0px)), calc(-50% + var(--gy,0px))) scale(0) rotate(var(--gr,45deg));}
-}
-.cur-star{
-  position:fixed;
-  pointer-events:none;
-  z-index:9995;
-  transform:translate(-50%,-50%);
-  animation:starPop var(--dur,.5s) ease-out forwards;
-  clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
-}
-@keyframes starPop{
-  0%  {opacity:.9;transform:translate(-50%,-50%) scale(1) rotate(0deg);}
-  100%{opacity:0;transform:translate(calc(-50% + var(--gx,0px)), calc(-50% + var(--gy,0px))) scale(0) rotate(180deg);}
 }
 
 #prog{position:fixed;top:0;left:0;height:2px;background:var(--grad);z-index:8999;width:0;box-shadow:0 0 12px #8a5cf6}
@@ -132,7 +89,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .acard.highlight{background:linear-gradient(135deg,rgba(138,92,246,.18),rgba(232,92,184,.12));border-color:var(--glass-bd2)}
 .acard.highlight .acard-val{background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-family:var(--mono);font-size:.8rem}
 
-/* ── SKILLS — full width, no max-width cap ── */
 #skills{background:var(--bg3);padding:11vh 5vw;overflow:hidden;position:relative}
 #skills::before{content:'';position:absolute;bottom:-150px;left:-80px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(232,92,184,.05) 0%,transparent 70%);pointer-events:none}
 .skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;width:100%;margin-top:1rem}
@@ -186,7 +142,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .pn-dot{width:7px;height:7px;border-radius:50%;background:rgba(192,168,255,.2);cursor:pointer;transition:all .2s}
 .pn-dot.active{background:var(--grad);width:22px;border-radius:4px}
 
-/* ── EXPERIENCE — full width, no max-width cap ── */
 #experience{background:var(--bg2);padding:11vh 5vw;overflow:hidden}
 .exp-list{width:100%;margin-top:1rem}
 .exp-card{padding:2.2rem 0;border-bottom:1px solid var(--glass-bd);display:grid;grid-template-columns:160px 1fr;gap:2rem;opacity:0;transform:translateY(20px);transition:opacity .7s,transform .7s}
@@ -223,71 +178,24 @@ footer span{color:var(--magenta)}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 @keyframes slideUp{to{transform:translateY(0)}}
 
-/* ── HAMBURGER MENU ── */
-.nav-hamburger{
-  display:none;
-  flex-direction:column;
-  gap:5px;
-  cursor:pointer;
-  padding:4px;
-  background:none;
-  border:none;
-  z-index:600;
-}
-.nav-hamburger span{
-  display:block;
-  width:24px;
-  height:2px;
-  background:var(--soft);
-  border-radius:2px;
-  transition:transform .3s,opacity .3s;
-}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none;z-index:600;}
+.nav-hamburger span{display:block;width:24px;height:2px;background:var(--soft);border-radius:2px;transition:transform .3s,opacity .3s;}
 .nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 .nav-hamburger.open span:nth-child(2){opacity:0}
 .nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
-.mobile-menu{
-  display:none;
-  position:fixed;
-  top:0;left:0;right:0;bottom:0;
-  background:rgba(6,4,16,.97);
-  backdrop-filter:blur(24px);
-  z-index:550;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:2.5rem;
-  opacity:0;
-  pointer-events:none;
-  transition:opacity .3s;
-}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(6,4,16,.97);backdrop-filter:blur(24px);z-index:550;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;opacity:0;pointer-events:none;transition:opacity .3s;}
 .mobile-menu.open{opacity:1;pointer-events:all}
-.mobile-menu a{
-  font-family:var(--display);
-  font-size:2.2rem;
-  font-style:italic;
-  color:var(--muted);
-  text-decoration:none;
-  transition:color .2s;
-}
+.mobile-menu a{font-family:var(--display);font-size:2.2rem;font-style:italic;color:var(--muted);text-decoration:none;transition:color .2s;}
 .mobile-menu a:hover{color:var(--soft)}
 
-/* ── TABLET (<=900px) ── */
-@media(max-width:900px){
-  .proj-body{grid-template-columns:1fr}
-}
+@media(max-width:900px){.proj-body{grid-template-columns:1fr}}
 
-/* ── MOBILE (<=768px) ── */
 @media(max-width:768px){
-  body{cursor:auto}
-  #cur,#cur-o{display:none}
-
   .nav-links{display:none}
   .nav-hamburger{display:flex}
   .mobile-menu{display:flex}
-
   #about,#skills,#projects,#experience,#contact{padding:8vh 6vw}
-
   .hero-content{padding:0 1.4rem 3.5rem}
   .hero-tagline{font-size:.9rem;max-width:100%}
   .hero-cta{flex-direction:column;align-items:center;gap:.75rem}
@@ -295,30 +203,23 @@ footer span{color:var(--magenta)}
   .hero-stats{gap:1.2rem;padding-top:1.4rem;margin-top:1.4rem}
   .hstat-n{font-size:1.5rem}
   .hstat-l{font-size:.52rem}
-
   .about-layout{grid-template-columns:1fr;gap:2.5rem}
   .about-cards{grid-template-columns:1fr 1fr;gap:.65rem}
   .about-body{font-size:.9rem}
-
   .skills-grid{grid-template-columns:1fr}
   .stack-row{gap:.6rem;padding:1.5rem}
   .sicon-bg{width:42px;height:42px;font-size:.6rem}
-
   .proj-card{padding:1.6rem}
   .proj-title{font-size:1.6rem}
   .proj-body{grid-template-columns:1fr;gap:1.5rem}
-
   .exp-card{grid-template-columns:1fr;gap:.5rem;padding:1.6rem 0}
   .exp-role{font-size:1.15rem}
   .exp-bullets li{font-size:.8rem}
-
   .contact-links{flex-direction:column;align-items:center}
   .c-link{width:100%;max-width:260px;text-align:center}
-
   footer{flex-direction:column;gap:.5rem;text-align:center;padding:1.2rem 6vw}
 }
 
-/* ── SMALL MOBILE (<=420px) ── */
 @media(max-width:420px){
   .about-cards{grid-template-columns:1fr}
   .hero-stats{flex-direction:column;gap:1rem;align-items:center}
@@ -332,15 +233,11 @@ footer span{color:var(--magenta)}
 </head>
 <body>
 
-<div id="cur"></div>
-<div id="cur-o"></div>
 <div id="prog"></div>
-
-
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">B<span>.</span>Panchal</div>
+  
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#skills">Skills</a></li>
@@ -382,7 +279,8 @@ footer span{color:var(--magenta)}
       <div><div class="hstat-n">25.54%</div><div class="hstat-l">Forecast MAPE</div></div>
       <div><div class="hstat-n">843</div><div class="hstat-l">Champions Segmented</div></div>
     </div>
-  </div></section>
+  </div>
+</section>
 
 <!-- ABOUT -->
 <section id="about">
@@ -595,91 +493,6 @@ footer span{color:var(--magenta)}
 <script>
 (function(){
 'use strict';
-
-
-
-// ─── CURSOR ──────────────────────────────────────────────────────────────
-const cur=document.getElementById('cur'), curo=document.getElementById('cur-o');
-let mx=0,my=0,ox=0,oy=0,lastTrail=0;
-
-const SPARK_COLORS=[
-  'rgba(138,92,246,',
-  'rgba(232,92,184,',
-  'rgba(192,168,255,',
-  'rgba(255,255,255,',
-  'rgba(200,160,255,',
-];
-
-document.addEventListener('mousemove',e=>{
-  mx=e.clientX; my=e.clientY;
-  cur.style.left=mx+'px'; cur.style.top=my+'px';
-
-  const now=Date.now();
-  if(now-lastTrail>20){
-    lastTrail=now;
-
-    const dot=document.createElement('div');
-    dot.className='cur-trail';
-    const dsz=(Math.random()*3+1.5).toFixed(1);
-    const dcol=SPARK_COLORS[Math.floor(Math.random()*SPARK_COLORS.length)];
-    const dop=(Math.random()*.55+.25).toFixed(2);
-    dot.style.cssText=`left:${mx}px;top:${my}px;width:${dsz}px;height:${dsz}px;background:${dcol}${dop});`;
-    document.body.appendChild(dot);
-    setTimeout(()=>dot.remove(),550);
-
-    if(Math.random()<0.55){
-      const g=document.createElement('div');
-      g.className='cur-glitter';
-      const gsz=(Math.random()*2.5+1).toFixed(1);
-      const gx=((Math.random()-.5)*30).toFixed(1);
-      const gy=(-(Math.random()*24+6)).toFixed(1);
-      const gdur=(.45+Math.random()*.35).toFixed(2);
-      const gcol=SPARK_COLORS[Math.floor(Math.random()*SPARK_COLORS.length)];
-      const gop=(Math.random()*.7+.3).toFixed(2);
-      const gr=((Math.random()-.5)*180).toFixed(0);
-      g.style.cssText=`left:${mx}px;top:${my}px;width:${gsz}px;height:${gsz}px;`
-        +`background:${gcol}${gop});border-radius:50%;`
-        +`--gx:${gx}px;--gy:${gy}px;--gr:${gr}deg;--dur:${gdur}s;`;
-      document.body.appendChild(g);
-      setTimeout(()=>g.remove(), gdur*1000+100);
-    }
-
-    if(Math.random()<0.20){
-      const s=document.createElement('div');
-      s.className='cur-glitter';
-      const ss=(Math.random()*1.8+.8).toFixed(1);
-      const sx=((Math.random()-.5)*22).toFixed(1);
-      const sy=(-(Math.random()*18+4)).toFixed(1);
-      const sdur=(.38+Math.random()*.28).toFixed(2);
-      const scol=SPARK_COLORS[Math.floor(Math.random()*SPARK_COLORS.length)];
-      s.style.cssText=`left:${mx}px;top:${my}px;width:${ss}px;height:${ss}px;`
-        +`background:${scol}0.92);border-radius:1px;`
-        +`--gx:${sx}px;--gy:${sy}px;--gr:45deg;--dur:${sdur}s;`;
-      document.body.appendChild(s);
-      setTimeout(()=>s.remove(), sdur*1000+100);
-    }
-
-    if(Math.random()<0.08){
-      const st=document.createElement('div');
-      st.className='cur-star';
-      const stSz=(Math.random()*3+2).toFixed(1);
-      const stX=((Math.random()-.5)*26).toFixed(1);
-      const stY=(-(Math.random()*20+8)).toFixed(1);
-      const stDur=(.4+Math.random()*.3).toFixed(2);
-      st.style.cssText=`left:${mx}px;top:${my}px;width:${stSz}px;height:${stSz}px;`
-        +`background:rgba(255,255,255,0.95);`
-        +`--gx:${stX}px;--gy:${stY}px;--dur:${stDur}s;`;
-      document.body.appendChild(st);
-      setTimeout(()=>st.remove(), stDur*1000+100);
-    }
-  }
-});
-
-(function lag(){
-  ox+=(mx-ox)*.09; oy+=(my-oy)*.09;
-  curo.style.left=ox+'px'; curo.style.top=oy+'px';
-  requestAnimationFrame(lag);
-})();
 
 // ─── HAMBURGER MENU ──────────────────────────────────────────────────────
 const hamburger=document.getElementById('hamburger');
@@ -1063,7 +876,3 @@ requestAnimationFrame(render);
 </script>
 </body>
 </html>
-
-
-
-
