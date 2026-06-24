@@ -161,8 +161,8 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
 
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s,transform .7s}
 .reveal.vis{opacity:1;transform:none}
-.g-reveal{display:block;overflow:hidden}
-.g-reveal span{display:block;transform:translateY(110%);transition:transform .9s cubic-bezier(.16,1,.3,1)}
+.g-reveal{display:block;overflow:hidden;padding-bottom:.18em}
+.g-reveal span{display:block;transform:translateY(110%);transition:transform .9s cubic-bezier(.16,1,.3,1);padding-bottom:.05em}
 .g-reveal.vis span{transform:none}
 
 .nav-ham{display:none;flex-direction:column;gap:4px;cursor:pointer;background:none;border:none;padding:4px}
@@ -697,11 +697,7 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
     ctx.fillStyle = 'rgba(255,255,255,0.38)';
     ctx.fillText('DATA ANALYST', sx, sy + 9);
 
-    if (expandProgress < 0.05) {
-      ctx.font = "400 9px 'JetBrains Mono',monospace";
-      ctx.fillStyle = `rgba(255,255,255,${0.2 + Math.sin(t * 0.9) * 0.07})`;
-      ctx.fillText('click to explore', sx, sy + cR + 22);
-    }
+
   }
 
   canvas.addEventListener('click', e => {
