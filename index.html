@@ -697,7 +697,7 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
   function setPanel(node) {
     document.getElementById('hp-type-txt').textContent = node.section;
     document.getElementById('hp-title').textContent = node.label;
-    document.getElementById('hp-sub').textContent = 'Click to navigate to this section';
+    document.getElementById('hp-sub').textContent = '';
     document.getElementById('hp-desc').textContent = node.desc;
     const cta = document.getElementById('hp-cta');
     cta.textContent = 'Go there ↓';
