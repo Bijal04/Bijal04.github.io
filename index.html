@@ -463,7 +463,7 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
       <div class="sicon"><div class="sicon-bg"><svg viewBox="0 0 24 24" fill="none"><path d="M12 4C7.58 4 4 6.69 4 10c0 2.34 1.71 4.37 4.25 5.42L5 20h3l2.8-4h.5L14 20h3l-3-4.5c2.5-.9 4-2.85 4-5.5 0-3.31-3.58-6-6-6z" fill="#2167B5"/><ellipse cx="12" cy="10" rx="4" ry="3" fill="#75AADB"/></svg></div><span class="sicon-lbl">R</span></div>
       <div class="sicon"><div class="sicon-bg"><svg viewBox="0 0 24 24" fill="none"><rect x="6" y="3" width="3" height="18" rx="1.5" fill="#130754"/><rect x="15" y="3" width="3" height="18" rx="1.5" fill="#130754"/><rect x="6" y="9" width="12" height="6" rx="1" fill="#E70488" opacity=".85"/></svg></div><span class="sicon-lbl">Pandas</span></div>
       <div class="sicon"><div class="sicon-bg"><svg viewBox="0 0 24 24" fill="none"><path d="M5 17c1-5 2.5-8 4-8s2.5 3 3.5 3S15 8 17 8" stroke="#4f86f7" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="19" r="1.5" fill="#4f86f7"/></svg></div><span class="sicon-lbl">Prophet</span></div>
-      <div class="sicon"><div class="sicon-bg"><svg viewBox="0 0 24 24" fill="none"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" stroke="#7dd3fc" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="sicon-lbl">GitHub</span></div>
+      <div class="sicon"><div class="sicon-bg"><svg viewBox="0 0 24 24" fill="none"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" stroke="#7dd3fc" stroke-width="1.6" stroke-linecap:round;stroke-linejoin:round"/></svg></div><span class="sicon-lbl">GitHub</span></div>
       <div class="sicon"><div class="sicon-bg"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" fill="#217346"/><path d="M8 8l4 4m0-4l-4 4" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><path d="M14 8h4M14 12h4M14 16h4" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg></div><span class="sicon-lbl">Excel</span></div>
       <div class="sicon"><div class="sicon-bg"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3L3 8v4l9 5 9-5V8L12 3z" fill="#FF6F00" opacity=".9"/><path d="M3 12v4l9 5 9-5v-4l-9 5-9-5z" fill="#FF6F00" opacity=".6"/></svg></div><span class="sicon-lbl">TensorFlow</span></div>
     </div>
@@ -628,6 +628,12 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
   let phase = 'idle';
   let activeNode = null, hoveredNode = null;
 
+  // ── AUTO-EXPAND STATE ──
+  const AUTO_EXPAND_DELAY = 3000; // 3 seconds
+  let autoExpandTimer = null;
+  let autoExpandStartTime = null;   // when the 3s countdown began (performance.now())
+  let autoExpandProgress = 0;       // 0 → 1 over 3s, drives the countdown ring
+
   const NODE_DEFS = [
     { id: 'about',      label: 'About',      angle: -100, dist: 200, section: 'Who I Am',     desc: 'My background, education, and what drives me.' },
     { id: 'experience', label: 'Experience', angle:  -40, dist: 200, section: 'Work History',  desc: 'Points Africa · DMG Group — two continents, real impact.' },
@@ -710,6 +716,30 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
     document.getElementById('hp-dot').style.cssText = 'background:rgba(125,211,252,0.4);box-shadow:none';
   }
 
+  // ── AUTO-EXPAND HELPERS ──
+  function startAutoExpand() {
+    cancelAutoExpand();
+    autoExpandStartTime = performance.now();
+    autoExpandProgress = 0;
+    autoExpandTimer = setTimeout(() => {
+      autoExpandTimer = null;
+      autoExpandStartTime = null;
+      autoExpandProgress = 0;
+      // Only fire if still idle (user hasn't clicked)
+      if (phase === 'idle') {
+        phase = 'expanded';
+        expandTarget = 1;
+        if (ping) ping.style.display = 'none';
+      }
+    }, AUTO_EXPAND_DELAY);
+  }
+
+  function cancelAutoExpand() {
+    if (autoExpandTimer) { clearTimeout(autoExpandTimer); autoExpandTimer = null; }
+    autoExpandStartTime = null;
+    autoExpandProgress = 0;
+  }
+
   // Draw wavy circle border
   function drawWavyCircle(x, y, radius, waveCount, waveAmp, rotation, strokeStyle, lineWidth) {
     ctx.save();
@@ -734,6 +764,11 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
   function draw(now) {
     requestAnimationFrame(draw);
     const dt = Math.min((now - last) / 1000, 0.05); last = now; t += dt;
+
+    // Update countdown progress for the visual ring
+    if (autoExpandStartTime !== null) {
+      autoExpandProgress = Math.min(1, (now - autoExpandStartTime) / AUTO_EXPAND_DELAY);
+    }
 
     const spd = 0.055;
     if (expandProgress < expandTarget) expandProgress = Math.min(expandTarget, expandProgress + spd);
@@ -825,35 +860,21 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
             : col.glow + (0.04 * ep) + ')';
         ctx.fill();
 
-        // Wavy border — spins, each node different speed & direction
+        // Wavy border
         const spinDir = i % 2 === 0 ? 1 : -1;
         const spinSpeed = 0.35 + i * 0.06;
         const waveFreq = 8 + (i % 3);
         const waveAmp = isActive ? 4 : isHov ? 3 : 2 * ep;
         const waveAlpha = isActive ? '0.95)' : isHov ? '0.7)' : (0.38 * ep) + ')';
 
-        // Build gradient for wavy stroke
         const wgCtx = ctx.createLinearGradient(np.x - nr, np.y - nr, np.x + nr, np.y + nr);
         wgCtx.addColorStop(0, col.stroke);
         wgCtx.addColorStop(1, isActive || isHov ? '#7dd3fc' : col.glow + waveAlpha);
 
-        drawWavyCircle(
-          np.x, np.y,
-          nr, waveFreq, waveAmp,
-          t * spinSpeed * spinDir,
-          wgCtx,
-          isActive ? 1.8 : isHov ? 1.2 : 0.9
-        );
+        drawWavyCircle(np.x, np.y, nr, waveFreq, waveAmp, t * spinSpeed * spinDir, wgCtx, isActive ? 1.8 : isHov ? 1.2 : 0.9);
 
-        // Outer faint second wavy ring when active/hovered
         if (isActive || isHov) {
-          drawWavyCircle(
-            np.x, np.y,
-            nr + 8, waveFreq + 2, waveAmp * 0.6,
-            -t * spinSpeed * 0.5,
-            col.glow + (isActive ? '0.25)' : '0.15)'),
-            0.5
-          );
+          drawWavyCircle(np.x, np.y, nr + 8, waveFreq + 2, waveAmp * 0.6, -t * spinSpeed * 0.5, col.glow + (isActive ? '0.25)' : '0.15)'), 0.5);
         }
 
         // Label
@@ -910,7 +931,7 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
     cwg1.addColorStop(1, '#06b6d4');
     drawWavyCircle(sx, sy, cR, 12, 3.5 + Math.sin(t * 0.4) * 0.8, t * 0.5, cwg1, 1.8);
 
-    // Second inner wavy ring spins counter-clockwise, different freq
+    // Second inner wavy ring spins counter-clockwise
     const cwg2 = ctx.createLinearGradient(sx - cR, sy - cR, sx + cR, sy + cR);
     cwg2.addColorStop(0, 'rgba(6,182,212,0.4)');
     cwg2.addColorStop(0.5, 'rgba(45,107,228,0.3)');
@@ -922,6 +943,51 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
     cwg3.addColorStop(0, 'rgba(45,107,228,0.15)');
     cwg3.addColorStop(1, 'rgba(124,58,237,0.1)');
     drawWavyCircle(sx, sy, cR * 1.4 + 4, 7, 5 + Math.sin(t * 0.3) * 1.5, t * 0.18, cwg3, 0.5);
+
+    // ── AUTO-EXPAND COUNTDOWN RING ──
+    // Only visible while phase === 'idle' and the timer is running
+    if (phase === 'idle' && autoExpandProgress > 0 && autoExpandProgress < 1) {
+      const ringR = cR + 28;
+      const startAngle = -Math.PI / 2; // top
+      const endAngle = startAngle + Math.PI * 2 * autoExpandProgress;
+
+      // Background track
+      ctx.beginPath();
+      ctx.arc(sx, sy, ringR, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(45,107,228,0.08)';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Animated fill arc — gradient colour cycles blue→violet→cyan
+      const grad = ctx.createLinearGradient(
+        sx + Math.cos(startAngle) * ringR, sy + Math.sin(startAngle) * ringR,
+        sx + Math.cos(endAngle) * ringR,   sy + Math.sin(endAngle) * ringR
+      );
+      grad.addColorStop(0,   'rgba(45,107,228,0.9)');
+      grad.addColorStop(0.5, 'rgba(124,58,237,0.8)');
+      grad.addColorStop(1,   'rgba(6,182,212,0.9)');
+
+      ctx.beginPath();
+      ctx.arc(sx, sy, ringR, startAngle, endAngle);
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = 2.5;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+      ctx.lineCap = 'butt';
+
+      // Bright leading dot at the arc tip
+      const tipX = sx + Math.cos(endAngle) * ringR;
+      const tipY = sy + Math.sin(endAngle) * ringR;
+      const tipGlow = ctx.createRadialGradient(tipX, tipY, 0, tipX, tipY, 8);
+      tipGlow.addColorStop(0, 'rgba(125,211,252,0.95)');
+      tipGlow.addColorStop(0.4, 'rgba(125,211,252,0.4)');
+      tipGlow.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.beginPath(); ctx.arc(tipX, tipY, 8, 0, Math.PI * 2);
+      ctx.fillStyle = tipGlow; ctx.fill();
+
+      ctx.beginPath(); ctx.arc(tipX, tipY, 2.5, 0, Math.PI * 2);
+      ctx.fillStyle = '#7dd3fc'; ctx.fill();
+    }
 
     // Center text
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
@@ -937,6 +1003,7 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
     const r = canvas.getBoundingClientRect();
     const mx = e.clientX - r.left, my = e.clientY - r.top;
     if (phase === 'idle' && hitCenter(mx, my)) {
+      cancelAutoExpand();
       phase = 'expanded'; expandTarget = 1;
       if (ping) ping.style.display = 'none';
       return;
@@ -944,7 +1011,7 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
     if (phase === 'expanded') {
       const node = getHitNode(mx, my);
       if (node) { activeNode = node; phase = 'detail'; setPanel(node); return; }
-      if (hitCenter(mx, my)) { phase = 'idle'; expandTarget = 0; activeNode = null; resetPanel(); return; }
+      if (hitCenter(mx, my)) { phase = 'idle'; expandTarget = 0; activeNode = null; resetPanel(); startAutoExpand(); return; }
     }
     if (phase === 'detail') {
       const node = getHitNode(mx, my);
@@ -974,7 +1041,7 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
       if (phase === 'detail') { phase = 'expanded'; activeNode = null; resetPanel(); }
-      else if (phase === 'expanded') { phase = 'idle'; expandTarget = 0; activeNode = null; resetPanel(); }
+      else if (phase === 'expanded') { phase = 'idle'; expandTarget = 0; activeNode = null; resetPanel(); startAutoExpand(); }
     }
   });
 
@@ -987,13 +1054,17 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
 
   document.querySelectorAll('nav a[href^="#"]').forEach(a => {
     a.addEventListener('click', () => {
-      if (phase === 'idle') { phase = 'expanded'; expandTarget = 1; }
+      if (phase === 'idle') { cancelAutoExpand(); phase = 'expanded'; expandTarget = 1; }
     });
   });
 
   resize();
   window.addEventListener('resize', () => { ctx.setTransform(1,0,0,1,0,0); resize(); });
   resetPanel();
+
+  // ── Kick off the auto-expand countdown on load ──
+  startAutoExpand();
+
   requestAnimationFrame(draw);
 })();
 </script>
