@@ -11,20 +11,12 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 
-/* ── AURORA PALETTE ──
-   --bg:      #04081a  (deep navy)
-   --bg2:     #070d24  (slightly lighter navy for alternating sections)
-   --blue:    #2d6be4
-   --blue-lt: #7dd3fc
-   --violet:  #7c3aed
-   --violet-lt:#c4b5fd
-   --cyan:    #06b6d4
-   --cyan-lt: #67e8f9
-   --white:   #fff
-   --muted:   #94a3b8
-   --border:  rgba(255,255,255,0.08)
-   --border-glow: rgba(125,211,252,0.25)
-*/
+@property --wave-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
 :root{
   --bg:#04081a;
   --bg2:#070d24;
@@ -46,7 +38,6 @@ body{background:var(--bg);color:#fff;font-family:'Inter',sans-serif;overflow-x:h
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:#2d6be4;border-radius:2px}
 
-/* ── AURORA BLOBS (ambient background) ── */
 .aurora-bg{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
 .aurora-bg::before{
   content:'';position:absolute;
@@ -97,8 +88,50 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 #hero-canvas{position:absolute;inset:0;width:100%;height:100%}
 
 .hero-panel-wrap{position:absolute;bottom:2rem;left:2.5vw;width:min(320px,42vw);pointer-events:all;z-index:10}
-.hero-panel{background:rgba(4,8,26,0.88);border:1px solid rgba(125,211,252,.18);border-radius:12px;padding:1.2rem 1.4rem;backdrop-filter:blur(24px);transition:border-color .4s}
-.hero-panel:hover{border-color:rgba(125,211,252,.35)}
+
+/* Wavy panel card */
+.hero-panel{
+  position:relative;
+  isolation:isolate;
+  border-radius:12px;
+  padding:1.2rem 1.4rem;
+  transition:all .4s;
+}
+.hero-panel::before{
+  content:'';
+  position:absolute;
+  inset:-1.5px;
+  border-radius:13px;
+  z-index:-1;
+  background:conic-gradient(
+    from var(--wave-angle),
+    #2d6be4 0%,
+    #7c3aed 22%,
+    #06b6d4 44%,
+    #7dd3fc 58%,
+    transparent 63%,
+    transparent 78%,
+    #2d6be4 100%
+  );
+  animation:wave-spin 3s linear infinite;
+  filter:blur(1px);
+}
+.hero-panel::after{
+  content:'';
+  position:absolute;
+  inset:1px;
+  border-radius:11px;
+  background:rgba(4,8,26,0.92);
+  backdrop-filter:blur(24px);
+  z-index:-1;
+}
+.hero-panel>*{position:relative;z-index:1}
+@keyframes wave-spin{to{--wave-angle:360deg}}
+.hero-panel:hover::before{
+  animation:wave-spin 1.4s linear infinite;
+  filter:blur(2.5px);
+}
+
 .hp-type{font-family:var(--mono);font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:rgba(125,211,252,.5);margin-bottom:7px;display:flex;align-items:center;gap:6px}
 .hp-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;background:#7dd3fc;box-shadow:0 0 8px #7dd3fc;transition:background .3s,box-shadow .3s}
 .hp-title{font-size:15px;font-weight:700;color:#fff;letter-spacing:-.01em;margin-bottom:2px}
@@ -118,7 +151,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .section-eyebrow::before{content:'';width:20px;height:1px;background:linear-gradient(90deg,#2d6be4,#06b6d4);flex-shrink:0}
 .section-title{font-size:clamp(2.8rem,6vw,5.5rem);font-weight:800;line-height:.92;letter-spacing:-.04em;margin-bottom:3rem;color:#fff}
 
-/* section alternation */
 #about{background:var(--bg);border-top:1px solid var(--border)}
 #skills{background:var(--bg2);border-top:1px solid var(--border)}
 #projects{background:var(--bg);border-top:1px solid var(--border)}
@@ -262,10 +294,8 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
 </head>
 <body>
 
-<!-- Ambient aurora background -->
 <div class="aurora-bg"></div>
 <div class="aurora-blob3"></div>
-
 <div id="prog"></div>
 
 <nav>
@@ -581,7 +611,6 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
     { id: 'contact',    label: 'Contact',    angle: -160, dist: 200, section: 'Get in Touch',  desc: "Open to GTA & remote analyst roles. Let's talk." },
   ];
 
-  // Aurora node colors: cycle blue, violet, cyan
   const NODE_COLORS = [
     { stroke: '#2d6be4', glow: 'rgba(45,107,228,', text: '#7dd3fc' },
     { stroke: '#7c3aed', glow: 'rgba(124,58,237,', text: '#c4b5fd' },
@@ -591,7 +620,6 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
     { stroke: '#06b6d4', glow: 'rgba(6,182,212,',  text: '#67e8f9' },
   ];
 
-  // Starfield
   const stars = Array.from({ length: 280 }, () => ({
     x: Math.random(), y: Math.random(),
     s: Math.random() * 1.1 + 0.15,
@@ -656,6 +684,27 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
     document.getElementById('hp-dot').style.cssText = 'background:rgba(125,211,252,0.4);box-shadow:none';
   }
 
+  // Draw wavy circle border
+  function drawWavyCircle(x, y, radius, waveCount, waveAmp, rotation, strokeStyle, lineWidth) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(rotation);
+    ctx.beginPath();
+    const steps = 200;
+    for (let i = 0; i <= steps; i++) {
+      const a = (i / steps) * Math.PI * 2;
+      const r = radius + Math.sin(a * waveCount) * waveAmp;
+      const px = Math.cos(a) * r;
+      const py = Math.sin(a) * r;
+      i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+    }
+    ctx.closePath();
+    ctx.strokeStyle = strokeStyle;
+    ctx.lineWidth = lineWidth;
+    ctx.stroke();
+    ctx.restore();
+  }
+
   function draw(now) {
     requestAnimationFrame(draw);
     const dt = Math.min((now - last) / 1000, 0.05); last = now; t += dt;
@@ -668,21 +717,16 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
     ctx.fillStyle = '#04081a';
     ctx.fillRect(0, 0, W, H);
 
-    // Ambient aurora glow behind canvas
+    // Ambient aurora glows
     const auroraR = Math.min(W, H) * 0.9;
     const ag1 = ctx.createRadialGradient(W * 0.2, H * 0.2, 0, W * 0.2, H * 0.2, auroraR * 0.7);
-    ag1.addColorStop(0, 'rgba(45,107,228,0.12)');
-    ag1.addColorStop(1, 'rgba(0,0,0,0)');
+    ag1.addColorStop(0, 'rgba(45,107,228,0.12)'); ag1.addColorStop(1, 'rgba(0,0,0,0)');
     ctx.fillStyle = ag1; ctx.fillRect(0, 0, W, H);
-
     const ag2 = ctx.createRadialGradient(W * 0.8, H * 0.8, 0, W * 0.8, H * 0.8, auroraR * 0.6);
-    ag2.addColorStop(0, 'rgba(124,58,237,0.1)');
-    ag2.addColorStop(1, 'rgba(0,0,0,0)');
+    ag2.addColorStop(0, 'rgba(124,58,237,0.1)'); ag2.addColorStop(1, 'rgba(0,0,0,0)');
     ctx.fillStyle = ag2; ctx.fillRect(0, 0, W, H);
-
     const ag3 = ctx.createRadialGradient(W * 0.7, H * 0.3, 0, W * 0.7, H * 0.3, auroraR * 0.4);
-    ag3.addColorStop(0, 'rgba(6,182,212,0.07)');
-    ag3.addColorStop(1, 'rgba(0,0,0,0)');
+    ag3.addColorStop(0, 'rgba(6,182,212,0.07)'); ag3.addColorStop(1, 'rgba(0,0,0,0)');
     ctx.fillStyle = ag3; ctx.fillRect(0, 0, W, H);
 
     // Stars
@@ -728,7 +772,7 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
       });
     }
 
-    // Nodes
+    // Satellite nodes — wavy borders
     if (ep > 0) {
       NODE_DEFS.forEach((def, i) => {
         const np = nodePos(def, ep);
@@ -737,6 +781,7 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
         const nr = 40;
         const col = NODE_COLORS[i];
 
+        // Halo glow
         if (isActive || isHov) {
           const ng = ctx.createRadialGradient(np.x, np.y, 0, np.x, np.y, nr * 2.4);
           ng.addColorStop(0, col.glow + (isActive ? '0.18' : '0.09') + ')');
@@ -745,6 +790,7 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
           ctx.fillStyle = ng; ctx.fill();
         }
 
+        // Node fill
         ctx.beginPath(); ctx.arc(np.x, np.y, nr, 0, Math.PI * 2);
         ctx.fillStyle = isActive
           ? col.glow + '0.15)'
@@ -752,14 +798,39 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
             ? col.glow + '0.09)'
             : col.glow + (0.04 * ep) + ')';
         ctx.fill();
-        ctx.strokeStyle = isActive
-          ? col.stroke
-          : isHov
-            ? col.glow + '0.6)'
-            : col.glow + (0.3 * ep) + ')';
-        ctx.lineWidth = isActive ? 1.5 : 0.8;
-        ctx.stroke();
 
+        // Wavy border — spins, each node different speed & direction
+        const spinDir = i % 2 === 0 ? 1 : -1;
+        const spinSpeed = 0.35 + i * 0.06;
+        const waveFreq = 8 + (i % 3);
+        const waveAmp = isActive ? 4 : isHov ? 3 : 2 * ep;
+        const waveAlpha = isActive ? '0.95)' : isHov ? '0.7)' : (0.38 * ep) + ')';
+
+        // Build gradient for wavy stroke
+        const wgCtx = ctx.createLinearGradient(np.x - nr, np.y - nr, np.x + nr, np.y + nr);
+        wgCtx.addColorStop(0, col.stroke);
+        wgCtx.addColorStop(1, isActive || isHov ? '#7dd3fc' : col.glow + waveAlpha);
+
+        drawWavyCircle(
+          np.x, np.y,
+          nr, waveFreq, waveAmp,
+          t * spinSpeed * spinDir,
+          wgCtx,
+          isActive ? 1.8 : isHov ? 1.2 : 0.9
+        );
+
+        // Outer faint second wavy ring when active/hovered
+        if (isActive || isHov) {
+          drawWavyCircle(
+            np.x, np.y,
+            nr + 8, waveFreq + 2, waveAmp * 0.6,
+            -t * spinSpeed * 0.5,
+            col.glow + (isActive ? '0.25)' : '0.15)'),
+            0.5
+          );
+        }
+
+        // Label
         ctx.fillStyle = isActive ? col.text : isHov ? col.text : `rgba(255,255,255,${0.55 * ep})`;
         ctx.font = `${isActive ? '600' : '400'} 11px Inter, Arial, sans-serif`;
         ctx.textAlign = 'center';
@@ -768,11 +839,11 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
       });
     }
 
-    // Center node
+    // ── CENTER NODE ──
     const cR = 64 + Math.sin(t * 0.85) * 2;
     const sx = cx(), sy = cy();
 
-    // Outer orbit ring
+    // Outer orbit ring (only when collapsed)
     if (expandProgress < 0.05) {
       ctx.save();
       ctx.translate(sx, sy);
@@ -783,7 +854,7 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
       ctx.restore();
     }
 
-    // Center glow halo — aurora gradient
+    // Center glow halo
     const pulse = 1 + Math.sin(t * 0.55) * 0.03;
     const halo = ctx.createRadialGradient(sx, sy, 0, sx, sy, cR * 3.5 * pulse);
     halo.addColorStop(0,   'rgba(45,107,228,0.2)');
@@ -793,26 +864,40 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
     ctx.beginPath(); ctx.arc(sx, sy, cR * 3.5, 0, Math.PI * 2);
     ctx.fillStyle = halo; ctx.fill();
 
-    // Outer ring
+    // Outer faint ring
     ctx.beginPath(); ctx.arc(sx, sy, cR * 1.4, 0, Math.PI * 2);
     ctx.strokeStyle = `rgba(45,107,228,${0.08 + Math.sin(t * 0.6) * 0.02})`;
     ctx.lineWidth = 0.6; ctx.stroke();
 
-    // Center fill — aurora tinted
+    // Center fill
     const cf = ctx.createRadialGradient(sx - cR * 0.3, sy - cR * 0.3, cR * 0.04, sx, sy, cR);
     cf.addColorStop(0, 'rgba(100,160,255,0.22)');
     cf.addColorStop(0.5, 'rgba(45,107,228,0.12)');
     cf.addColorStop(1, 'rgba(20,30,80,0.15)');
     ctx.beginPath(); ctx.arc(sx, sy, cR, 0, Math.PI * 2);
     ctx.fillStyle = cf; ctx.fill();
-    // Center border — aurora gradient stroke
-    const gradient = ctx.createLinearGradient(sx - cR, sy - cR, sx + cR, sy + cR);
-    gradient.addColorStop(0, '#2d6be4');
-    gradient.addColorStop(0.5, '#7c3aed');
-    gradient.addColorStop(1, '#06b6d4');
-    ctx.strokeStyle = gradient;
-    ctx.lineWidth = 1.5; ctx.stroke();
 
+    // Center wavy border — main ring spins clockwise
+    const cwg1 = ctx.createLinearGradient(sx - cR, sy - cR, sx + cR, sy + cR);
+    cwg1.addColorStop(0, '#2d6be4');
+    cwg1.addColorStop(0.5, '#7c3aed');
+    cwg1.addColorStop(1, '#06b6d4');
+    drawWavyCircle(sx, sy, cR, 12, 3.5 + Math.sin(t * 0.4) * 0.8, t * 0.5, cwg1, 1.8);
+
+    // Second inner wavy ring spins counter-clockwise, different freq
+    const cwg2 = ctx.createLinearGradient(sx - cR, sy - cR, sx + cR, sy + cR);
+    cwg2.addColorStop(0, 'rgba(6,182,212,0.4)');
+    cwg2.addColorStop(0.5, 'rgba(45,107,228,0.3)');
+    cwg2.addColorStop(1, 'rgba(124,58,237,0.4)');
+    drawWavyCircle(sx, sy, cR - 4, 9, 2 + Math.sin(t * 0.6) * 0.5, -t * 0.35, cwg2, 0.7);
+
+    // Outer halo wavy ring — slow, wide amp
+    const cwg3 = ctx.createLinearGradient(sx - cR, sy - cR, sx + cR, sy + cR);
+    cwg3.addColorStop(0, 'rgba(45,107,228,0.15)');
+    cwg3.addColorStop(1, 'rgba(124,58,237,0.1)');
+    drawWavyCircle(sx, sy, cR * 1.4 + 4, 7, 5 + Math.sin(t * 0.3) * 1.5, t * 0.18, cwg3, 0.5);
+
+    // Center text
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     ctx.fillStyle = '#fff';
     ctx.font = "700 14px 'Inter',sans-serif";
