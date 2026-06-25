@@ -151,12 +151,37 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .section-eyebrow::before{content:'';width:20px;height:1px;background:linear-gradient(90deg,#2d6be4,#06b6d4);flex-shrink:0}
 .section-title{font-size:clamp(2.8rem,6vw,5.5rem);font-weight:800;line-height:.92;letter-spacing:-.04em;margin-bottom:3rem;color:#fff}
 
-#about{background:var(--bg);border-top:1px solid var(--border)}
-#skills{background:var(--bg2);border-top:1px solid var(--border)}
-#projects{background:var(--bg);border-top:1px solid var(--border)}
-#experience{background:var(--bg2);border-top:1px solid var(--border)}
-#education{background:var(--bg);border-top:1px solid var(--border)}
-#contact{background:var(--bg2);border-top:1px solid var(--border)}
+/* ── SECTIONS — base (sharp) ── */
+#about,#skills,#projects,#experience,#education,#contact{
+  border-top:1px solid var(--border);
+  position:relative;
+}
+#about{background:var(--bg)}
+#skills{background:var(--bg2)}
+#projects{background:var(--bg)}
+#experience{background:var(--bg2)}
+#education{background:var(--bg)}
+#contact{background:var(--bg2)}
+
+/* ── ROUNDED CARDS — about, projects, education only ── */
+#about,#projects,#education{
+  margin:0;
+  border-radius:0 0 28px 28px;
+  border:1px solid var(--border);
+  border-top:none;
+  margin-top:0;
+  overflow:hidden;
+}
+/* aurora top-edge shimmer on rounded cards */
+#about::before,#projects::before,#education::before{
+  content:'';
+  position:absolute;
+  top:0;left:10%;right:10%;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(125,211,252,0.18),rgba(196,181,253,0.14),rgba(103,232,249,0.18),transparent);
+  border-radius:1px;
+  pointer-events:none;
+}
 
 /* ── ABOUT ── */
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5vw;align-items:start}
@@ -283,6 +308,7 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
   .about-grid,.skills-grid,.proj-grid,.edu-grid{grid-template-columns:1fr}
   .exp-item{grid-template-columns:1fr;gap:.5rem}
   .section{padding:8vh 6vw}
+  #about,#projects,#education{margin:0;border-radius:0 0 18px 18px}
   .hero-panel-wrap{left:50%;transform:translateX(-50%);width:90vw;bottom:5rem}
   .scroll-arrow{display:none}
 }
