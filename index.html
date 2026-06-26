@@ -89,7 +89,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 
 .hero-panel-wrap{position:absolute;bottom:2rem;left:2.5vw;width:min(320px,42vw);pointer-events:all;z-index:10}
 
-/* Wavy panel card */
 .hero-panel{
   position:relative;
   isolation:isolate;
@@ -151,7 +150,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .section-eyebrow::before{content:'';width:20px;height:1px;background:linear-gradient(90deg,#2d6be4,#06b6d4);flex-shrink:0}
 .section-title{font-size:clamp(2.8rem,6vw,5.5rem);font-weight:800;line-height:.92;letter-spacing:-.04em;margin-bottom:3rem;color:#fff}
 
-/* ── SECTIONS — base (sharp) ── */
 #about,#skills,#projects,#experience,#education,#contact{
   border-top:1px solid var(--border);
   position:relative;
@@ -163,7 +161,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 #education{background:var(--bg)}
 #contact{background:var(--bg2)}
 
-/* ── ROUNDED CARDS — about, projects, education only ── */
 #about,#projects,#education{
   margin:0;
   border-radius:0 0 28px 28px;
@@ -172,7 +169,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
   margin-top:0;
   overflow:hidden;
 }
-/* aurora top-edge shimmer on rounded cards */
 #about::before,#projects::before,#education::before{
   content:'';
   position:absolute;
@@ -222,6 +218,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .sicon-bg svg{width:26px;height:26px;transition:all .2s}
 .sicon-bg:hover{border-color:rgba(125,211,252,.4);transform:translateY(-3px);background:rgba(45,107,228,.12)}
 .sicon-lbl{font-family:var(--mono);font-size:.44rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.2)}
+
+/* ── ARSENAL FLY-IN ── */
+.fly-left{opacity:0;transform:translateX(-90px);transition:opacity .6s,transform .6s}
+.fly-right{opacity:0;transform:translateX(90px);transition:opacity .6s,transform .6s}
+.fly-left.show,.fly-right.show{opacity:1;transform:none}
 
 /* ── PROJECTS ── */
 .proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
@@ -373,7 +374,7 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
       <div class="hp-type"><span class="hp-dot" id="hp-dot"></span><span id="hp-type-txt">Portfolio</span></div>
       <div class="hp-title" id="hp-title">Bijal Panchal</div>
       <div class="hp-sub" id="hp-sub">Data Analyst · Open to Work · Brampton, CA</div>
-      <div class="hp-desc" id="hp-desc">Click the center to unfurl the star schema, then explore each node — or scroll down to read the full story.</div>
+      <div class="hp-desc" id="hp-desc">Click to explore → or scroll.</div>
       <a class="hp-cta" id="hp-cta" href="#about">Explore below ↓</a>
     </div>
   </div>
@@ -452,8 +453,8 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
     </div>
   </div>
   <div class="stack-bar reveal">
-    <div class="stack-bar-title">Full Stack</div>
-    <div class="stack-icons">
+    <div class="stack-bar-title">My Arsenal</div>
+    <div class="stack-icons" id="arsenal-row">
       <div class="sicon"><div class="sicon-bg"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2C9.5 2 8 3.1 8 4.5V7h4v1H5.5C4.1 8 3 9.5 3 12s1.1 4 2.5 4H7v-2.5C7 11.9 8.9 10 11 10h4c1.7 0 3-1.3 3-3V4.5C18 3.1 16.5 2 14 2h-2z" fill="#4B8BBE"/><path d="M12 22c2.5 0 4-1.1 4-2.5V17h-4v-1h6.5c1.4 0 2.5-1.5 2.5-4s-1.1-4-2.5-4H17v2.5c0 1.6-1.9 3.5-4 3.5h-4c-1.7 0-3 1.3-3 3v2.5C6 20.9 7.5 22 10 22h2z" fill="#FFD43B"/><circle cx="10" cy="5" r="1" fill="#fff"/><circle cx="14" cy="19" r="1" fill="#fff"/></svg></div><span class="sicon-lbl">Python</span></div>
       <div class="sicon"><div class="sicon-bg"><svg viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="6" rx="8" ry="3" stroke="#60a5fa" stroke-width="1.5"/><path d="M4 6v4c0 1.66 3.58 3 8 3s8-1.34 8-3V6" stroke="#60a5fa" stroke-width="1.5"/><path d="M4 10v4c0 1.66 3.58 3 8 3s8-1.34 8-3v-4" stroke="#60a5fa" stroke-width="1.5"/><path d="M4 14v4c0 1.66 3.58 3 8 3s8-1.34 8-3v-4" stroke="#60a5fa" stroke-width="1.5"/></svg></div><span class="sicon-lbl">SQL</span></div>
       <div class="sicon"><div class="sicon-bg"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="12" width="4" height="9" rx="1" fill="#F2C811"/><rect x="10" y="7" width="4" height="14" rx="1" fill="#F2C811" opacity=".8"/><rect x="17" y="3" width="4" height="18" rx="1" fill="#F2C811" opacity=".6"/></svg></div><span class="sicon-lbl">Power BI</span></div>
@@ -619,6 +620,33 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
   obs.observe(el);
 });
 
+// ── MY ARSENAL FLY-IN ──
+(function () {
+  const row = document.getElementById('arsenal-row');
+  if (!row) return;
+  const icons = Array.from(row.querySelectorAll('.sicon'));
+  const mid = Math.floor(icons.length / 2);
+
+  icons.forEach((el, i) => {
+    const fromLeft = i < mid;
+    el.classList.add(fromLeft ? 'fly-left' : 'fly-right');
+    const delay = Math.abs(i - mid) * 0.07;
+    el.style.transitionDelay = delay + 's';
+  });
+
+  const arsenalObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          icons.forEach(el => el.classList.add('show'));
+        }));
+        arsenalObs.disconnect();
+      }
+    });
+  }, { threshold: 0.2 });
+  arsenalObs.observe(row);
+})();
+
 // ── AURORA STAR SCHEMA CANVAS ──
 (function () {
   const canvas = document.getElementById('hero-canvas');
@@ -628,11 +656,10 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
   let phase = 'idle';
   let activeNode = null, hoveredNode = null;
 
-  // ── AUTO-EXPAND STATE ──
-  const AUTO_EXPAND_DELAY = 3000; // 3 seconds
+  const AUTO_EXPAND_DELAY = 3000;
   let autoExpandTimer = null;
-  let autoExpandStartTime = null;   // when the 3s countdown began (performance.now())
-  let autoExpandProgress = 0;       // 0 → 1 over 3s, drives the countdown ring
+  let autoExpandStartTime = null;
+  let autoExpandProgress = 0;
 
   const NODE_DEFS = [
     { id: 'about',      label: 'About',      angle: -100, dist: 200, section: 'Who I Am',     desc: 'My background, education, and what drives me.' },
@@ -716,7 +743,6 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
     document.getElementById('hp-dot').style.cssText = 'background:rgba(125,211,252,0.4);box-shadow:none';
   }
 
-  // ── AUTO-EXPAND HELPERS ──
   function startAutoExpand() {
     cancelAutoExpand();
     autoExpandStartTime = performance.now();
@@ -725,7 +751,6 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
       autoExpandTimer = null;
       autoExpandStartTime = null;
       autoExpandProgress = 0;
-      // Only fire if still idle (user hasn't clicked)
       if (phase === 'idle') {
         phase = 'expanded';
         expandTarget = 1;
@@ -740,7 +765,6 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
     autoExpandProgress = 0;
   }
 
-  // Draw wavy circle border
   function drawWavyCircle(x, y, radius, waveCount, waveAmp, rotation, strokeStyle, lineWidth) {
     ctx.save();
     ctx.translate(x, y);
@@ -765,7 +789,6 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
     requestAnimationFrame(draw);
     const dt = Math.min((now - last) / 1000, 0.05); last = now; t += dt;
 
-    // Update countdown progress for the visual ring
     if (autoExpandStartTime !== null) {
       autoExpandProgress = Math.min(1, (now - autoExpandStartTime) / AUTO_EXPAND_DELAY);
     }
@@ -778,7 +801,6 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
     ctx.fillStyle = '#04081a';
     ctx.fillRect(0, 0, W, H);
 
-    // Ambient aurora glows
     const auroraR = Math.min(W, H) * 0.9;
     const ag1 = ctx.createRadialGradient(W * 0.2, H * 0.2, 0, W * 0.2, H * 0.2, auroraR * 0.7);
     ag1.addColorStop(0, 'rgba(45,107,228,0.12)'); ag1.addColorStop(1, 'rgba(0,0,0,0)');
@@ -790,7 +812,6 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
     ag3.addColorStop(0, 'rgba(6,182,212,0.07)'); ag3.addColorStop(1, 'rgba(0,0,0,0)');
     ctx.fillStyle = ag3; ctx.fillRect(0, 0, W, H);
 
-    // Stars
     stars.forEach(s => {
       const tw = 0.5 + 0.5 * Math.sin(t * s.ts + s.tw);
       let r, g, b;
@@ -805,7 +826,6 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
 
     const ep = easeOut(expandProgress);
 
-    // Connector lines
     if (ep > 0) {
       NODE_DEFS.forEach((def, i) => {
         const np = nodePos(def, ep);
@@ -833,7 +853,6 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
       });
     }
 
-    // Satellite nodes — wavy borders
     if (ep > 0) {
       NODE_DEFS.forEach((def, i) => {
         const np = nodePos(def, ep);
@@ -842,7 +861,6 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
         const nr = 40;
         const col = NODE_COLORS[i];
 
-        // Halo glow
         if (isActive || isHov) {
           const ng = ctx.createRadialGradient(np.x, np.y, 0, np.x, np.y, nr * 2.4);
           ng.addColorStop(0, col.glow + (isActive ? '0.18' : '0.09') + ')');
@@ -851,7 +869,6 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
           ctx.fillStyle = ng; ctx.fill();
         }
 
-        // Node fill
         ctx.beginPath(); ctx.arc(np.x, np.y, nr, 0, Math.PI * 2);
         ctx.fillStyle = isActive
           ? col.glow + '0.15)'
@@ -860,7 +877,6 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
             : col.glow + (0.04 * ep) + ')';
         ctx.fill();
 
-        // Wavy border
         const spinDir = i % 2 === 0 ? 1 : -1;
         const spinSpeed = 0.35 + i * 0.06;
         const waveFreq = 8 + (i % 3);
@@ -877,7 +893,6 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
           drawWavyCircle(np.x, np.y, nr + 8, waveFreq + 2, waveAmp * 0.6, -t * spinSpeed * 0.5, col.glow + (isActive ? '0.25)' : '0.15)'), 0.5);
         }
 
-        // Label
         ctx.fillStyle = isActive ? col.text : isHov ? col.text : `rgba(255,255,255,${0.55 * ep})`;
         ctx.font = `${isActive ? '600' : '400'} 11px Inter, Arial, sans-serif`;
         ctx.textAlign = 'center';
@@ -886,11 +901,9 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
       });
     }
 
-    // ── CENTER NODE ──
     const cR = 64 + Math.sin(t * 0.85) * 2;
     const sx = cx(), sy = cy();
 
-    // Outer orbit ring (only when collapsed)
     if (expandProgress < 0.05) {
       ctx.save();
       ctx.translate(sx, sy);
@@ -901,7 +914,6 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
       ctx.restore();
     }
 
-    // Center glow halo
     const pulse = 1 + Math.sin(t * 0.55) * 0.03;
     const halo = ctx.createRadialGradient(sx, sy, 0, sx, sy, cR * 3.5 * pulse);
     halo.addColorStop(0,   'rgba(45,107,228,0.2)');
@@ -911,12 +923,10 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
     ctx.beginPath(); ctx.arc(sx, sy, cR * 3.5, 0, Math.PI * 2);
     ctx.fillStyle = halo; ctx.fill();
 
-    // Outer faint ring
     ctx.beginPath(); ctx.arc(sx, sy, cR * 1.4, 0, Math.PI * 2);
     ctx.strokeStyle = `rgba(45,107,228,${0.08 + Math.sin(t * 0.6) * 0.02})`;
     ctx.lineWidth = 0.6; ctx.stroke();
 
-    // Center fill
     const cf = ctx.createRadialGradient(sx - cR * 0.3, sy - cR * 0.3, cR * 0.04, sx, sy, cR);
     cf.addColorStop(0, 'rgba(100,160,255,0.22)');
     cf.addColorStop(0.5, 'rgba(45,107,228,0.12)');
@@ -924,41 +934,34 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
     ctx.beginPath(); ctx.arc(sx, sy, cR, 0, Math.PI * 2);
     ctx.fillStyle = cf; ctx.fill();
 
-    // Center wavy border — main ring spins clockwise
     const cwg1 = ctx.createLinearGradient(sx - cR, sy - cR, sx + cR, sy + cR);
     cwg1.addColorStop(0, '#2d6be4');
     cwg1.addColorStop(0.5, '#7c3aed');
     cwg1.addColorStop(1, '#06b6d4');
     drawWavyCircle(sx, sy, cR, 12, 3.5 + Math.sin(t * 0.4) * 0.8, t * 0.5, cwg1, 1.8);
 
-    // Second inner wavy ring spins counter-clockwise
     const cwg2 = ctx.createLinearGradient(sx - cR, sy - cR, sx + cR, sy + cR);
     cwg2.addColorStop(0, 'rgba(6,182,212,0.4)');
     cwg2.addColorStop(0.5, 'rgba(45,107,228,0.3)');
     cwg2.addColorStop(1, 'rgba(124,58,237,0.4)');
     drawWavyCircle(sx, sy, cR - 4, 9, 2 + Math.sin(t * 0.6) * 0.5, -t * 0.35, cwg2, 0.7);
 
-    // Outer halo wavy ring — slow, wide amp
     const cwg3 = ctx.createLinearGradient(sx - cR, sy - cR, sx + cR, sy + cR);
     cwg3.addColorStop(0, 'rgba(45,107,228,0.15)');
     cwg3.addColorStop(1, 'rgba(124,58,237,0.1)');
     drawWavyCircle(sx, sy, cR * 1.4 + 4, 7, 5 + Math.sin(t * 0.3) * 1.5, t * 0.18, cwg3, 0.5);
 
-    // ── AUTO-EXPAND COUNTDOWN RING ──
-    // Only visible while phase === 'idle' and the timer is running
     if (phase === 'idle' && autoExpandProgress > 0 && autoExpandProgress < 1) {
       const ringR = cR + 28;
-      const startAngle = -Math.PI / 2; // top
+      const startAngle = -Math.PI / 2;
       const endAngle = startAngle + Math.PI * 2 * autoExpandProgress;
 
-      // Background track
       ctx.beginPath();
       ctx.arc(sx, sy, ringR, 0, Math.PI * 2);
       ctx.strokeStyle = 'rgba(45,107,228,0.08)';
       ctx.lineWidth = 2;
       ctx.stroke();
 
-      // Animated fill arc — gradient colour cycles blue→violet→cyan
       const grad = ctx.createLinearGradient(
         sx + Math.cos(startAngle) * ringR, sy + Math.sin(startAngle) * ringR,
         sx + Math.cos(endAngle) * ringR,   sy + Math.sin(endAngle) * ringR
@@ -975,7 +978,6 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
       ctx.stroke();
       ctx.lineCap = 'butt';
 
-      // Bright leading dot at the arc tip
       const tipX = sx + Math.cos(endAngle) * ringR;
       const tipY = sy + Math.sin(endAngle) * ringR;
       const tipGlow = ctx.createRadialGradient(tipX, tipY, 0, tipX, tipY, 8);
@@ -989,7 +991,6 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
       ctx.fillStyle = '#7dd3fc'; ctx.fill();
     }
 
-    // Center text
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     ctx.fillStyle = '#fff';
     ctx.font = "700 14px 'Inter',sans-serif";
@@ -1061,12 +1062,9 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
   resize();
   window.addEventListener('resize', () => { ctx.setTransform(1,0,0,1,0,0); resize(); });
   resetPanel();
-
-  // ── Kick off the auto-expand countdown on load ──
   startAutoExpand();
-
   requestAnimationFrame(draw);
 })();
 </script>
 </body>
-</html>
+</html>    
