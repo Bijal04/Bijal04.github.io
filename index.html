@@ -89,7 +89,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .nav-pill.solid:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(255,255,255,.15)}
 
 /* ── HERO (Nexa-style layout) ── */
-#hero{position:relative;width:100%;min-height:100vh;overflow:hidden;background-color:#020308;background-size:cover;background-position:center;padding-bottom:8rem}
+#hero{position:relative;width:100%;min-height:100vh;overflow-x:hidden;overflow-y:visible;background-color:#020308;background-size:cover;background-position:center;padding-bottom:8rem}
 @keyframes bgdrift{0%,100%{background-position:50% 50%}50%{background-position:56% 46%}}
 
 .hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center;min-height:calc(100vh - 8rem);padding:8rem 5vw 2rem}
@@ -111,7 +111,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .hv-slot.from-right{transform:translateX(90px)}
 .hv-slot.in{opacity:1;transform:translateX(0);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
 
-.hv-card{position:relative;width:100%;height:100%;background:rgba(18,16,28,0.72);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:16px;box-shadow:0 20px 50px rgba(0,0,0,.45);overflow:hidden;box-sizing:border-box}
+.hv-card{position:relative;width:100%;height:100%;background:rgba(18,16,28,0.32);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.12);border-radius:16px;box-shadow:0 20px 50px rgba(0,0,0,.35);overflow:hidden;box-sizing:border-box}
 .hv-card::after{
   content:'';position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.16) 45%,transparent 60%);
@@ -124,29 +124,29 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .hv-card.float2{animation:cardfloat2 6s ease-in-out infinite .3s}
 .hv-card.float3{animation:cardfloat3 8s ease-in-out infinite .5s}
 
-.hv-metric{top:30px;left:0;width:270px}
-.hv-metric .hv-card{padding:1.2rem 1.3rem}
+.hv-metric{top:110px;right:110px;left:auto;width:252px;z-index:2}
+.hv-metric .hv-card{padding:1.15rem 1.25rem}
 .hv-metric-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.9rem}
-.hv-metric-label{font-family:var(--mono);font-size:.6rem;letter-spacing:.06em;color:rgba(255,255,255,.45)}
-.hv-toggle{font-family:var(--mono);font-size:.5rem;letter-spacing:.04em;color:rgba(255,255,255,.55);background:rgba(255,255,255,.08);border-radius:20px;padding:.25rem .6rem}
-.hv-metric-val{font-size:1.9rem;font-weight:800;color:#fff;display:flex;align-items:baseline;gap:.5rem;margin-bottom:.7rem}
-.hv-badge{font-family:var(--mono);font-size:.55rem;color:#5eead4;background:rgba(94,234,212,.12);padding:.15rem .45rem;border-radius:4px}
+.hv-metric-label{font-family:var(--mono);font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+.hv-toggle{font-family:var(--mono);font-size:.58rem;letter-spacing:.04em;color:rgba(255,255,255,.55);background:rgba(255,255,255,.08);border-radius:20px;padding:.25rem .6rem}
+.hv-metric-val{font-size:1.75rem;font-weight:800;color:#fff;display:flex;align-items:baseline;gap:.5rem;margin-bottom:.7rem}
+.hv-badge{font-family:var(--mono);font-size:.58rem;color:#5eead4;background:rgba(94,234,212,.12);padding:.15rem .45rem;border-radius:4px}
 
-.hv-compare{top:0;right:0;width:230px}
-.hv-compare .hv-card{padding:1rem 1.1rem}
+.hv-compare{top:0;right:0;width:252px;z-index:3}
+.hv-compare .hv-card{padding:1.15rem 1.25rem}
 .hv-row{display:flex;justify-content:space-between;align-items:center;padding:.5rem 0}
 .hv-row+.hv-row{border-top:1px solid rgba(255,255,255,.08)}
-.hv-chip{display:flex;align-items:center;gap:.4rem;font-size:.78rem;color:#fff;font-weight:600}
+.hv-chip{display:flex;align-items:center;gap:.4rem;font-size:.82rem;color:#fff;font-weight:600}
 .hv-chip-dot{width:16px;height:16px;border-radius:50%;flex-shrink:0}
 .hv-row-meta{text-align:right}
-.hv-row-lbl{font-family:var(--mono);font-size:.46rem;letter-spacing:.06em;color:rgba(255,255,255,.35)}
-.hv-row-val{font-size:.78rem;color:rgba(255,255,255,.8);font-weight:600}
+.hv-row-lbl{font-family:var(--mono);font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+.hv-row-val{font-size:.82rem;color:#fff;font-weight:600}
 .hv-swap{display:flex;justify-content:center;color:rgba(255,255,255,.3);font-size:.7rem}
 
-.hv-chart{bottom:20px;right:40px;width:220px}
-.hv-chart .hv-card{padding:1rem 1.1rem}
-.hv-chart-label{font-family:var(--mono);font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.6rem}
-.hv-chart-days{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.46rem;color:rgba(255,255,255,.3);margin-top:.4rem}
+.hv-chart{top:230px;right:200px;left:auto;width:252px;z-index:1}
+.hv-chart .hv-card{padding:1.15rem 1.25rem}
+.hv-chart-label{font-family:var(--mono);font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:.6rem}
+.hv-chart-days{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.58rem;letter-spacing:.02em;color:rgba(255,255,255,.35);margin-top:.4rem}
 
 @keyframes cardfloat1{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
 @keyframes cardfloat2{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
@@ -165,20 +165,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .hs-rating{display:flex;align-items:center;gap:.5rem;flex-shrink:0}
 .hs-rating svg{width:26px;height:26px;fill:#fbbf24;stroke:#fbbf24}
 .hs-rating span{font-size:1.9rem;font-weight:800;color:#0a0a12;font-variant-numeric:tabular-nums}
-
-/* ── DEMO CURSOR (mimics a UI-tour pointer gliding across the hero cards) ── */
-.demo-cursor{position:absolute;top:0;left:0;width:22px;height:22px;z-index:10;opacity:0;pointer-events:none;
-  filter:drop-shadow(0 3px 6px rgba(0,0,0,.5));
-  transition:opacity .4s ease;
-}
-.demo-cursor.on{opacity:1}
-.demo-cursor svg{width:100%;height:100%;display:block}
-.demo-cursor .click-ring{
-  position:absolute;top:50%;left:50%;width:10px;height:10px;margin:-5px 0 0 -5px;
-  border-radius:50%;border:1.5px solid #7dd3fc;opacity:0;transform:scale(.4);
-}
-.demo-cursor.click .click-ring{animation:cursor-click .55s ease-out;}
-@keyframes cursor-click{0%{opacity:.9;transform:scale(.4)}100%{opacity:0;transform:scale(2.6)}}
 .hs-text{font-size:.98rem;color:#2b2b33;line-height:1.6;flex:1}
 .hs-side{display:flex;align-items:center;gap:.7rem;flex-shrink:0;border-left:1px solid rgba(0,0,0,.1);padding-left:1.6rem}
 .hs-avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#2d6be4,#7c3aed);display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--mono);font-size:.6rem;font-weight:700;flex-shrink:0}
@@ -408,7 +394,6 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
     </div>
     <div class="hero-visual-wrap" id="hero-visual-wrap">
     <div class="hero-visual" id="hero-visual">
-      <div class="demo-cursor" id="demo-cursor"><svg viewBox="0 0 24 24"><path d="M4 2l4.5 18 2.6-7.4L18 10.2 4 2z" fill="#fff" stroke="#0a0a12" stroke-width="1"/></svg><div class="click-ring"></div></div>
       <div class="hv-slot hv-metric from-left">
         <div class="hv-card float1">
           <div class="hv-metric-top">
@@ -774,38 +759,6 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
     requestAnimationFrame(frame);
   }
 
-  // ── demo cursor: glides across the floating cards, "clicking" each one ──
-  function runDemoCursor() {
-    var cursor = document.getElementById('demo-cursor');
-    var visual = document.getElementById('hero-visual');
-    if (!cursor || !visual) return;
-    var targets = Array.from(visual.querySelectorAll('.hv-slot')).map(function (slot) {
-      var r = slot.getBoundingClientRect();
-      var vr = visual.getBoundingClientRect();
-      return { x: r.left - vr.left + r.width * 0.55, y: r.top - vr.top + r.height * 0.45 };
-    });
-    if (!targets.length) return;
-    cursor.classList.add('on');
-    var i = 0;
-    function moveNext() {
-      if (i >= targets.length) {
-        setTimeout(function () { cursor.classList.remove('on'); }, 900);
-        return;
-      }
-      var t = targets[i];
-      cursor.style.transition = 'transform .9s cubic-bezier(.65,0,.35,1)';
-      cursor.style.transform = 'translate(' + t.x + 'px,' + t.y + 'px)';
-      setTimeout(function () {
-        cursor.classList.add('click');
-        setTimeout(function () { cursor.classList.remove('click'); }, 600);
-      }, 950);
-      i++;
-      setTimeout(moveNext, 1500);
-    }
-    cursor.style.transform = 'translate(' + (targets[0].x - 60) + 'px,' + (targets[0].y - 40) + 'px)';
-    setTimeout(moveNext, 250);
-  }
-
   // ── subtle parallax tilt on mouse move (mirrors the pan/tilt camera move in the reference) ──
   function initTilt() {
     var wrap = document.getElementById('hero-visual-wrap');
@@ -842,7 +795,6 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
       countUp(document.getElementById('rating-num'), 3.89, 1200);
     }, cardsDone);
 
-    setTimeout(runDemoCursor, cardsDone + 900);
     initTilt();
   }
   if (document.readyState === 'complete' || document.readyState === 'interactive') {
