@@ -96,10 +96,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .hero-headline{font-size:clamp(2.3rem,4.2vw,3.6rem);line-height:1.12;letter-spacing:-.02em;color:#fff;margin-bottom:1.3rem}
 .hero-headline em{font-style:italic;font-weight:400;color:rgba(255,255,255,.85)}
 .hero-headline b{font-weight:800}
+.hero-headline .tw-char{display:inline-block;opacity:0;transform:translateY(.35em);filter:blur(4px);transition:opacity .45s ease,transform .45s cubic-bezier(.16,1,.3,1),filter .45s ease}
+.hero-headline .tw-char.tw-in{opacity:1;transform:none;filter:blur(0)}
+.hero-headline .tw-space{display:inline-block;width:.28em}
 .hero-sub{font-size:.92rem;color:rgba(255,255,255,.5);line-height:1.8;max-width:400px;margin-bottom:2rem}
 .hero-get-started{display:inline-block;background:#fff;color:#0a0a12;font-weight:700;font-size:.85rem;padding:.9rem 1.9rem;border-radius:50px;text-decoration:none;transition:transform .2s,box-shadow .2s}
 .hero-get-started:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(255,255,255,.15)}
 
+.hero-inner{perspective:1400px}
+.hero-visual-wrap{transform-style:preserve-3d;transition:transform .5s cubic-bezier(.16,1,.3,1)}
 .hero-visual{position:relative;height:480px}
 .hv-slot{position:absolute;opacity:0}
 .hv-slot.from-left{transform:translateX(-90px)}
@@ -159,7 +164,21 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .hero-statbar.in .hs-rating,.hero-statbar.in .hs-text,.hero-statbar.in .hs-side{opacity:1;transform:none;transition:opacity .7s cubic-bezier(.16,1,.3,1) .15s,transform .7s cubic-bezier(.16,1,.3,1) .15s}
 .hs-rating{display:flex;align-items:center;gap:.5rem;flex-shrink:0}
 .hs-rating svg{width:26px;height:26px;fill:#fbbf24;stroke:#fbbf24}
-.hs-rating span{font-size:1.9rem;font-weight:800;color:#0a0a12}
+.hs-rating span{font-size:1.9rem;font-weight:800;color:#0a0a12;font-variant-numeric:tabular-nums}
+
+/* ── DEMO CURSOR (mimics a UI-tour pointer gliding across the hero cards) ── */
+.demo-cursor{position:absolute;top:0;left:0;width:22px;height:22px;z-index:10;opacity:0;pointer-events:none;
+  filter:drop-shadow(0 3px 6px rgba(0,0,0,.5));
+  transition:opacity .4s ease;
+}
+.demo-cursor.on{opacity:1}
+.demo-cursor svg{width:100%;height:100%;display:block}
+.demo-cursor .click-ring{
+  position:absolute;top:50%;left:50%;width:10px;height:10px;margin:-5px 0 0 -5px;
+  border-radius:50%;border:1.5px solid #7dd3fc;opacity:0;transform:scale(.4);
+}
+.demo-cursor.click .click-ring{animation:cursor-click .55s ease-out;}
+@keyframes cursor-click{0%{opacity:.9;transform:scale(.4)}100%{opacity:0;transform:scale(2.6)}}
 .hs-text{font-size:.98rem;color:#2b2b33;line-height:1.6;flex:1}
 .hs-side{display:flex;align-items:center;gap:.7rem;flex-shrink:0;border-left:1px solid rgba(0,0,0,.1);padding-left:1.6rem}
 .hs-avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#2d6be4,#7c3aed);display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--mono);font-size:.6rem;font-weight:700;flex-shrink:0}
@@ -383,11 +402,13 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
 <section id="hero">
   <div class="hero-inner">
     <div class="hero-left">
-      <h1 class="hero-headline"><em>Turning</em> <b>Data</b><br/><em>into Real</em> <b>Decisions</b></h1>
+      <h1 class="hero-headline" id="hero-headline"><em>Turning</em> <b>Data</b><br/><em>into Real</em> <b>Decisions</b></h1>
       <p class="hero-sub">Data Analyst specialising in forecasting, machine learning, and business intelligence — turning 1M+ records into decisions that drive real outcomes.</p>
       <a href="#projects" class="hero-get-started">View My Work</a>
     </div>
-    <div class="hero-visual">
+    <div class="hero-visual-wrap" id="hero-visual-wrap">
+    <div class="hero-visual" id="hero-visual">
+      <div class="demo-cursor" id="demo-cursor"><svg viewBox="0 0 24 24"><path d="M4 2l4.5 18 2.6-7.4L18 10.2 4 2z" fill="#fff" stroke="#0a0a12" stroke-width="1"/></svg><div class="click-ring"></div></div>
       <div class="hv-slot hv-metric from-left">
         <div class="hv-card float1">
           <div class="hv-metric-top">
@@ -419,9 +440,10 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
         </div>
       </div>
     </div>
+    </div>
   </div>
   <div class="hero-statbar">
-    <div class="hs-rating"><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 17 5.5 21 7.5 13.5 2 9 9 9"/></svg><span>3.89</span></div>
+    <div class="hs-rating"><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 17 5.5 21 7.5 13.5 2 9 9 9"/></svg><span id="rating-num">0.00</span></div>
     <p class="hs-text">Master's in Data Analytics (GPA 3.89, President's Honour Roll) — building forecasting and segmentation systems that turn raw data into decisions across two continents.</p>
 
     <div class="hs-side">
@@ -708,14 +730,120 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
     hero.style.animation = "bgdrift 18s ease-in-out infinite";
   }
 
-  function reveal() {
-    var left = document.querySelector('.hero-left');
-    if (left) setTimeout(function(){ left.classList.add('in'); }, 100);
-    document.querySelectorAll('.hv-slot').forEach(function(el, i){
-      setTimeout(function(){ el.classList.add('in'); }, 300 + i * 180);
+  // ── typewriter: wrap headline text nodes in per-character spans ──
+  function prepTypewriter(el) {
+    if (!el) return [];
+    var chars = [];
+    (function walk(node) {
+      Array.from(node.childNodes).forEach(function (child) {
+        if (child.nodeType === 3) {
+          var frag = document.createDocumentFragment();
+          child.textContent.split('').forEach(function (ch) {
+            var span = document.createElement('span');
+            if (ch === ' ') { span.className = 'tw-space'; span.textContent = ''; }
+            else { span.className = 'tw-char'; span.textContent = ch; }
+            frag.appendChild(span);
+            chars.push(span);
+          });
+          node.replaceChild(frag, child);
+        } else if (child.nodeType === 1) {
+          walk(child);
+        }
+      });
+    })(el);
+    return chars;
+  }
+  function typeIn(chars, stepMs) {
+    chars.forEach(function (span, i) {
+      setTimeout(function () { span.classList.add('tw-in'); }, i * stepMs);
     });
+    return chars.length * stepMs;
+  }
+
+  // ── counter: animate a number ticking up (rating counter, like the reference video) ──
+  function countUp(el, target, duration) {
+    if (!el) return;
+    var start = performance.now();
+    function frame(now) {
+      var p = Math.min(1, (now - start) / duration);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = (eased * target).toFixed(2);
+      if (p < 1) requestAnimationFrame(frame);
+      else el.textContent = target.toFixed(2);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  // ── demo cursor: glides across the floating cards, "clicking" each one ──
+  function runDemoCursor() {
+    var cursor = document.getElementById('demo-cursor');
+    var visual = document.getElementById('hero-visual');
+    if (!cursor || !visual) return;
+    var targets = Array.from(visual.querySelectorAll('.hv-slot')).map(function (slot) {
+      var r = slot.getBoundingClientRect();
+      var vr = visual.getBoundingClientRect();
+      return { x: r.left - vr.left + r.width * 0.55, y: r.top - vr.top + r.height * 0.45 };
+    });
+    if (!targets.length) return;
+    cursor.classList.add('on');
+    var i = 0;
+    function moveNext() {
+      if (i >= targets.length) {
+        setTimeout(function () { cursor.classList.remove('on'); }, 900);
+        return;
+      }
+      var t = targets[i];
+      cursor.style.transition = 'transform .9s cubic-bezier(.65,0,.35,1)';
+      cursor.style.transform = 'translate(' + t.x + 'px,' + t.y + 'px)';
+      setTimeout(function () {
+        cursor.classList.add('click');
+        setTimeout(function () { cursor.classList.remove('click'); }, 600);
+      }, 950);
+      i++;
+      setTimeout(moveNext, 1500);
+    }
+    cursor.style.transform = 'translate(' + (targets[0].x - 60) + 'px,' + (targets[0].y - 40) + 'px)';
+    setTimeout(moveNext, 250);
+  }
+
+  // ── subtle parallax tilt on mouse move (mirrors the pan/tilt camera move in the reference) ──
+  function initTilt() {
+    var wrap = document.getElementById('hero-visual-wrap');
+    var hero = document.getElementById('hero');
+    if (!wrap || !hero) return;
+    hero.addEventListener('mousemove', function (e) {
+      var r = hero.getBoundingClientRect();
+      var px = (e.clientX - r.left) / r.width - 0.5;
+      var py = (e.clientY - r.top) / r.height - 0.5;
+      wrap.style.transform = 'rotateY(' + (px * 8) + 'deg) rotateX(' + (-py * 8) + 'deg)';
+    });
+    hero.addEventListener('mouseleave', function () {
+      wrap.style.transform = 'rotateY(0deg) rotateX(0deg)';
+    });
+  }
+
+  function reveal() {
+    var headline = document.getElementById('hero-headline');
+    var chars = prepTypewriter(headline);
+    var typeDuration = typeIn(chars, 28);
+
+    var left = document.querySelector('.hero-left');
+    if (left) left.classList.add('in');
+
+    document.querySelectorAll('.hv-slot').forEach(function(el, i){
+      setTimeout(function(){ el.classList.add('in'); }, typeDuration + 200 + i * 180);
+    });
+
+    var cardsDone = typeDuration + 200 + 3 * 180 + 400;
+
     var bar = document.querySelector('.hero-statbar');
-    if (bar) setTimeout(function(){ bar.classList.add('in'); }, 300 + 3 * 180 + 250);
+    if (bar) setTimeout(function(){
+      bar.classList.add('in');
+      countUp(document.getElementById('rating-num'), 3.89, 1200);
+    }, cardsDone);
+
+    setTimeout(runDemoCursor, cardsDone + 900);
+    initTilt();
   }
   if (document.readyState === 'complete' || document.readyState === 'interactive') {
     requestAnimationFrame(reveal);
