@@ -89,8 +89,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .nav-pill.solid:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(255,255,255,.15)}
 
 /* ── HERO (Nexa-style layout) ── */
-#hero{position:relative;width:100%;min-height:100vh;overflow-x:hidden;overflow-y:visible;background-color:#020308;background-size:cover;background-position:center;padding-bottom:8rem}
-@keyframes bgdrift{0%,100%{background-position:50% 50%}50%{background-position:56% 46%}}
+#hero{position:relative;width:100%;min-height:100vh;overflow-x:hidden;overflow-y:visible;background-color:#020308;background-image:linear-gradient(180deg,rgba(2,3,8,.5) 0%,rgba(2,3,8,.3) 35%,rgba(2,3,8,.8) 100%),url('hero-bg.png');background-size:cover;background-position:center;background-repeat:no-repeat;background-blend-mode:normal;padding-bottom:8rem}
+@keyframes bgdrift{0%,100%{background-position:center,50% 50%}50%{background-position:center,56% 46%}}
 
 .hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center;min-height:calc(100vh - 8rem);padding:8rem 5vw 2rem}
 .hero-headline{font-size:clamp(2.3rem,4.2vw,3.6rem);line-height:1.12;letter-spacing:-.02em;color:#fff;margin-bottom:1.3rem}
@@ -706,13 +706,11 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
   arsenalObs.observe(row);
 })();
 
-// ── HERO: exact ribbon background image + directional entrance animation ──
+// ── HERO: subtle background pan on the ribbon photo + directional entrance animation ──
 (function(){
   var hero = document.getElementById('hero');
   if (hero) {
-    var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"><defs><filter id="b"><feGaussianBlur stdDeviation="40"/></filter><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="%232624BB"/><stop offset="100%" stop-color="%234F185D"/></linearGradient><linearGradient id="g2" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="%237369D3"/><stop offset="100%" stop-color="%230C447C"/></linearGradient><linearGradient id="g3" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="%23F0997B"/><stop offset="100%" stop-color="%234F185D"/></linearGradient></defs><rect width="800" height="600" fill="%2307070a"/><g filter="url(%23b)"><path d="M-100 300 Q200 100 400 280 T900 200 L900 700 L-100 700 Z" fill="url(%23g1)" opacity="0.7"/><path d="M-100 450 Q250 250 500 420 T950 350 L950 700 L-100 700 Z" fill="url(%23g2)" opacity="0.55"/><path d="M300 -50 Q500 150 650 50 T900 150 L900 -100 L300 -100 Z" fill="url(%23g3)" opacity="0.5"/></g></svg>';
-    hero.style.backgroundImage = "url('data:image/svg+xml;utf8," + svg + "')";
-    hero.style.animation = "bgdrift 18s ease-in-out infinite";
+    hero.style.animation = "bgdrift 22s ease-in-out infinite";
   }
 
   // ── typewriter: wrap headline text nodes in per-character spans ──
