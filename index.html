@@ -686,17 +686,65 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
   const rim = new THREE.DirectionalLight(0xffffff, 1.2); rim.position.set(-3,3,-6); scene.add(rim);
   const rim2 = new THREE.DirectionalLight(0xffffff, 0.6); rim2.position.set(0,-3,5); scene.add(rim2);
 
-  const N = 1300, center = [0,1.1,0], R = 1.5;
+ const N = 1300, center = [0,1.1,0], R = 1.5;
   const formedPos = [], formedCol = [];
   const globeShare = Math.floor(N*0.65);
-  for(let i=0;i<globeShare;i++){
-    const theta = Math.random()*Math.PI*2, phi = Math.acos(2*Math.random()-1);
+
+  // ── NEURAL NETWORK NODE GRAPH ──
+  const layerSizes = [4, 6, 6, 3];       // input → hidden → hidden → output
+  const layerX = [-1.7, -0.55, 0.6, 1.75]; // horizontal position per layer
+  const nodeRadius = 0.16;                // size of each node cluster
+  const nodes = [];
+
+  layerSizes.forEach((count, li) => {
+    const spacing = 2.6 / Math.max(count - 1, 1);
+    for (let n = 0; n < count; n++) {
+      const y = center[1] + (n - (count - 1) / 2) * spacing * 0.55;
+      nodes.push({ x: center[0] + layerX[li], y, z: center[2], layer: li });
+    }
+  });
+
+  // build edges: connect each node to 2-3 random nodes in the next layer
+  const edges = [];
+  for (let li = 0; li < layerSizes.length - 1; li++) {
+    const curr = nodes.filter(n => n.layer === li);
+    const next = nodes.filter(n => n.layer === li + 1);
+    curr.forEach(a => {
+      const linkCount = 2 + Math.floor(Math.random() * 2);
+      for (let k = 0; k < linkCount; k++) {
+        const b = next[Math.floor(Math.random() * next.length)];
+        edges.push([a, b]);
+      }
+    });
+  }
+
+  const nodeShare = Math.floor(globeShare * 0.45);
+  const edgeShare = globeShare - nodeShare;
+
+  // cubes clustered into node "blobs"
+  for (let i = 0; i < nodeShare; i++) {
+    const node = nodes[i % nodes.length];
+    const theta = Math.random() * Math.PI * 2, phi = Math.acos(2*Math.random()-1);
+    const r = nodeRadius * Math.cbrt(Math.random());
     formedPos.push([
-      center[0]+R*Math.sin(phi)*Math.cos(theta),
-      center[1]+R*Math.cos(phi),
-      center[2]+R*Math.sin(phi)*Math.sin(theta)
+      node.x + r*Math.sin(phi)*Math.cos(theta),
+      node.y + r*Math.cos(phi),
+      node.z + r*Math.sin(phi)*Math.sin(theta)
     ]);
-    formedCol.push([0.03,0.03,0.035]);
+    formedCol.push([0.045,0.045,0.05]);
+  }
+
+  // cubes scattered along the connecting edges
+  for (let i = 0; i < edgeShare; i++) {
+    const [a, b] = edges[i % edges.length];
+    const t = Math.random();
+    const jitter = 0.025;
+    formedPos.push([
+      a.x + (b.x - a.x) * t + (Math.random()-0.5)*jitter,
+      a.y + (b.y - a.y) * t + (Math.random()-0.5)*jitter,
+      a.z + (b.z - a.z) * t + (Math.random()-0.5)*jitter
+    ]);
+    formedCol.push([0.025,0.025,0.03]);
   }
   const trails = [];
   for(let k=0;k<4;k++){
@@ -715,73 +763,6 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
     formedCol.push([0.05,0.05,0.06]);
     tk++;
   }
-
-  // ── AVATAR SILHOUETTE (replaces sphere globe with your photo, same dark cubes) ──
-  (function loadAvatarPoints(){
-    const AVATAR_SRC = 'avatar.jpg';
-
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-
-    img.onerror = function(){
-      console.error('AVATAR IMAGE FAILED TO LOAD:', AVATAR_SRC);
-    };
-
-    img.onload = function(){
-      console.log('Avatar loaded:', img.width, 'x', img.height);
-      try {
-        const SW = 140, SH = Math.round(SW * img.height / img.width);
-        const sampleCanvas = document.createElement('canvas');
-        sampleCanvas.width = SW; sampleCanvas.height = SH;
-        const ctx = sampleCanvas.getContext('2d');
-        ctx.drawImage(img, 0, 0, SW, SH);
-        const data = ctx.getImageData(0, 0, SW, SH).data;
-
-        const corners = [[0,0],[SW-1,0],[0,SH-1],[SW-1,SH-1]];
-        let bgR=0, bgG=0, bgB=0;
-        corners.forEach(([x,y])=>{
-          const idx = (y*SW+x)*4;
-          bgR += data[idx]; bgG += data[idx+1]; bgB += data[idx+2];
-        });
-        bgR/=4; bgG/=4; bgB/=4;
-
-        const candidates = [];
-        for(let y=0;y<SH;y++){
-          for(let x=0;x<SW;x++){
-            const idx = (y*SW+x)*4;
-            const r=data[idx], g=data[idx+1], b=data[idx+2];
-            const diff = Math.abs(r-bgR)+Math.abs(g-bgG)+Math.abs(b-bgB);
-            if(diff > 40){
-              const lum = (r*0.299+g*0.587+b*0.114)/255;
-              candidates.push({x, y, lum});
-            }
-          }
-        }
-        console.log('Silhouette pixels found:', candidates.length, '/', SW*SH);
-        if(!candidates.length) return;
-
-        const scale = 3.2 / SW;
-        const offX = SW/2, offY = SH*0.46;
-
-        for(let i=0;i<globeShare;i++){
-          const c = candidates[Math.floor(Math.random()*candidates.length)];
-          formedPos[i][0] = center[0] + (c.x - offX) * scale;
-          formedPos[i][1] = -(c.y - offY) * scale + center[1];
-          formedPos[i][2] = center[2] + (Math.random()-0.5) * 0.22;
-
-          const shade = 0.025 + c.lum * 0.05;
-          formedCol[i][0] = shade;
-          formedCol[i][1] = shade;
-          formedCol[i][2] = shade + 0.01;
-        }
-        console.log('Avatar shape applied to', globeShare, 'cubes ✅');
-      } catch(err) {
-        console.error('CANVAS READ ERROR (tainted canvas — you are likely viewing this via file:// instead of the live URL):', err);
-      }
-    };
-
-    img.src = AVATAR_SRC;
-  })();
 
   const geometry = new THREE.BoxGeometry(1,1,1);
   const material = new THREE.MeshStandardMaterial({
