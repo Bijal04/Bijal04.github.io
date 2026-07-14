@@ -89,7 +89,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .nav-pill.solid:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(255,255,255,.15)}
 
 /* ── HERO (Nexa-style layout) ── */
-#hero{position:relative;width:100%;min-height:auto;background-color:#020308;background-image:linear-gradient(180deg,rgba(2,3,8,.5) 0%,rgba(2,3,8,.3) 35%,rgba(2,3,8,.8) 100%);overflow:hidden;padding-bottom:0}
+.hero-pin-wrap{position:relative;height:220vh}
+#hero{position:sticky;top:0;width:100%;height:100vh;min-height:100vh;background-color:#020308;background-image:linear-gradient(180deg,rgba(2,3,8,.5) 0%,rgba(2,3,8,.3) 35%,rgba(2,3,8,.8) 100%);overflow:hidden;padding-bottom:0;display:flex;flex-direction:column;justify-content:center}
 #hero-canvas{position:absolute;top:0;left:0;width:100%;height:100%;display:block;z-index:0}
 @keyframes bgdrift{0%,100%{background-position:center,50% 50%}50%{background-position:center,56% 46%}}
 
@@ -345,7 +346,8 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
   .hv-slot{position:static;opacity:1;transform:none!important;width:100%!important;max-width:360px}
   .hero-statbar{position:relative;bottom:0;flex-direction:column;align-items:flex-start;gap:1rem;margin:2rem 5vw 0;clip-path:none;border-radius:18px}
   .hs-side{border-left:none;padding-left:0}
-  #hero{padding-bottom:0}
+  .hero-pin-wrap{height:auto}
+  #hero{position:relative;min-height:100svh;padding-bottom:0}
 }
 @media(max-width:420px){
   .contact-giant{font-size:clamp(3rem,14vw,5rem)}
@@ -386,6 +388,7 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
 </div>
 
 <!-- ── HERO ── -->
+<div class="hero-pin-wrap">
 <section id="hero">
   <canvas id="hero-canvas"></canvas>
   <div class="hero-inner">
@@ -440,6 +443,7 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
     </div>
   </div>
 </section>
+</div>
 
 <!-- ── ABOUT ── -->
 <section id="about" class="section">
@@ -655,12 +659,15 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
 <script>
 (function(){
   const canvas = document.getElementById('hero-canvas');
+  const pinWrap = document.querySelector('.hero-pin-wrap');
   const hero = document.getElementById('hero');
-  if(!canvas || !hero || !window.THREE) return;
+  const heroLeft = document.querySelector('.hero-left');
+  const heroVisual = document.getElementById('hero-visual-wrap');
+  const statbar = document.querySelector('.hero-statbar');
+  if(!canvas || !pinWrap || !hero || !window.THREE) return;
 
   let W = hero.clientWidth, H = hero.clientHeight;
 
@@ -679,8 +686,8 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
   const rim = new THREE.DirectionalLight(0x7dd3fc, 2.6); rim.position.set(-3,3,-6); scene.add(rim);
   const rim2 = new THREE.DirectionalLight(0xc4b5fd, 1.4); rim2.position.set(0,-3,5); scene.add(rim2);
 
-  const N = 900, center = [0,1.1,0], R = 1.5;
-  const formedPos = [];
+  const N = 1300, center = [0,1.1,0], R = 1.5;
+  const formedPos = [], formedCol = [];
   const globeShare = Math.floor(N*0.65);
   for(let i=0;i<globeShare;i++){
     const theta = Math.random()*Math.PI*2, phi = Math.acos(2*Math.random()-1);
@@ -689,6 +696,7 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
       center[1]+R*Math.cos(phi),
       center[2]+R*Math.sin(phi)*Math.sin(theta)
     ]);
+    formedCol.push([0.06,0.08,0.14]);
   }
   const trails = [];
   for(let k=0;k<4;k++){
@@ -703,42 +711,93 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
     const tr = trails[tk % 4], a = tr.arcStart + Math.random()*tr.arcLen;
     const v = new THREE.Vector3(Math.cos(a)*tr.radius, 0, Math.sin(a)*tr.radius).applyQuaternion(tr.quat);
     formedPos.push([center[0]+v.x, center[1]+v.y, center[2]+v.z]);
+    formedCol.push([0.1,0.14,0.24]);
     tk++;
   }
 
   const geometry = new THREE.BoxGeometry(1,1,1);
-  const material = new THREE.MeshStandardMaterial({color:0x0a0a1a, roughness:0.42, metalness:0.3, emissive:0x2d6be4, emissiveIntensity:0.15});
+  const material = new THREE.MeshStandardMaterial({
+    vertexColors: true, roughness:0.42, metalness:0.25,
+    emissive:0x2d6be4, emissiveIntensity:0.35
+  });
   const mesh = new THREE.InstancedMesh(geometry, material, N);
   scene.add(mesh);
 
-  const perCube = formedPos.map(()=>({
-    spin: new THREE.Euler(Math.random()*6, Math.random()*6, Math.random()*6),
-    spinSpeed: 0.15 + Math.random()*0.3,
-    scale: 0.16 + Math.random()*0.08,
-    seed: Math.random()*1000
-  }));
+  const perCube = [];
+  for(let i=0;i<N;i++){
+    const dir = new THREE.Vector3(
+      (Math.random()-0.5)*2, (Math.random()-0.65)*2, (Math.random()-0.5)*2
+    ).normalize();
+    perCube.push({
+      dir, dist: 4+Math.random()*7,
+      spin: new THREE.Euler(Math.random()*6, Math.random()*6, Math.random()*6),
+      spinSpeed: 0.5+Math.random()*2,
+      scale: 0.16+Math.random()*0.08,
+      seed: Math.random()*1000,
+      staggerOffset: Math.random()*0.25
+    });
+  }
 
   const dummy = new THREE.Object3D();
+  const tmpColor = new THREE.Color();
+
+  function getScrollProgress(){
+    const rect = pinWrap.getBoundingClientRect();
+    const scrollable = pinWrap.offsetHeight - window.innerHeight;
+    const p = -rect.top / scrollable;
+    return Math.min(1, Math.max(0, p));
+  }
+  function ease(x){ return x<0.5 ? 4*x*x*x : 1-Math.pow(-2*x+2,3)/2; }
 
   function animate(time){
     const t = time*0.001;
+    const rawProgress = getScrollProgress();
+
     for(let i=0;i<N;i++){
-      const pc = perCube[i], base = formedPos[i];
-      const spinAngle = t*0.06;
+      const pc = perCube[i];
+      let p = (rawProgress - pc.staggerOffset*0.3) / (1 - pc.staggerOffset*0.3);
+      p = Math.min(1, Math.max(0, p));
+      const e = ease(p);
+
+      const base = formedPos[i];
+      const spinAngle = t*0.22*(1-e);
       const cosA = Math.cos(spinAngle), sinA = Math.sin(spinAngle);
       const relX = base[0]-center[0], relZ = base[2]-center[2];
-      const x = relX*cosA - relZ*sinA + center[0];
-      const z = relX*sinA + relZ*cosA + center[2];
-      const y = base[1] + Math.sin(t*0.8+pc.seed)*0.04;
-      dummy.position.set(x,y,z);
-      dummy.rotation.set(pc.spin.x+t*pc.spinSpeed, pc.spin.y+t*pc.spinSpeed, pc.spin.z+t*pc.spinSpeed);
-      dummy.scale.setScalar(pc.scale);
+      const rotX = relX*cosA - relZ*sinA + center[0];
+      const rotZ = relX*sinA + relZ*cosA + center[2];
+
+      const px = rotX + pc.dir.x*pc.dist*e;
+      const py = base[1] + pc.dir.y*pc.dist*e - e*e*3;
+      const pz = rotZ + pc.dir.z*pc.dist*e;
+
+      const drift = rawProgress < 0.02 ? Math.sin(t*0.9+pc.seed)*0.03 : 0;
+      dummy.position.set(px, py+drift, pz);
+      dummy.rotation.set(
+        pc.spin.x + t*pc.spinSpeed*e,
+        pc.spin.y + t*pc.spinSpeed*e,
+        pc.spin.z + t*pc.spinSpeed*e
+      );
+      const s = pc.scale*(1-e);
+      dummy.scale.set(Math.max(s,0.0001), Math.max(s,0.0001), Math.max(s,0.0001));
       dummy.updateMatrix();
       mesh.setMatrixAt(i, dummy.matrix);
+
+      const c = formedCol[i];
+      tmpColor.setRGB(c[0],c[1],c[2]);
+      mesh.setColorAt(i, tmpColor);
     }
     mesh.instanceMatrix.needsUpdate = true;
-    camera.position.x = Math.sin(t*0.05)*1.2;
+    mesh.instanceColor.needsUpdate = true;
+
+    camera.position.x = Math.sin(t*0.05)*1.2*(1-rawProgress);
+    camera.position.z = 10.5 + rawProgress*2;
     camera.lookAt(0,1.1,0);
+
+    const contentFade = Math.max(0, 1 - rawProgress*2.2);
+    if(heroLeft) heroLeft.style.opacity = contentFade;
+    if(heroVisual) heroVisual.style.opacity = contentFade;
+    if(statbar) statbar.style.opacity = Math.min(statbar.classList.contains('in')?1:0, contentFade);
+
     renderer.render(scene, camera);
     requestAnimationFrame(animate);
   }
