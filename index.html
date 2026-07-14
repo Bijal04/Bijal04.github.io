@@ -686,14 +686,14 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
   const rim = new THREE.DirectionalLight(0xffffff, 1.2); rim.position.set(-3,3,-6); scene.add(rim);
   const rim2 = new THREE.DirectionalLight(0xffffff, 0.6); rim2.position.set(0,-3,5); scene.add(rim2);
 
- const N = 1300, center = [0,1.1,0], R = 1.5;
+  const N = 1300, center = [0,1.1,0], R = 1.5;
   const formedPos = [], formedCol = [];
   const globeShare = Math.floor(N*0.65);
 
-  // ── NEURAL NETWORK NODE GRAPH ──
-  const layerSizes = [4, 6, 6, 3];       // input → hidden → hidden → output
-  const layerX = [-1.7, -0.55, 0.6, 1.75]; // horizontal position per layer
-  const nodeRadius = 0.16;                // size of each node cluster
+  // ── NEURAL NETWORK NODE GRAPH (replaces sphere globe) ──
+  const layerSizes = [4, 6, 6, 3];
+  const layerX = [-1.7, -0.55, 0.6, 1.75];
+  const nodeRadius = 0.16;
   const nodes = [];
 
   layerSizes.forEach((count, li) => {
@@ -704,7 +704,6 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
     }
   });
 
-  // build edges: connect each node to 2-3 random nodes in the next layer
   const edges = [];
   for (let li = 0; li < layerSizes.length - 1; li++) {
     const curr = nodes.filter(n => n.layer === li);
@@ -721,7 +720,6 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
   const nodeShare = Math.floor(globeShare * 0.45);
   const edgeShare = globeShare - nodeShare;
 
-  // cubes clustered into node "blobs"
   for (let i = 0; i < nodeShare; i++) {
     const node = nodes[i % nodes.length];
     const theta = Math.random() * Math.PI * 2, phi = Math.acos(2*Math.random()-1);
@@ -734,7 +732,6 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
     formedCol.push([0.045,0.045,0.05]);
   }
 
-  // cubes scattered along the connecting edges
   for (let i = 0; i < edgeShare; i++) {
     const [a, b] = edges[i % edges.length];
     const t = Math.random();
@@ -746,6 +743,7 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
     ]);
     formedCol.push([0.025,0.025,0.03]);
   }
+
   const trails = [];
   for(let k=0;k<4;k++){
     const axis = new THREE.Vector3(Math.random()-0.5,Math.random()-0.5,Math.random()-0.5).normalize();
@@ -754,7 +752,7 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
       radius: R+0.35+k*0.22, arcLen: Math.PI*1.5+Math.random()*Math.PI*0.5, arcStart: Math.random()*Math.PI*2
     });
   }
-  
+
   let tk = 0;
   while(formedPos.length < N){
     const tr = trails[tk % 4], a = tr.arcStart + Math.random()*tr.arcLen;
@@ -921,7 +919,6 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
     hero.style.animation = "bgdrift 22s ease-in-out infinite";
   }
 
-  // ── typewriter: wrap headline text nodes in per-character spans ──
   function prepTypewriter(el) {
     if (!el) return [];
     var chars = [];
@@ -951,7 +948,6 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
     return chars.length * stepMs;
   }
 
-  // ── counter: animate a number ticking up (rating counter, like the reference video) ──
   function countUp(el, target, duration) {
     if (!el) return;
     var start = performance.now();
@@ -965,7 +961,6 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
     requestAnimationFrame(frame);
   }
 
-  // ── subtle parallax tilt on mouse move (mirrors the pan/tilt camera move in the reference) ──
   function initTilt() {
     var wrap = document.getElementById('hero-visual-wrap');
     var hero = document.getElementById('hero');
@@ -1009,8 +1004,6 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
     document.addEventListener('DOMContentLoaded', reveal);
   }
 })();
-
-
 </script>
 </body>
 </html>
