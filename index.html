@@ -89,7 +89,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .nav-pill.solid:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(255,255,255,.15)}
 
 /* ── HERO (Nexa-style layout) ── */
-#hero{position:relative;width:100%;min-height:auto;background-color:#020308;background-image:linear-gradient(180deg,rgba(2,3,8,.5) 0%,rgba(2,3,8,.3) 35%,rgba(2,3,8,.8) 100%),url('hero-bg.png');background-size:cover;background-position:center;background-repeat:no-repeat;background-blend-mode:normal;padding-bottom:0}
+#hero{position:relative;width:100%;min-height:auto;background-color:#020308;background-image:linear-gradient(180deg,rgba(2,3,8,.5) 0%,rgba(2,3,8,.3) 35%,rgba(2,3,8,.8) 100%);overflow:hidden;padding-bottom:0}
+#hero-canvas{position:absolute;top:0;left:0;width:100%;height:100%;display:block;z-index:0}
 @keyframes bgdrift{0%,100%{background-position:center,50% 50%}50%{background-position:center,56% 46%}}
 
 .hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center;min-height:auto;padding:8rem 5vw clamp(5rem,7vw,6rem)}
@@ -386,6 +387,7 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
 
 <!-- ── HERO ── -->
 <section id="hero">
+  <canvas id="hero-canvas"></canvas>
   <div class="hero-inner">
     <div class="hero-left">
       <h1 class="hero-headline" id="hero-headline"><em>Turning</em> <b>Data</b><br/><em>into Real</em> <b>Decisions</b></h1>
@@ -651,6 +653,104 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
   <p>© 2026 Bijal Panchal</p>
   <p>Open to Work · GTA & Remote</p>
 </footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<script>
+(function(){
+  const canvas = document.getElementById('hero-canvas');
+  const hero = document.getElementById('hero');
+  if(!canvas || !hero || !window.THREE) return;
+
+  let W = hero.clientWidth, H = hero.clientHeight;
+
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0x020308, 0.02);
+
+  const camera = new THREE.PerspectiveCamera(42, W/H, 0.1, 100);
+  camera.position.set(0, 1.1, 11);
+
+  const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+  renderer.setSize(W, H);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+  const key = new THREE.DirectionalLight(0xffffff, 2.4); key.position.set(4,6,6); scene.add(key);
+  const rim = new THREE.DirectionalLight(0x7dd3fc, 2.6); rim.position.set(-3,3,-6); scene.add(rim);
+  const rim2 = new THREE.DirectionalLight(0xc4b5fd, 1.4); rim2.position.set(0,-3,5); scene.add(rim2);
+
+  const N = 900, center = [0,1.1,0], R = 1.5;
+  const formedPos = [];
+  const globeShare = Math.floor(N*0.65);
+  for(let i=0;i<globeShare;i++){
+    const theta = Math.random()*Math.PI*2, phi = Math.acos(2*Math.random()-1);
+    formedPos.push([
+      center[0]+R*Math.sin(phi)*Math.cos(theta),
+      center[1]+R*Math.cos(phi),
+      center[2]+R*Math.sin(phi)*Math.sin(theta)
+    ]);
+  }
+  const trails = [];
+  for(let k=0;k<4;k++){
+    const axis = new THREE.Vector3(Math.random()-0.5,Math.random()-0.5,Math.random()-0.5).normalize();
+    trails.push({
+      quat: new THREE.Quaternion().setFromAxisAngle(axis, Math.random()*Math.PI),
+      radius: R+0.35+k*0.22, arcLen: Math.PI*1.5+Math.random()*Math.PI*0.5, arcStart: Math.random()*Math.PI*2
+    });
+  }
+  let tk = 0;
+  while(formedPos.length < N){
+    const tr = trails[tk % 4], a = tr.arcStart + Math.random()*tr.arcLen;
+    const v = new THREE.Vector3(Math.cos(a)*tr.radius, 0, Math.sin(a)*tr.radius).applyQuaternion(tr.quat);
+    formedPos.push([center[0]+v.x, center[1]+v.y, center[2]+v.z]);
+    tk++;
+  }
+
+  const geometry = new THREE.BoxGeometry(1,1,1);
+  const material = new THREE.MeshStandardMaterial({color:0x0a0a1a, roughness:0.42, metalness:0.3, emissive:0x2d6be4, emissiveIntensity:0.15});
+  const mesh = new THREE.InstancedMesh(geometry, material, N);
+  scene.add(mesh);
+
+  const perCube = formedPos.map(()=>({
+    spin: new THREE.Euler(Math.random()*6, Math.random()*6, Math.random()*6),
+    spinSpeed: 0.15 + Math.random()*0.3,
+    scale: 0.16 + Math.random()*0.08,
+    seed: Math.random()*1000
+  }));
+
+  const dummy = new THREE.Object3D();
+
+  function animate(time){
+    const t = time*0.001;
+    for(let i=0;i<N;i++){
+      const pc = perCube[i], base = formedPos[i];
+      const spinAngle = t*0.06;
+      const cosA = Math.cos(spinAngle), sinA = Math.sin(spinAngle);
+      const relX = base[0]-center[0], relZ = base[2]-center[2];
+      const x = relX*cosA - relZ*sinA + center[0];
+      const z = relX*sinA + relZ*cosA + center[2];
+      const y = base[1] + Math.sin(t*0.8+pc.seed)*0.04;
+      dummy.position.set(x,y,z);
+      dummy.rotation.set(pc.spin.x+t*pc.spinSpeed, pc.spin.y+t*pc.spinSpeed, pc.spin.z+t*pc.spinSpeed);
+      dummy.scale.setScalar(pc.scale);
+      dummy.updateMatrix();
+      mesh.setMatrixAt(i, dummy.matrix);
+    }
+    mesh.instanceMatrix.needsUpdate = true;
+    camera.position.x = Math.sin(t*0.05)*1.2;
+    camera.lookAt(0,1.1,0);
+    renderer.render(scene, camera);
+    requestAnimationFrame(animate);
+  }
+  requestAnimationFrame(animate);
+
+  window.addEventListener('resize', ()=>{
+    W = hero.clientWidth; H = hero.clientHeight;
+    camera.aspect = W/H; camera.updateProjectionMatrix();
+    renderer.setSize(W,H);
+  });
+})();
+</script>
 
 <script>
 'use strict';
