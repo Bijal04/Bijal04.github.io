@@ -72,21 +72,16 @@ body{background:var(--bg);color:#fff;font-family:'Inter',sans-serif;overflow-x:h
 
 /* ── NAV ── */
 nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:1.1rem 3.5vw;background:rgba(4,8,26,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
-.nav-logo{font-family:var(--mono);font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#7dd3fc;text-decoration:none}
+.nav-logo{font-family:var(--mono);font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#fff;text-decoration:underline;text-decoration-color:rgba(255,255,255,.3);text-underline-offset:4px}
 .nav-links{display:flex;gap:2rem;list-style:none}
-.nav-links a{font-family:var(--mono);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.35);text-decoration:none;transition:color .2s;position:relative;padding-bottom:3px}
-.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:linear-gradient(90deg,#2d6be4,#06b6d4);transition:width .25s}
-.nav-links a:hover{color:#7dd3fc}
+.nav-links a{font-family:var(--mono);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s;position:relative;padding-bottom:3px}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:#fff;transition:width .25s}
+.nav-links a:hover{color:#fff}
 .nav-links a:hover::after{width:100%}
-.nav-icons{display:flex;gap:.6rem;align-items:center}
-.nav-icon{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:6px;border:1px solid var(--border);color:rgba(255,255,255,.4);text-decoration:none;transition:all .2s}
-.nav-icon:hover{border-color:rgba(125,211,252,.5);color:#7dd3fc;background:rgba(45,107,228,.12)}
-.nav-icon svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.nav-pill{font-family:'Inter',sans-serif;font-size:.8rem;font-weight:600;padding:.55rem 1.3rem;border-radius:50px;text-decoration:none;transition:all .2s}
-.nav-pill.ghost{color:#fff;border:1px solid rgba(255,255,255,.18)}
-.nav-pill.ghost:hover{background:rgba(255,255,255,.08)}
-.nav-pill.solid{background:#fff;color:#0a0a12}
-.nav-pill.solid:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(255,255,255,.15)}
+.nav-icons{display:flex;gap:.5rem;align-items:center}
+.nav-icon{display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;border:1px solid rgba(255,255,255,.25);color:#fff;text-decoration:none;transition:all .2s}
+.nav-icon:hover{border-color:rgba(255,255,255,.6);background:rgba(255,255,255,.08);transform:translateY(-2px)}
+.nav-icon svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 
 /* ── HERO (Nexa-style layout) ── */
 .hero-pin-wrap{position:relative;height:220vh}
@@ -373,8 +368,15 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
     <li><a href="#contact">Contact</a></li>
   </ul>
   <div class="nav-icons">
-    <a class="nav-pill ghost" href="https://github.com/Bijal04/Bijal04.github.io/blob/main/Bijal%20Panchal_Resume.pdf" target="_blank">Resume</a>
-    <a class="nav-pill solid" href="#contact">Contact</a>
+    <a class="nav-icon" href="https://github.com/Bijal04" target="_blank" aria-label="GitHub">
+      <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+    </a>
+    <a class="nav-icon" href="https://linkedin.com/in/bijal-panchal" target="_blank" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+    </a>
+    <a class="nav-icon" href="mailto:b.panchal04career@gmail.com" aria-label="Email">
+      <svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="m4 6 8 7 8-7"/></svg>
+    </a>
   </div>
   <button class="nav-ham" id="hamburger"><span></span><span></span><span></span></button>
 </nav>
@@ -645,7 +647,6 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
   const formedPos = [], formedCol = [], formedType = [];
   const globeShare = Math.floor(N*0.65);
 
-  // ── NEURAL NETWORK NODE GRAPH ──
   const layerSizes = [4, 6, 6, 3];
   const layerX = [-1.7, -0.55, 0.6, 1.75];
   const nodeRadius = 0.11;
@@ -859,7 +860,6 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
   obs.observe(el);
 });
 
-// ── MY ARSENAL FLY-IN ──
 (function () {
   const row = document.getElementById('arsenal-row');
   if (!row) return;
@@ -886,7 +886,6 @@ document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-
   arsenalObs.observe(row);
 })();
 
-// ── HERO: subtle background pan on the ribbon photo + directional entrance animation ──
 (function(){
   var hero = document.getElementById('hero');
   if (hero) {
