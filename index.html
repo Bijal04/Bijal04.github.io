@@ -634,8 +634,8 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
   const scene = new THREE.Scene();
   scene.fog = new THREE.FogExp2(0x020308, 0.02);
 
-  const camera = new THREE.PerspectiveCamera(42, W/H, 0.1, 100);
-  camera.position.set(0, 1.1, 11);
+  const camera = new THREE.PerspectiveCamera(55, W/H, 0.1, 100);
+  camera.position.set(0, 1.1, 14);
 
   const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
   renderer.setSize(W, H);
@@ -650,8 +650,9 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
   const formedPos = [], formedCol = [], formedType = [];
 
   // ── Snowflake Schema: hub (fact table) -> dimension tables -> sub-dimensions ──
-  const dims = 6, subPerDim = 2;
-  const radius = 1.5, subRadius = 0.7;
+  const dims = 8, subPerDim = 3;
+  const aspectScale = Math.max(1, W/H);
+  const radius = 3.2 * aspectScale, subRadius = 1.6 * (aspectScale*0.6 + 0.4);
   const hub = { x: center[0], y: center[1], z: center[2] };
   const dimCenters = [], subCenters = [];
 
@@ -669,7 +670,7 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
     };
     dimCenters.push(dc);
     for (let s = 0; s < subPerDim; s++) {
-      const subAngle = angle + (s-0.5)*0.9;
+      const subAngle = angle + (s-1)*0.7;
       subCenters.push({
         x: dc.x + Math.cos(subAngle)*subRadius,
         y: dc.y + Math.sin(subAngle)*subRadius*0.6,
@@ -745,7 +746,7 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
       (Math.random()-0.5)*2, (Math.random()-0.65)*2, (Math.random()-0.5)*2
     ).normalize();
     perCube.push({
-      dir, dist: 4+Math.random()*7,
+      dir, dist: 6+Math.random()*10,
       spin: new THREE.Euler(Math.random()*6, Math.random()*6, Math.random()*6),
       spinSpeed: 0.5+Math.random()*2,
       scale: 0.16+Math.random()*0.08,
@@ -816,7 +817,7 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
     mesh.instanceColor.needsUpdate = true;
 
     camera.position.x = Math.sin(t*0.05)*1.2*(1-rawProgress);
-    camera.position.z = 10.5 + rawProgress*2;
+    camera.position.z = 13.5 + rawProgress*2;
     camera.lookAt(0,1.1,0);
 
     const contentFade = Math.max(0, 1 - rawProgress*2.2);
