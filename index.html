@@ -620,7 +620,7 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
   <p>Open to Work · GTA & Remote</p>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
 <script>
 (function(){
   const canvas = document.getElementById('hero-canvas');
@@ -646,90 +646,89 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
   const rim = new THREE.DirectionalLight(0xffffff, 1.2); rim.position.set(-3,3,-6); scene.add(rim);
   const rim2 = new THREE.DirectionalLight(0xffffff, 0.6); rim2.position.set(0,-3,5); scene.add(rim2);
 
-  const N = 1300, center = [0,1.1,0], R = 1.5;
+  const N = 1300, center = [0,1.1,0];
   const formedPos = [], formedCol = [], formedType = [];
-  const globeShare = Math.floor(N*0.65);
 
-  const layerSizes = [4, 6, 6, 3];
-  const layerX = [-1.7, -0.55, 0.6, 1.75];
-  const nodeRadius = 0.11;
-  const nodes = [];
+  // ── Snowflake Schema: hub (fact table) -> dimension tables -> sub-dimensions ──
+  const dims = 6, subPerDim = 2;
+  const radius = 1.5, subRadius = 0.7;
+  const hub = { x: center[0], y: center[1], z: center[2] };
+  const dimCenters = [], subCenters = [];
 
-  const layerColors = [
-    [0.55, 0.75, 1.0],
-    [0.75, 0.88, 1.0],
-    [0.4, 0.65, 0.95],
-    [0.85, 0.95, 1.0]
-  ];
+  const hubColor    = [0.85, 0.95, 1.0];   // brightest — fact table
+  const dimColor    = [0.55, 0.75, 1.0];   // dimension tables
+  const subColor    = [0.75, 0.88, 1.0];   // sub-dimensions
+  const edgeColor   = [0.25, 0.4, 0.6];    // connecting lines
 
-  layerSizes.forEach((count, li) => {
-    const spacing = 2.6 / Math.max(count - 1, 1);
-    for (let n = 0; n < count; n++) {
-      const y = center[1] + (n - (count - 1) / 2) * spacing * 0.55;
-      nodes.push({ x: center[0] + layerX[li], y, z: center[2], layer: li });
+  for (let d = 0; d < dims; d++) {
+    const angle = (d/dims) * Math.PI * 2;
+    const dc = {
+      x: center[0] + Math.cos(angle)*radius,
+      y: center[1] + Math.sin(angle)*radius*0.55,
+      z: center[2] + (Math.random()-0.5)*0.3
+    };
+    dimCenters.push(dc);
+    for (let s = 0; s < subPerDim; s++) {
+      const subAngle = angle + (s-0.5)*0.9;
+      subCenters.push({
+        x: dc.x + Math.cos(subAngle)*subRadius,
+        y: dc.y + Math.sin(subAngle)*subRadius*0.6,
+        z: dc.z + (Math.random()-0.5)*0.3,
+        parent: dc
+      });
     }
-  });
-
-  const edges = [];
-  for (let li = 0; li < layerSizes.length - 1; li++) {
-    const curr = nodes.filter(n => n.layer === li);
-    const next = nodes.filter(n => n.layer === li + 1);
-    curr.forEach(a => {
-      const linkCount = 2 + Math.floor(Math.random() * 2);
-      for (let k = 0; k < linkCount; k++) {
-        const b = next[Math.floor(Math.random() * next.length)];
-        edges.push([a, b]);
-      }
-    });
   }
 
-  const nodeShare = Math.floor(globeShare * 0.5);
-  const edgeShare = globeShare - nodeShare;
+  const hubShare   = Math.floor(N*0.12);
+  const dimShare   = Math.floor(N*0.22);
+  const subShare   = Math.floor(N*0.3);
+  const edge1Share = Math.floor(N*0.18);
+  const edge2Share = N - hubShare - dimShare - subShare - edge1Share;
 
-  for (let i = 0; i < nodeShare; i++) {
-    const node = nodes[i % nodes.length];
-    const theta = Math.random() * Math.PI * 2, phi = Math.acos(2*Math.random()-1);
-    const r = nodeRadius * Math.cbrt(Math.random());
+  // hub cluster (fact table) — pulses
+  for (let i = 0; i < hubShare; i++) {
+    const th = Math.random()*Math.PI*2, ph = Math.acos(2*Math.random()-1), r = 0.14*Math.cbrt(Math.random());
+    formedPos.push([hub.x+r*Math.sin(ph)*Math.cos(th), hub.y+r*Math.cos(ph), hub.z+r*Math.sin(ph)*Math.sin(th)]);
+    formedCol.push(hubColor.slice());
+    formedType.push({ kind:'hub', phase: Math.random()*Math.PI*2, base: hubColor });
+  }
+  // dimension tables
+  for (let i = 0; i < dimShare; i++) {
+    const dc = dimCenters[i % dims];
+    const th = Math.random()*Math.PI*2, ph = Math.acos(2*Math.random()-1), r = 0.1*Math.cbrt(Math.random());
+    formedPos.push([dc.x+r*Math.sin(ph)*Math.cos(th), dc.y+r*Math.cos(ph), dc.z+r*Math.sin(ph)*Math.sin(th)]);
+    formedCol.push(dimColor.slice());
+    formedType.push({ kind:'dim' });
+  }
+  // sub-dimensions
+  for (let i = 0; i < subShare; i++) {
+    const sc = subCenters[i % subCenters.length];
+    const th = Math.random()*Math.PI*2, ph = Math.acos(2*Math.random()-1), r = 0.07*Math.cbrt(Math.random());
+    formedPos.push([sc.x+r*Math.sin(ph)*Math.cos(th), sc.y+r*Math.cos(ph), sc.z+r*Math.sin(ph)*Math.sin(th)]);
+    formedCol.push(subColor.slice());
+    formedType.push({ kind:'sub' });
+  }
+  // hub -> dimension edges
+  for (let i = 0; i < edge1Share; i++) {
+    const dc = dimCenters[i % dims], t = Math.random(), j = 0.015;
     formedPos.push([
-      node.x + r*Math.sin(phi)*Math.cos(theta),
-      node.y + r*Math.cos(phi),
-      node.z + r*Math.sin(phi)*Math.sin(theta)
+      hub.x+(dc.x-hub.x)*t+(Math.random()-0.5)*j,
+      hub.y+(dc.y-hub.y)*t+(Math.random()-0.5)*j,
+      hub.z+(dc.z-hub.z)*t+(Math.random()-0.5)*j
     ]);
-    const c = layerColors[node.layer];
-    formedCol.push([c[0], c[1], c[2]]);
-    formedType.push({ kind: 'node', nodeRef: node, phase: Math.random()*Math.PI*2, base: c });
+    formedCol.push(edgeColor.slice());
+    formedType.push({ kind:'edge' });
   }
-
-  for (let i = 0; i < edgeShare; i++) {
-    const [a, b] = edges[i % edges.length];
-    const t = Math.random();
-    const jitter = 0.02;
+  // dimension -> sub-dimension edges
+  for (let i = 0; i < edge2Share; i++) {
+    const sc = subCenters[i % subCenters.length], t = Math.random(), j = 0.015;
     formedPos.push([
-      a.x + (b.x - a.x) * t + (Math.random()-0.5)*jitter,
-      a.y + (b.y - a.y) * t + (Math.random()-0.5)*jitter,
-      a.z + (b.z - a.z) * t + (Math.random()-0.5)*jitter
+      sc.parent.x+(sc.x-sc.parent.x)*t+(Math.random()-0.5)*j,
+      sc.parent.y+(sc.y-sc.parent.y)*t+(Math.random()-0.5)*j,
+      sc.parent.z+(sc.z-sc.parent.z)*t+(Math.random()-0.5)*j
     ]);
-    formedCol.push([0.25, 0.4, 0.6]);
-    formedType.push({ kind: 'edge' });
-  }
-
-  const trails = [];
-  for(let k=0;k<4;k++){
-    const axis = new THREE.Vector3(Math.random()-0.5,Math.random()-0.5,Math.random()-0.5).normalize();
-    trails.push({
-      quat: new THREE.Quaternion().setFromAxisAngle(axis, Math.random()*Math.PI),
-      radius: R+0.35+k*0.22, arcLen: Math.PI*1.5+Math.random()*Math.PI*0.5, arcStart: Math.random()*Math.PI*2
-    });
-  }
-
-  let tk = 0;
-  while(formedPos.length < N){
-    const tr = trails[tk % 4], a = tr.arcStart + Math.random()*tr.arcLen;
-    const v = new THREE.Vector3(Math.cos(a)*tr.radius, 0, Math.sin(a)*tr.radius).applyQuaternion(tr.quat);
-    formedPos.push([center[0]+v.x, center[1]+v.y, center[2]+v.z]);
-    formedCol.push([0.03,0.05,0.09]);
-    formedType.push({ kind: 'trail' });
-    tk++;
+    formedCol.push(edgeColor.slice());
+    formedType.push({ kind:'edge' });
   }
 
   const geometry = new THREE.BoxGeometry(1,1,1);
@@ -801,7 +800,7 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
 
       const c = formedCol[i];
       const ft = formedType[i];
-      if (ft && ft.kind === 'node' && e > 0.85) {
+      if (ft && ft.kind === 'hub' && e > 0.85) {
         const pulse = 0.75 + 0.35 * Math.sin(t*1.6 + ft.phase);
         tmpColor.setRGB(
           Math.min(1, ft.base[0]*pulse),
