@@ -171,6 +171,68 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .hs-cta:hover{background:rgba(0,0,0,.06)}
 
 
+/* ── SCHEMA THEME: hub / dimension / sub-dimension ── */
+:root{
+  --node-hub:#eaf6ff;
+  --node-dim:#7dd3fc;
+  --node-sub:#c4b5fd;
+  --edge-line:rgba(125,211,252,.24);
+}
+.eb-dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--node-hub);box-shadow:0 0 7px rgba(125,211,252,.7);flex-shrink:0}
+
+/* corner-bracket "table frame" for cards */
+.schema-frame{position:relative}
+.cnr{position:absolute;width:10px;height:10px;pointer-events:none;border-color:rgba(125,211,252,.4);border-style:solid;border-width:0}
+.cnr-tl{top:-1px;left:-1px;border-top-width:1.5px;border-left-width:1.5px}
+.cnr-br{bottom:-1px;right:-1px;border-bottom-width:1.5px;border-right-width:1.5px}
+.schema-id{position:absolute;top:.6rem;right:.8rem;font-family:var(--mono);font-size:.44rem;letter-spacing:.05em;color:rgba(125,211,252,.3);text-transform:lowercase;pointer-events:none;z-index:2}
+
+/* mini hub → dimension diagram, sits under each section title */
+.hub-diagram{display:flex;justify-content:center;margin:-1.2rem 0 2.6rem;opacity:0;transform:translateY(14px);transition:opacity .7s,transform .7s}
+.hub-diagram.vis{opacity:1;transform:none}
+.hub-diagram svg{width:100%;max-width:680px;height:auto;display:block}
+.hub-diagram .hd-hub{fill:var(--node-hub)}
+.hub-diagram .hd-dim{fill:var(--node-dim)}
+.hub-diagram .hd-line{stroke:var(--edge-line);stroke-width:1}
+.hub-diagram .hd-label{font-family:var(--mono);font-size:9px;letter-spacing:.05em;fill:rgba(255,255,255,.34);text-transform:lowercase}
+.hub-diagram .hd-label-hub{fill:rgba(255,255,255,.55)}
+
+/* experience: fact → dimension spine */
+.exp-list{position:relative}
+.exp-list::before{content:'';position:absolute;left:0;top:.5rem;bottom:.5rem;width:1px;background:linear-gradient(180deg,rgba(125,211,252,.4),rgba(124,58,237,.28),rgba(6,182,212,.22))}
+.exp-item{padding-left:2.4rem;position:relative}
+.exp-item::before{content:'';position:absolute;left:0;top:2.6rem;width:1.8rem;height:1px;background:rgba(125,211,252,.32)}
+.exp-item::after{content:'';position:absolute;left:-4px;top:calc(2.6rem - 4px);width:8px;height:8px;border-radius:50%;background:var(--node-dim);box-shadow:0 0 0 3px rgba(125,211,252,.14)}
+
+/* contact: radial hub-and-spoke */
+.contact-radial{position:relative;width:min(64vw,420px);height:min(64vw,420px);margin:0 auto 2.8rem;opacity:0;transform:translateY(14px);transition:opacity .7s,transform .7s}
+.contact-radial.vis{opacity:1;transform:none}
+.cr-line{position:absolute;background:var(--edge-line);z-index:1}
+.cr-line.top{left:50%;top:6%;width:1px;height:32%;transform:translateX(-50%)}
+.cr-line.bottom{left:50%;bottom:6%;width:1px;height:32%;transform:translateX(-50%)}
+.cr-line.left{top:50%;left:6%;height:1px;width:32%;transform:translateY(-50%)}
+.cr-line.right{top:50%;right:6%;height:1px;width:32%;transform:translateY(-50%)}
+.cr-hub{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:130px;height:130px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,rgba(125,211,252,.16),rgba(124,58,237,.08) 60%,transparent 75%);
+  border:1px solid rgba(125,211,252,.32);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.25rem;
+  box-shadow:0 0 46px rgba(45,107,228,.28);z-index:3}
+.cr-hub-name{font-size:.72rem;font-weight:800;color:#fff;letter-spacing:-.01em}
+.cr-hub-role{font-family:var(--mono);font-size:.42rem;letter-spacing:.1em;color:rgba(125,211,252,.55);text-transform:uppercase}
+.cr-node{position:absolute;width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;text-decoration:none;color:#fff;z-index:2;
+  transition:transform .25s,border-color .25s,background .25s}
+.cr-node:hover{border-color:rgba(125,211,252,.55);background:rgba(45,107,228,.16)}
+.cr-node svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7}
+.cr-node.top{top:6%;left:50%;transform:translate(-50%,-50%)}
+.cr-node.top:hover{transform:translate(-50%,-50%) scale(1.08)}
+.cr-node.bottom{bottom:6%;left:50%;transform:translate(-50%,50%)}
+.cr-node.bottom:hover{transform:translate(-50%,50%) scale(1.08)}
+.cr-node.left{top:50%;left:6%;transform:translate(-50%,-50%)}
+.cr-node.left:hover{transform:translate(-50%,-50%) scale(1.08)}
+.cr-node.right{top:50%;right:6%;transform:translate(50%,-50%)}
+.cr-node.right:hover{transform:translate(50%,-50%) scale(1.08)}
+.cr-node-lbl{position:absolute;bottom:-1.3rem;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:.48rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.35);white-space:nowrap}
+
 /* ── SECTIONS ── */
 .section{padding:10vh 5vw;position:relative;z-index:1}
 .section-eyebrow{font-family:var(--mono);font-size:.58rem;letter-spacing:.26em;text-transform:uppercase;margin-bottom:.9rem;display:flex;align-items:center;gap:.6rem;color:rgba(125,211,252,.5)}
@@ -304,7 +366,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .contact-email{font-family:var(--mono);font-size:.78rem;color:rgba(125,211,252,.4);letter-spacing:.08em;margin-bottom:2rem}
 .contact-email a{color:inherit;text-decoration:none;border-bottom:1px solid rgba(125,211,252,.15);padding-bottom:2px;transition:border-color .2s}
 .contact-email a:hover{border-color:rgba(125,211,252,.5);color:#7dd3fc}
-.contact-links{display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap;margin-bottom:3rem}
+.contact-links{display:none;gap:.7rem;justify-content:center;flex-wrap:wrap;margin-bottom:3rem}
 .c-link{font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;padding:.7rem 1.5rem;border-radius:50px;text-decoration:none;transition:all .2s}
 .c-link.ghost{color:rgba(255,255,255,.4);border:1px solid var(--border)}
 .c-link.ghost:hover{border-color:rgba(125,211,252,.4);color:#7dd3fc;background:rgba(45,107,228,.1)}
@@ -344,6 +406,13 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
   .hs-side{border-left:none;padding-left:0}
   .hero-pin-wrap{height:auto}
   #hero{position:relative;min-height:100svh;padding-bottom:0}
+  .hub-diagram{margin:-.6rem 0 1.8rem}
+  .hub-diagram .hd-label{display:none}
+  .exp-list::before,.exp-item::before,.exp-item::after{display:none}
+  .exp-item{padding-left:0}
+  .schema-id{display:none}
+  .contact-radial{display:none}
+  .contact-links{display:flex!important}
 }
 @media(max-width:420px){
   .contact-giant{font-size:clamp(3rem,14vw,5rem)}
@@ -409,11 +478,29 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
 
 <!-- ── ABOUT ── -->
 <section id="about" class="section">
-  <div class="section-eyebrow">Who I Am</div>
+  <div class="section-eyebrow"><span class="eb-dot"></span>Who I Am</div>
   <h2 class="section-title">
     <span class="g-reveal"><span>About</span></span>
     <span class="g-reveal"><span>Me.</span></span>
   </h2>
+  <div class="hub-diagram" aria-hidden="true">
+    <svg viewBox="0 0 800 90" xmlns="http://www.w3.org/2000/svg">
+      <line x1="70" y1="45" x2="250" y2="45" class="hd-line"/>
+      <line x1="70" y1="45" x2="400" y2="45" class="hd-line"/>
+      <line x1="70" y1="45" x2="550" y2="45" class="hd-line"/>
+      <line x1="70" y1="45" x2="700" y2="45" class="hd-line"/>
+      <circle cx="70" cy="45" r="7" class="hd-hub"/>
+      <circle cx="250" cy="45" r="4.5" class="hd-dim"/>
+      <circle cx="400" cy="45" r="4.5" class="hd-dim"/>
+      <circle cx="550" cy="45" r="4.5" class="hd-dim"/>
+      <circle cx="700" cy="45" r="4.5" class="hd-dim"/>
+      <text x="70" y="70" text-anchor="middle" class="hd-label hd-label-hub">bijal_panchal</text>
+      <text x="250" y="70" text-anchor="middle" class="hd-label">status</text>
+      <text x="400" y="70" text-anchor="middle" class="hd-label">location</text>
+      <text x="550" y="70" text-anchor="middle" class="hd-label">education</text>
+      <text x="700" y="70" text-anchor="middle" class="hd-label">focus</text>
+    </svg>
+  </div>
   <div class="about-grid">
     <div class="about-text reveal">
       <p>I'm <strong>Bijal Panchal</strong> — a Data Analyst specialising in <strong>forecasting, machine learning, and business intelligence</strong>. I work across Python, SQL, R, Pandas, Scikit-learn, XGBoost, Power BI, and Tableau.</p>
@@ -422,23 +509,28 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
       <p>I'm actively looking for <strong>analyst, BI, and analytics engineering roles</strong> across the GTA and remote.</p>
     </div>
     <div class="about-cards reveal">
-      <div class="acard accent">
+      <div class="acard accent schema-frame">
+        <span class="cnr cnr-tl"></span><span class="cnr cnr-br"></span><span class="schema-id">dim.status</span>
         <div class="acard-label">Status</div>
         <div class="acard-val">Open to Opportunities</div>
       </div>
-      <div class="acard">
+      <div class="acard schema-frame">
+        <span class="cnr cnr-tl"></span><span class="cnr cnr-br"></span><span class="schema-id">dim.location</span>
         <div class="acard-label">Location</div>
         <div class="acard-val">Brampton, Ontario</div>
       </div>
-      <div class="acard">
+      <div class="acard schema-frame">
+        <span class="cnr cnr-tl"></span><span class="cnr cnr-br"></span><span class="schema-id">dim.education</span>
         <div class="acard-label">Education</div>
         <div class="acard-val">MSc Data Analytics</div>
       </div>
-      <div class="acard">
+      <div class="acard schema-frame">
+        <span class="cnr cnr-tl"></span><span class="cnr cnr-br"></span><span class="schema-id">dim.focus</span>
         <div class="acard-label">Focus Areas</div>
         <div class="acard-val">Forecasting · BI · ML</div>
       </div>
-      <div class="acard wide">
+      <div class="acard wide schema-frame">
+        <span class="cnr cnr-tl"></span><span class="cnr cnr-br"></span><span class="schema-id">fact.highlights</span>
         <div class="acard-label">Career Highlights</div>
         <div class="stats-row">
           <div><div class="stat-num blue">1M+</div><div class="stat-lbl">Records Engineered</div></div>
@@ -452,28 +544,50 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
 
 <!-- ── SKILLS ── -->
 <section id="skills" class="section">
-  <div class="section-eyebrow">Tech Stack</div>
+  <div class="section-eyebrow"><span class="eb-dot"></span>Tech Stack</div>
   <h2 class="section-title">
     <span class="g-reveal"><span>My</span></span>
     <span class="g-reveal"><span>Skills.</span></span>
   </h2>
+  <div class="hub-diagram" aria-hidden="true">
+    <svg viewBox="0 0 800 90" xmlns="http://www.w3.org/2000/svg">
+      <line x1="70" y1="45" x2="250" y2="45" class="hd-line"/>
+      <line x1="70" y1="45" x2="400" y2="45" class="hd-line"/>
+      <line x1="70" y1="45" x2="550" y2="45" class="hd-line"/>
+      <line x1="70" y1="45" x2="700" y2="45" class="hd-line"/>
+      <circle cx="70" cy="45" r="7" class="hd-hub"/>
+      <circle cx="250" cy="45" r="4.5" class="hd-dim"/>
+      <circle cx="400" cy="45" r="4.5" class="hd-dim"/>
+      <circle cx="550" cy="45" r="4.5" class="hd-dim"/>
+      <circle cx="700" cy="45" r="4.5" class="hd-dim"/>
+      <text x="70" y="70" text-anchor="middle" class="hd-label hd-label-hub">tech_stack</text>
+      <text x="250" y="70" text-anchor="middle" class="hd-label">engineering</text>
+      <text x="400" y="70" text-anchor="middle" class="hd-label">bi</text>
+      <text x="550" y="70" text-anchor="middle" class="hd-label">ml</text>
+      <text x="700" y="70" text-anchor="middle" class="hd-label">stats</text>
+    </svg>
+  </div>
   <div class="skills-grid">
-    <div class="sk-card">
+    <div class="sk-card schema-frame">
+      <span class="cnr cnr-tl"></span><span class="cnr cnr-br"></span><span class="schema-id">dim.engineering</span>
       <div class="sk-title">Data Engineering & ETL</div>
       <div class="sk-desc">Production-grade pipelines that clean, transform, and load data at scale — from raw API responses to star-schema warehouses.</div>
       <div class="sk-tags"><span class="stag">Python</span><span class="stag">Pandas</span><span class="stag">NumPy</span><span class="stag">SQLAlchemy</span><span class="stag">MySQL</span><span class="stag">SQLite</span></div>
     </div>
-    <div class="sk-card">
+    <div class="sk-card schema-frame">
+      <span class="cnr cnr-tl"></span><span class="cnr cnr-br"></span><span class="schema-id">dim.bi</span>
       <div class="sk-title">Business Intelligence</div>
       <div class="sk-desc">Executive-level dashboards that tell a story — KPI cards, trend lines, RFM heatmaps, forecast overlays, and geo-regional breakdowns.</div>
       <div class="sk-tags"><span class="stag">Power BI</span><span class="stag">Tableau</span><span class="stag">DAX</span><span class="stag">Power Query</span><span class="stag">Excel</span></div>
     </div>
-    <div class="sk-card">
+    <div class="sk-card schema-frame">
+      <span class="cnr cnr-tl"></span><span class="cnr cnr-br"></span><span class="schema-id">dim.ml</span>
       <div class="sk-title">Machine Learning & Forecasting</div>
       <div class="sk-desc">Training and evaluating models from time-series forecasting to customer segmentation — with documented metrics that actually mean something.</div>
       <div class="sk-tags"><span class="stag">Scikit-learn</span><span class="stag">XGBoost</span><span class="stag">SARIMA</span><span class="stag">Prophet</span><span class="stag">K-Means</span></div>
     </div>
-    <div class="sk-card">
+    <div class="sk-card schema-frame">
+      <span class="cnr cnr-tl"></span><span class="cnr cnr-br"></span><span class="schema-id">dim.stats</span>
       <div class="sk-title">Statistical Analysis</div>
       <div class="sk-desc">RFM models, spatial analytics, and descriptive stats to extract segments and patterns that drive targeted business decisions.</div>
       <div class="sk-tags"><span class="stag">RFM</span><span class="stag">R</span><span class="stag">tidyverse</span><span class="stag">Statsmodels</span><span class="stag">Seaborn</span></div>
@@ -500,12 +614,25 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
 
 <!-- ── PROJECTS ── -->
 <section id="projects" class="section">
-  <div class="section-eyebrow">Built Works</div>
+  <div class="section-eyebrow"><span class="eb-dot"></span>Built Works</div>
   <h2 class="section-title">
     <span class="g-reveal"><span>Projects.</span></span>
   </h2>
+  <div class="hub-diagram" aria-hidden="true">
+    <svg viewBox="0 0 800 90" xmlns="http://www.w3.org/2000/svg">
+      <line x1="70" y1="45" x2="350" y2="45" class="hd-line"/>
+      <line x1="70" y1="45" x2="650" y2="45" class="hd-line"/>
+      <circle cx="70" cy="45" r="7" class="hd-hub"/>
+      <circle cx="350" cy="45" r="4.5" class="hd-dim"/>
+      <circle cx="650" cy="45" r="4.5" class="hd-dim"/>
+      <text x="70" y="70" text-anchor="middle" class="hd-label hd-label-hub">projects</text>
+      <text x="350" y="70" text-anchor="middle" class="hd-label">city_stress_index</text>
+      <text x="650" y="70" text-anchor="middle" class="hd-label">retail_forecasting</text>
+    </svg>
+  </div>
   <div class="proj-grid">
-    <div class="proj-card">
+    <div class="proj-card schema-frame">
+      <span class="cnr cnr-tl"></span><span class="cnr cnr-br"></span><span class="schema-id">fact.city_stress</span>
       <div class="proj-label">Data Engineering · ETL · BI Dashboard</div>
       <div class="proj-title">City Stress Index</div>
       <div class="proj-desc">A multi-source urban intelligence platform scoring <strong>5 global cities</strong> across traffic, crime, weather, cost of living, and safety into a single composite index — powered by a SQLite star schema ETL pipeline with <strong>40% faster</strong> cross-city queries.</div>
@@ -520,7 +647,8 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
         <a href="https://city-stress-index-va7b5rezdzgxw4zjaxb8ld.streamlit.app" target="_blank" class="plink">↗ Live Demo</a>
       </div>
     </div>
-    <div class="proj-card">
+    <div class="proj-card schema-frame">
+      <span class="cnr cnr-tl"></span><span class="cnr cnr-br"></span><span class="schema-id">fact.retail_forecast</span>
       <div class="proj-label">Forecasting · Warehousing · RFM</div>
       <div class="proj-title">Retail Sales Forecasting & Demand Planning</div>
       <div class="proj-desc">Cleaned <strong>1M+ transactional records</strong> across 43 countries, built a SQL star schema warehouse, and benchmarked SARIMA vs Holt-Winters — achieving <strong>74.5% forecast accuracy</strong> with RFM segmentation identifying <strong>843 Champions</strong> from 5,861 customers.</div>
@@ -539,11 +667,23 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
 
 <!-- ── EXPERIENCE ── -->
 <section id="experience" class="section">
-  <div class="section-eyebrow">Work History</div>
+  <div class="section-eyebrow"><span class="eb-dot"></span>Work History</div>
   <h2 class="section-title">
     <span class="g-reveal"><span>Experience.</span></span>
   </h2>
-  <div>
+  <div class="hub-diagram" aria-hidden="true">
+    <svg viewBox="0 0 800 90" xmlns="http://www.w3.org/2000/svg">
+      <line x1="70" y1="45" x2="350" y2="45" class="hd-line"/>
+      <line x1="70" y1="45" x2="650" y2="45" class="hd-line"/>
+      <circle cx="70" cy="45" r="7" class="hd-hub"/>
+      <circle cx="350" cy="45" r="4.5" class="hd-dim"/>
+      <circle cx="650" cy="45" r="4.5" class="hd-dim"/>
+      <text x="70" y="70" text-anchor="middle" class="hd-label hd-label-hub">experience</text>
+      <text x="350" y="70" text-anchor="middle" class="hd-label">points_africa</text>
+      <text x="650" y="70" text-anchor="middle" class="hd-label">dmg_group</text>
+    </svg>
+  </div>
+  <div class="exp-list">
     <div class="exp-item">
       <div>
         <div class="exp-period">Sep 2025 — Jan 2026</div>
@@ -578,12 +718,25 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
 
 <!-- ── EDUCATION ── -->
 <section id="education" class="section">
-  <div class="section-eyebrow">Academic Path</div>
+  <div class="section-eyebrow"><span class="eb-dot"></span>Academic Path</div>
   <h2 class="section-title">
     <span class="g-reveal"><span>Education.</span></span>
   </h2>
+  <div class="hub-diagram" aria-hidden="true">
+    <svg viewBox="0 0 800 90" xmlns="http://www.w3.org/2000/svg">
+      <line x1="70" y1="45" x2="350" y2="45" class="hd-line"/>
+      <line x1="70" y1="45" x2="650" y2="45" class="hd-line"/>
+      <circle cx="70" cy="45" r="7" class="hd-hub"/>
+      <circle cx="350" cy="45" r="4.5" class="hd-dim"/>
+      <circle cx="650" cy="45" r="4.5" class="hd-dim"/>
+      <text x="70" y="70" text-anchor="middle" class="hd-label hd-label-hub">education</text>
+      <text x="350" y="70" text-anchor="middle" class="hd-label">niagara_falls</text>
+      <text x="650" y="70" text-anchor="middle" class="hd-label">navrachana</text>
+    </svg>
+  </div>
   <div class="edu-grid">
-    <div class="edu-card">
+    <div class="edu-card schema-frame">
+      <span class="cnr cnr-tl"></span><span class="cnr cnr-br"></span><span class="schema-id">dim.niagara</span>
       <div class="edu-icon">🎓</div>
       <div class="edu-degree">Master of Science — Data Analytics</div>
       <div class="edu-school">University of Niagara Falls</div>
@@ -591,7 +744,8 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
       <div class="edu-detail">Graduated with Distinction · GPA 3.89 · President's Honour Roll. Specialisation in machine learning, forecasting, and large-scale data systems.</div>
       <span class="edu-badge">GPA 3.89 · Honours</span>
     </div>
-    <div class="edu-card violet-top">
+    <div class="edu-card violet-top schema-frame">
+      <span class="cnr cnr-tl"></span><span class="cnr cnr-br"></span><span class="schema-id">dim.navrachana</span>
       <div class="edu-icon">💻</div>
       <div class="edu-degree">Bachelor of Technology — Computer Science</div>
       <div class="edu-school">Navrachana University</div>
@@ -604,10 +758,38 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
 
 <!-- ── CONTACT ── -->
 <section id="contact" class="section">
-  <div class="section-eyebrow">Get in Touch</div>
+  <div class="section-eyebrow"><span class="eb-dot"></span>Get in Touch</div>
   <div class="contact-giant">Let's<br/>Talk.</div>
   <p class="contact-email reveal"><a href="mailto:b.panchal04career@gmail.com">b.panchal04career@gmail.com</a></p>
-  <div class="contact-links reveal">
+
+  <div class="contact-radial">
+    <div class="cr-line top"></div>
+    <div class="cr-line bottom"></div>
+    <div class="cr-line left"></div>
+    <div class="cr-line right"></div>
+    <div class="cr-hub">
+      <div class="cr-hub-name">Bijal Panchal</div>
+      <div class="cr-hub-role">fact.contact</div>
+    </div>
+    <a class="cr-node top" href="https://github.com/Bijal04" target="_blank" aria-label="GitHub">
+      <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      <span class="cr-node-lbl">GitHub</span>
+    </a>
+    <a class="cr-node right" href="https://linkedin.com/in/bijal-panchal" target="_blank" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      <span class="cr-node-lbl">LinkedIn</span>
+    </a>
+    <a class="cr-node bottom" href="mailto:b.panchal04career@gmail.com" aria-label="Email">
+      <svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="m4 6 8 7 8-7"/></svg>
+      <span class="cr-node-lbl">Email</span>
+    </a>
+    <a class="cr-node left" href="https://github.com/Bijal04/Bijal04.github.io/blob/main/Bijal%20Panchal_Resume.pdf" target="_blank" aria-label="Resume">
+      <svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M5 20h14"/></svg>
+      <span class="cr-node-lbl">Resume</span>
+    </a>
+  </div>
+
+  <div class="contact-links">
     <a href="https://github.com/Bijal04" target="_blank" class="c-link ghost">GitHub</a>
     <a href="https://linkedin.com/in/bijal-panchal" target="_blank" class="c-link ghost">LinkedIn</a>
     <a href="mailto:b.panchal04career@gmail.com" class="c-link solid">Email Me</a>
@@ -857,7 +1039,7 @@ mob.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
 }, { threshold: 0.07 });
-document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-card').forEach((el, i) => {
+document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-card,.hub-diagram,.contact-radial').forEach((el, i) => {
   if (['sk-card','proj-card','edu-card'].some(c => el.classList.contains(c)))
     el.style.transitionDelay = (i % 4) * 0.08 + 's';
   obs.observe(el);
