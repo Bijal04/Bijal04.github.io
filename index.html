@@ -178,7 +178,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
   --node-sub:#c4b5fd;
   --edge-line:rgba(125,211,252,.24);
 }
-.eb-dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--node-hub);box-shadow:0 0 7px rgba(125,211,252,.7);flex-shrink:0}
 
 /* corner-bracket "table frame" for cards */
 .schema-frame{position:relative}
@@ -235,8 +234,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 
 /* ── SECTIONS ── */
 .section{padding:10vh 5vw;position:relative;z-index:1}
-.section-eyebrow{font-family:var(--mono);font-size:.58rem;letter-spacing:.26em;text-transform:uppercase;margin-bottom:.9rem;display:flex;align-items:center;gap:.6rem;color:rgba(125,211,252,.5)}
-.section-eyebrow::before{content:'';width:20px;height:1px;background:linear-gradient(90deg,#2d6be4,#06b6d4);flex-shrink:0}
+.section-eyebrow{font-family:var(--mono);font-size:.58rem;letter-spacing:.26em;text-transform:uppercase;margin-bottom:.9rem;display:flex;align-items:center;gap:.5rem;color:rgba(125,211,252,.5)}
+.eb-chain{width:58px;height:14px;flex-shrink:0;display:block}
 .section-title{font-size:clamp(2.8rem,6vw,5.5rem);font-weight:800;line-height:.92;letter-spacing:-.04em;margin-bottom:3rem;color:#fff}
 
 #about,#skills,#projects,#experience,#education,#contact{
@@ -361,7 +360,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 /* ── CONTACT ── */
 #contact{text-align:center;padding:12vh 5vw;position:relative}
 #contact .section-eyebrow{color:rgba(125,211,252,.4);justify-content:center}
-#contact .section-eyebrow::before{display:none}
 .contact-giant{font-size:clamp(4.5rem,11vw,10rem);font-weight:800;letter-spacing:-.05em;line-height:.88;margin-bottom:1.4rem;background:linear-gradient(135deg,#fff 0%,#7dd3fc 40%,#c4b5fd 70%,#67e8f9 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .contact-email{font-family:var(--mono);font-size:.78rem;color:rgba(125,211,252,.4);letter-spacing:.08em;margin-bottom:2rem}
 .contact-email a{color:inherit;text-decoration:none;border-bottom:1px solid rgba(125,211,252,.15);padding-bottom:2px;transition:border-color .2s}
@@ -478,7 +476,17 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
 
 <!-- ── ABOUT ── -->
 <section id="about" class="section">
-  <div class="section-eyebrow"><span class="eb-dot"></span>Who I Am</div>
+  <div class="section-eyebrow">
+    <svg class="eb-chain" viewBox="0 0 62 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="4" cy="7" r="2.2" fill="#eaf6ff"/>
+      <line x1="6.6" y1="7" x2="15.4" y2="7" stroke="rgba(125,211,252,.4)" stroke-width="1" stroke-dasharray="1.5,1.8"/>
+      <circle cx="18" cy="7" r="1.6" fill="#7dd3fc"/>
+      <line x1="19.8" y1="7" x2="27" y2="7" stroke="rgba(196,181,253,.4)" stroke-width="1" stroke-dasharray="1.5,1.8"/>
+      <circle cx="29" cy="7" r="1.1" fill="#c4b5fd"/>
+      <line x1="32" y1="7" x2="60" y2="7" stroke="#2d6be4" stroke-width="1"/>
+    </svg>
+    Who I Am
+  </div>
   <h2 class="section-title">
     <span class="g-reveal"><span>About</span></span>
     <span class="g-reveal"><span>Me.</span></span>
@@ -544,7 +552,17 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
 
 <!-- ── SKILLS ── -->
 <section id="skills" class="section">
-  <div class="section-eyebrow"><span class="eb-dot"></span>Tech Stack</div>
+  <div class="section-eyebrow">
+    <svg class="eb-chain" viewBox="0 0 62 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="4" cy="7" r="2.2" fill="#eaf6ff"/>
+      <line x1="6.6" y1="7" x2="15.4" y2="7" stroke="rgba(125,211,252,.4)" stroke-width="1" stroke-dasharray="1.5,1.8"/>
+      <circle cx="18" cy="7" r="1.6" fill="#7dd3fc"/>
+      <line x1="19.8" y1="7" x2="27" y2="7" stroke="rgba(196,181,253,.4)" stroke-width="1" stroke-dasharray="1.5,1.8"/>
+      <circle cx="29" cy="7" r="1.1" fill="#c4b5fd"/>
+      <line x1="32" y1="7" x2="60" y2="7" stroke="#2d6be4" stroke-width="1"/>
+    </svg>
+    Tech Stack
+  </div>
   <h2 class="section-title">
     <span class="g-reveal"><span>My</span></span>
     <span class="g-reveal"><span>Skills.</span></span>
@@ -614,7 +632,17 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
 
 <!-- ── PROJECTS ── -->
 <section id="projects" class="section">
-  <div class="section-eyebrow"><span class="eb-dot"></span>Built Works</div>
+  <div class="section-eyebrow">
+    <svg class="eb-chain" viewBox="0 0 62 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="4" cy="7" r="2.2" fill="#eaf6ff"/>
+      <line x1="6.6" y1="7" x2="15.4" y2="7" stroke="rgba(125,211,252,.4)" stroke-width="1" stroke-dasharray="1.5,1.8"/>
+      <circle cx="18" cy="7" r="1.6" fill="#7dd3fc"/>
+      <line x1="19.8" y1="7" x2="27" y2="7" stroke="rgba(196,181,253,.4)" stroke-width="1" stroke-dasharray="1.5,1.8"/>
+      <circle cx="29" cy="7" r="1.1" fill="#c4b5fd"/>
+      <line x1="32" y1="7" x2="60" y2="7" stroke="#2d6be4" stroke-width="1"/>
+    </svg>
+    Built Works
+  </div>
   <h2 class="section-title">
     <span class="g-reveal"><span>Projects.</span></span>
   </h2>
@@ -667,7 +695,17 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
 
 <!-- ── EXPERIENCE ── -->
 <section id="experience" class="section">
-  <div class="section-eyebrow"><span class="eb-dot"></span>Work History</div>
+  <div class="section-eyebrow">
+    <svg class="eb-chain" viewBox="0 0 62 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="4" cy="7" r="2.2" fill="#eaf6ff"/>
+      <line x1="6.6" y1="7" x2="15.4" y2="7" stroke="rgba(125,211,252,.4)" stroke-width="1" stroke-dasharray="1.5,1.8"/>
+      <circle cx="18" cy="7" r="1.6" fill="#7dd3fc"/>
+      <line x1="19.8" y1="7" x2="27" y2="7" stroke="rgba(196,181,253,.4)" stroke-width="1" stroke-dasharray="1.5,1.8"/>
+      <circle cx="29" cy="7" r="1.1" fill="#c4b5fd"/>
+      <line x1="32" y1="7" x2="60" y2="7" stroke="#2d6be4" stroke-width="1"/>
+    </svg>
+    Work History
+  </div>
   <h2 class="section-title">
     <span class="g-reveal"><span>Experience.</span></span>
   </h2>
@@ -718,7 +756,17 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
 
 <!-- ── EDUCATION ── -->
 <section id="education" class="section">
-  <div class="section-eyebrow"><span class="eb-dot"></span>Academic Path</div>
+  <div class="section-eyebrow">
+    <svg class="eb-chain" viewBox="0 0 62 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="4" cy="7" r="2.2" fill="#eaf6ff"/>
+      <line x1="6.6" y1="7" x2="15.4" y2="7" stroke="rgba(125,211,252,.4)" stroke-width="1" stroke-dasharray="1.5,1.8"/>
+      <circle cx="18" cy="7" r="1.6" fill="#7dd3fc"/>
+      <line x1="19.8" y1="7" x2="27" y2="7" stroke="rgba(196,181,253,.4)" stroke-width="1" stroke-dasharray="1.5,1.8"/>
+      <circle cx="29" cy="7" r="1.1" fill="#c4b5fd"/>
+      <line x1="32" y1="7" x2="60" y2="7" stroke="#2d6be4" stroke-width="1"/>
+    </svg>
+    Academic Path
+  </div>
   <h2 class="section-title">
     <span class="g-reveal"><span>Education.</span></span>
   </h2>
@@ -758,7 +806,17 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
 
 <!-- ── CONTACT ── -->
 <section id="contact" class="section">
-  <div class="section-eyebrow"><span class="eb-dot"></span>Get in Touch</div>
+  <div class="section-eyebrow">
+    <svg class="eb-chain" viewBox="0 0 62 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="4" cy="7" r="2.2" fill="#eaf6ff"/>
+      <line x1="6.6" y1="7" x2="15.4" y2="7" stroke="rgba(125,211,252,.4)" stroke-width="1" stroke-dasharray="1.5,1.8"/>
+      <circle cx="18" cy="7" r="1.6" fill="#7dd3fc"/>
+      <line x1="19.8" y1="7" x2="27" y2="7" stroke="rgba(196,181,253,.4)" stroke-width="1" stroke-dasharray="1.5,1.8"/>
+      <circle cx="29" cy="7" r="1.1" fill="#c4b5fd"/>
+      <line x1="32" y1="7" x2="60" y2="7" stroke="#2d6be4" stroke-width="1"/>
+    </svg>
+    Get in Touch
+  </div>
   <div class="contact-giant">Let's<br/>Talk.</div>
   <p class="contact-email reveal"><a href="mailto:b.panchal04career@gmail.com">b.panchal04career@gmail.com</a></p>
 
