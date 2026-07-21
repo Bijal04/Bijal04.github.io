@@ -186,16 +186,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .cnr-br{bottom:-1px;right:-1px;border-bottom-width:1.5px;border-right-width:1.5px}
 .schema-id{position:absolute;top:.6rem;right:.8rem;font-family:var(--mono);font-size:.44rem;letter-spacing:.05em;color:rgba(125,211,252,.3);text-transform:lowercase;pointer-events:none;z-index:2}
 
-/* mini hub → dimension diagram, sits under each section title */
-.hub-diagram{display:flex;justify-content:center;margin:-1.2rem 0 2.6rem;opacity:0;transform:translateY(14px);transition:opacity .7s,transform .7s}
-.hub-diagram.vis{opacity:1;transform:none}
-.hub-diagram svg{width:100%;max-width:680px;height:auto;display:block}
-.hub-diagram .hd-hub{fill:var(--node-hub)}
-.hub-diagram .hd-dim{fill:var(--node-dim)}
-.hub-diagram .hd-line{stroke:var(--edge-line);stroke-width:1}
-.hub-diagram .hd-label{font-family:var(--mono);font-size:9px;letter-spacing:.05em;fill:rgba(255,255,255,.34);text-transform:lowercase}
-.hub-diagram .hd-label-hub{fill:rgba(255,255,255,.55)}
-
 /* experience: fact → dimension spine */
 .exp-list{position:relative}
 .exp-list::before{content:'';position:absolute;left:0;top:.5rem;bottom:.5rem;width:1px;background:linear-gradient(180deg,rgba(125,211,252,.4),rgba(124,58,237,.28),rgba(6,182,212,.22))}
@@ -404,8 +394,6 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
   .hs-side{border-left:none;padding-left:0}
   .hero-pin-wrap{height:auto}
   #hero{position:relative;min-height:100svh;padding-bottom:0}
-  .hub-diagram{margin:-.6rem 0 1.8rem}
-  .hub-diagram .hd-label{display:none}
   .exp-list::before,.exp-item::before,.exp-item::after{display:none}
   .exp-item{padding-left:0}
   .schema-id{display:none}
@@ -491,24 +479,6 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
     <span class="g-reveal"><span>About</span></span>
     <span class="g-reveal"><span>Me.</span></span>
   </h2>
-  <div class="hub-diagram" aria-hidden="true">
-    <svg viewBox="0 0 800 90" xmlns="http://www.w3.org/2000/svg">
-      <line x1="70" y1="45" x2="250" y2="45" class="hd-line"/>
-      <line x1="70" y1="45" x2="400" y2="45" class="hd-line"/>
-      <line x1="70" y1="45" x2="550" y2="45" class="hd-line"/>
-      <line x1="70" y1="45" x2="700" y2="45" class="hd-line"/>
-      <circle cx="70" cy="45" r="7" class="hd-hub"/>
-      <circle cx="250" cy="45" r="4.5" class="hd-dim"/>
-      <circle cx="400" cy="45" r="4.5" class="hd-dim"/>
-      <circle cx="550" cy="45" r="4.5" class="hd-dim"/>
-      <circle cx="700" cy="45" r="4.5" class="hd-dim"/>
-      <text x="70" y="70" text-anchor="middle" class="hd-label hd-label-hub">bijal_panchal</text>
-      <text x="250" y="70" text-anchor="middle" class="hd-label">status</text>
-      <text x="400" y="70" text-anchor="middle" class="hd-label">location</text>
-      <text x="550" y="70" text-anchor="middle" class="hd-label">education</text>
-      <text x="700" y="70" text-anchor="middle" class="hd-label">focus</text>
-    </svg>
-  </div>
   <div class="about-grid">
     <div class="about-text reveal">
       <p>I'm <strong>Bijal Panchal</strong> — a Data Analyst specialising in <strong>forecasting, machine learning, and business intelligence</strong>. I work across Python, SQL, R, Pandas, Scikit-learn, XGBoost, Power BI, and Tableau.</p>
@@ -567,24 +537,6 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
     <span class="g-reveal"><span>My</span></span>
     <span class="g-reveal"><span>Skills.</span></span>
   </h2>
-  <div class="hub-diagram" aria-hidden="true">
-    <svg viewBox="0 0 800 90" xmlns="http://www.w3.org/2000/svg">
-      <line x1="70" y1="45" x2="250" y2="45" class="hd-line"/>
-      <line x1="70" y1="45" x2="400" y2="45" class="hd-line"/>
-      <line x1="70" y1="45" x2="550" y2="45" class="hd-line"/>
-      <line x1="70" y1="45" x2="700" y2="45" class="hd-line"/>
-      <circle cx="70" cy="45" r="7" class="hd-hub"/>
-      <circle cx="250" cy="45" r="4.5" class="hd-dim"/>
-      <circle cx="400" cy="45" r="4.5" class="hd-dim"/>
-      <circle cx="550" cy="45" r="4.5" class="hd-dim"/>
-      <circle cx="700" cy="45" r="4.5" class="hd-dim"/>
-      <text x="70" y="70" text-anchor="middle" class="hd-label hd-label-hub">tech_stack</text>
-      <text x="250" y="70" text-anchor="middle" class="hd-label">engineering</text>
-      <text x="400" y="70" text-anchor="middle" class="hd-label">bi</text>
-      <text x="550" y="70" text-anchor="middle" class="hd-label">ml</text>
-      <text x="700" y="70" text-anchor="middle" class="hd-label">stats</text>
-    </svg>
-  </div>
   <div class="skills-grid">
     <div class="sk-card schema-frame">
       <span class="cnr cnr-tl"></span><span class="cnr cnr-br"></span><span class="schema-id">dim.engineering</span>
@@ -646,18 +598,6 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
   <h2 class="section-title">
     <span class="g-reveal"><span>Projects.</span></span>
   </h2>
-  <div class="hub-diagram" aria-hidden="true">
-    <svg viewBox="0 0 800 90" xmlns="http://www.w3.org/2000/svg">
-      <line x1="70" y1="45" x2="350" y2="45" class="hd-line"/>
-      <line x1="70" y1="45" x2="650" y2="45" class="hd-line"/>
-      <circle cx="70" cy="45" r="7" class="hd-hub"/>
-      <circle cx="350" cy="45" r="4.5" class="hd-dim"/>
-      <circle cx="650" cy="45" r="4.5" class="hd-dim"/>
-      <text x="70" y="70" text-anchor="middle" class="hd-label hd-label-hub">projects</text>
-      <text x="350" y="70" text-anchor="middle" class="hd-label">city_stress_index</text>
-      <text x="650" y="70" text-anchor="middle" class="hd-label">retail_forecasting</text>
-    </svg>
-  </div>
   <div class="proj-grid">
     <div class="proj-card schema-frame">
       <span class="cnr cnr-tl"></span><span class="cnr cnr-br"></span><span class="schema-id">fact.city_stress</span>
@@ -709,18 +649,6 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
   <h2 class="section-title">
     <span class="g-reveal"><span>Experience.</span></span>
   </h2>
-  <div class="hub-diagram" aria-hidden="true">
-    <svg viewBox="0 0 800 90" xmlns="http://www.w3.org/2000/svg">
-      <line x1="70" y1="45" x2="350" y2="45" class="hd-line"/>
-      <line x1="70" y1="45" x2="650" y2="45" class="hd-line"/>
-      <circle cx="70" cy="45" r="7" class="hd-hub"/>
-      <circle cx="350" cy="45" r="4.5" class="hd-dim"/>
-      <circle cx="650" cy="45" r="4.5" class="hd-dim"/>
-      <text x="70" y="70" text-anchor="middle" class="hd-label hd-label-hub">experience</text>
-      <text x="350" y="70" text-anchor="middle" class="hd-label">points_africa</text>
-      <text x="650" y="70" text-anchor="middle" class="hd-label">dmg_group</text>
-    </svg>
-  </div>
   <div class="exp-list">
     <div class="exp-item">
       <div>
@@ -770,18 +698,6 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
   <h2 class="section-title">
     <span class="g-reveal"><span>Education.</span></span>
   </h2>
-  <div class="hub-diagram" aria-hidden="true">
-    <svg viewBox="0 0 800 90" xmlns="http://www.w3.org/2000/svg">
-      <line x1="70" y1="45" x2="350" y2="45" class="hd-line"/>
-      <line x1="70" y1="45" x2="650" y2="45" class="hd-line"/>
-      <circle cx="70" cy="45" r="7" class="hd-hub"/>
-      <circle cx="350" cy="45" r="4.5" class="hd-dim"/>
-      <circle cx="650" cy="45" r="4.5" class="hd-dim"/>
-      <text x="70" y="70" text-anchor="middle" class="hd-label hd-label-hub">education</text>
-      <text x="350" y="70" text-anchor="middle" class="hd-label">niagara_falls</text>
-      <text x="650" y="70" text-anchor="middle" class="hd-label">navrachana</text>
-    </svg>
-  </div>
   <div class="edu-grid">
     <div class="edu-card schema-frame">
       <span class="cnr cnr-tl"></span><span class="cnr cnr-br"></span><span class="schema-id">dim.niagara</span>
@@ -1097,7 +1013,7 @@ mob.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
 }, { threshold: 0.07 });
-document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-card,.hub-diagram,.contact-radial').forEach((el, i) => {
+document.querySelectorAll('.reveal,.g-reveal,.sk-card,.exp-item,.proj-card,.edu-card,.contact-radial').forEach((el, i) => {
   if (['sk-card','proj-card','edu-card'].some(c => el.classList.contains(c)))
     el.style.transitionDelay = (i % 4) * 0.08 + 's';
   obs.observe(el);
