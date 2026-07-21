@@ -268,7 +268,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .about-text p{font-size:.93rem;color:var(--muted);line-height:1.9;margin-bottom:.9rem}
 .about-text strong{color:#7dd3fc;font-weight:600}
 .about-cards{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
-.acard{padding:1.2rem;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid var(--border)}
+.acard{padding:1.2rem;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid var(--border);transition:transform .25s cubic-bezier(.16,1,.3,1),box-shadow .25s ease,border-color .25s ease}
 .acard-label{font-family:var(--mono);font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(125,211,252,.35);margin-bottom:.35rem}
 .acard-val{font-size:.83rem;color:#fff;font-weight:600;line-height:1.3}
 .acard.accent{background:rgba(45,107,228,.1);border-color:rgba(45,107,228,.3)}
@@ -280,6 +280,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .stat-num.violet{color:#c4b5fd}
 .stat-num.cyan{color:#67e8f9}
 .stat-lbl{font-family:var(--mono);font-size:.48rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-top:.15rem}
+
+/* ── HOVER-EXPAND (about cards) ── */
+.acard:hover{transform:scale(1.025);box-shadow:0 12px 28px rgba(0,0,0,.35);border-color:rgba(125,211,252,.28)}
+.acard.accent:hover{border-color:rgba(45,107,228,.5)}
+.acard-extra{max-height:0;overflow:hidden;opacity:0;margin-top:0;transition:max-height .3s ease,opacity .3s ease,margin-top .3s ease}
+.acard:hover .acard-extra{max-height:60px;opacity:1;margin-top:.5rem}
+.acard-extra p{font-size:.72rem;color:rgba(255,255,255,.45);line-height:1.55}
 
 /* ── SKILLS ── */
 .skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.9rem;margin-bottom:2rem}
@@ -518,21 +525,25 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
         <span class="cnr cnr-tl"></span><span class="cnr cnr-br"></span><span class="schema-id">dim.status</span>
         <div class="acard-label">Status</div>
         <div class="acard-val">Open to Opportunities</div>
+        <div class="acard-extra"><p>Actively interviewing for analyst and BI roles.</p></div>
       </div>
       <div class="acard schema-frame">
         <span class="cnr cnr-tl"></span><span class="cnr cnr-br"></span><span class="schema-id">dim.location</span>
         <div class="acard-label">Location</div>
         <div class="acard-val">Brampton, Ontario</div>
+        <div class="acard-extra"><p>Open to on-site, hybrid, or fully remote.</p></div>
       </div>
       <div class="acard schema-frame">
         <span class="cnr cnr-tl"></span><span class="cnr cnr-br"></span><span class="schema-id">dim.education</span>
         <div class="acard-label">Education</div>
         <div class="acard-val">MSc Data Analytics</div>
+        <div class="acard-extra"><p>University of Niagara Falls · GPA 3.89</p></div>
       </div>
       <div class="acard schema-frame">
         <span class="cnr cnr-tl"></span><span class="cnr cnr-br"></span><span class="schema-id">dim.focus</span>
         <div class="acard-label">Focus Areas</div>
         <div class="acard-val">Forecasting · BI · ML</div>
+        <div class="acard-extra"><p>Star-schema warehouses, ETL, dashboards.</p></div>
       </div>
       <div class="acard wide schema-frame">
         <span class="cnr cnr-tl"></span><span class="cnr cnr-br"></span><span class="schema-id">fact.highlights</span>
@@ -542,6 +553,7 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
           <div><div class="stat-num violet">74.5%</div><div class="stat-lbl">Forecast Accuracy</div></div>
           <div><div class="stat-num cyan">843</div><div class="stat-lbl">Champions Found</div></div>
         </div>
+        <div class="acard-extra"><p>From the Retail Sales Forecasting project — 1M+ records, 43 countries.</p></div>
       </div>
     </div>
   </div>
