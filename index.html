@@ -184,35 +184,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 /* experience list container (no more spine) */
 .exp-list{position:relative}
 
-/* contact: radial hub-and-spoke */
-.contact-radial{position:relative;width:min(64vw,420px);height:min(64vw,420px);margin:0 auto 2.8rem;opacity:0;transform:translateY(14px);transition:opacity .7s,transform .7s}
-.contact-radial.vis{opacity:1;transform:none}
-.cr-line{position:absolute;background:var(--edge-line);z-index:1}
-.cr-line.top{left:50%;top:6%;width:1px;height:32%;transform:translateX(-50%)}
-.cr-line.bottom{left:50%;bottom:6%;width:1px;height:32%;transform:translateX(-50%)}
-.cr-line.left{top:50%;left:6%;height:1px;width:32%;transform:translateY(-50%)}
-.cr-line.right{top:50%;right:6%;height:1px;width:32%;transform:translateY(-50%)}
-.cr-hub{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:130px;height:130px;border-radius:50%;
-  background:radial-gradient(circle at 35% 30%,rgba(125,211,252,.16),rgba(124,58,237,.08) 60%,transparent 75%);
-  border:1px solid rgba(125,211,252,.32);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.25rem;
-  box-shadow:0 0 46px rgba(45,107,228,.28);z-index:3}
-.cr-hub-name{font-size:.72rem;font-weight:800;color:#fff;letter-spacing:-.01em}
-.cr-hub-role{font-family:var(--mono);font-size:.42rem;letter-spacing:.1em;color:rgba(125,211,252,.55);text-transform:uppercase}
-.cr-node{position:absolute;width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.03);
-  border:1px solid rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;text-decoration:none;color:#fff;z-index:2;
-  transition:transform .25s,border-color .25s,background .25s}
-.cr-node:hover{border-color:rgba(125,211,252,.55);background:rgba(45,107,228,.16)}
-.cr-node svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7}
-.cr-node.top{top:6%;left:50%;transform:translate(-50%,-50%)}
-.cr-node.top:hover{transform:translate(-50%,-50%) scale(1.08)}
-.cr-node.bottom{bottom:6%;left:50%;transform:translate(-50%,50%)}
-.cr-node.bottom:hover{transform:translate(-50%,50%) scale(1.08)}
-.cr-node.left{top:50%;left:6%;transform:translate(-50%,-50%)}
-.cr-node.left:hover{transform:translate(-50%,-50%) scale(1.08)}
-.cr-node.right{top:50%;right:6%;transform:translate(50%,-50%)}
-.cr-node.right:hover{transform:translate(50%,-50%) scale(1.08)}
-.cr-node-lbl{position:absolute;bottom:-1.3rem;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:.48rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.35);white-space:nowrap}
-
 /* ── SECTIONS ── */
 .section{padding:10vh 5vw;position:relative;z-index:1}
 .section-eyebrow{font-family:var(--mono);font-size:.58rem;letter-spacing:.26em;text-transform:uppercase;margin-bottom:.9rem;display:flex;align-items:center;gap:.5rem;color:rgba(125,211,252,.5)}
@@ -405,7 +376,6 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
   .hs-side{border-left:none;padding-left:0}
   .hero-pin-wrap{height:auto}
   #hero{position:relative;min-height:100svh;padding-bottom:0}
-  .contact-radial{display:none}
   .contact-links{display:flex!important}
 }
 @media(max-width:420px){
@@ -741,24 +711,6 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
   </div>
   <div class="contact-giant">Let's<br/>Talk.</div>
   <p class="contact-email reveal"><a href="mailto:b.panchal04career@gmail.com">b.panchal04career@gmail.com</a></p>
-
-    <a class="cr-node top" href="https://github.com/Bijal04" target="_blank" aria-label="GitHub">
-      <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-      <span class="cr-node-lbl">GitHub</span>
-    </a>
-    <a class="cr-node right" href="https://linkedin.com/in/bijal-panchal" target="_blank" aria-label="LinkedIn">
-      <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-      <span class="cr-node-lbl">LinkedIn</span>
-    </a>
-    <a class="cr-node bottom" href="mailto:b.panchal04career@gmail.com" aria-label="Email">
-      <svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="m4 6 8 7 8-7"/></svg>
-      <span class="cr-node-lbl">Email</span>
-    </a>
-    <a class="cr-node left" href="https://github.com/Bijal04/Bijal04.github.io/raw/main/Bijal%20Panchal_Resume.pdf" download="Bijal_Panchal_Resume.pdf" aria-label="Resume">
-      <svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M5 20h14"/></svg>
-      <span class="cr-node-lbl">Resume</span>
-    </a>
-  </div>
   
   <div class="contact-pills reveal">
   <a href="https://github.com/Bijal04" target="_blank" class="c-pill">
