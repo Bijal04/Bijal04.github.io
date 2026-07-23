@@ -69,15 +69,6 @@ body{background:var(--bg);color:#eef3ff;font-family:'Inter',sans-serif;overflow-
 /* everything from About onward alternates deep-purple sections with beige sections */
 .mono-wrap{background:#120404;position:relative;z-index:1;padding-top:2.4rem}
 
-/* beige/purple are different hues, so we can't reuse the old invert()+hue-rotate()
-   trick (that only preserves a single hue across light/dark). Instead the
-   beige sections get an explicit palette below. */
-/* ===================================================================
-   ALT PALETTE — glittery gold sections (About / Projects / Education)
-   + neon red sections (Skills / Experience / Contact)
-   =================================================================== */
-
-/* content sits above the glow overlays */
 #about>*,#skills>*,#projects>*,#experience>*,#education>*,#contact>*{position:relative;z-index:2}
 
 /* ---------- GLITTERY GREEN ---------- */
@@ -148,14 +139,12 @@ body{background:var(--bg);color:#eef3ff;font-family:'Inter',sans-serif;overflow-
     radial-gradient(circle at 82% 78%, rgba(142,214,54,.22) 0%, transparent 55%),
     #0f1600;
 }
-/* skills now uses a black background instead of the amber wash */
 #skills.sect-red{
   background:
     radial-gradient(circle at 18% 15%, rgba(101,163,13,.10) 0%, transparent 55%),
     radial-gradient(circle at 85% 80%, rgba(154,230,44,.08) 0%, transparent 55%),
     #050505;
 }
-/* contact matches the landing-page hero: near-black, sparse green/gold glow */
 #contact.sect-red{
   background:
     radial-gradient(circle at 18% 15%, rgba(154,230,44,.14) 0%, transparent 55%),
@@ -576,27 +565,22 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
     </div>
     <div class="about-cards reveal">
       <div class="acard accent">
-        <div class="acard-label">dim.status</div>
         <div class="acard-val">Open to Opportunities</div>
         <div class="acard-extra"><p>Actively interviewing for analyst and BI roles.</p></div>
       </div>
       <div class="acard">
-        <div class="acard-label">dim.location</div>
         <div class="acard-val">Brampton, Ontario</div>
         <div class="acard-extra"><p>Open to on-site, hybrid, or fully remote.</p></div>
       </div>
       <div class="acard">
-        <div class="acard-label">dim.education</div>
         <div class="acard-val">MSc Data Analytics</div>
         <div class="acard-extra"><p>University of Niagara Falls · GPA 3.89</p></div>
       </div>
       <div class="acard">
-        <div class="acard-label">dim.focus</div>
         <div class="acard-val">Forecasting · BI · ML</div>
         <div class="acard-extra"><p>Star-schema warehouses, ETL, dashboards.</p></div>
       </div>
       <div class="acard wide">
-        <div class="acard-label">fact.highlights</div>
         <div class="stats-row">
           <div><div class="stat-num blue">1M+</div><div class="stat-lbl">Records Engineered</div></div>
           <div><div class="stat-num violet">74.5%</div><div class="stat-lbl">Forecast Accuracy</div></div>
@@ -627,32 +611,27 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
   </h2>
   <div class="skills-grid">
     <div class="sk-card">
-      <div class="sk-lbl">dim.engineering</div>
       <div class="sk-title">Data Engineering & ETL</div>
       <div class="sk-desc">Production-grade pipelines that clean, transform, and load data at scale — from raw API responses to star-schema warehouses.</div>
       <div class="sk-tags"><span class="stag">Python</span><span class="stag">Pandas</span><span class="stag">NumPy</span><span class="stag">SQLAlchemy</span><span class="stag">MySQL</span><span class="stag">SQLite</span></div>
     </div>
     <div class="sk-card">
-      <div class="sk-lbl">dim.bi</div>
       <div class="sk-title">Business Intelligence</div>
       <div class="sk-desc">Executive-level dashboards that tell a story — KPI cards, trend lines, RFM heatmaps, forecast overlays, and geo-regional breakdowns.</div>
       <div class="sk-tags"><span class="stag">Power BI</span><span class="stag">Tableau</span><span class="stag">DAX</span><span class="stag">Power Query</span><span class="stag">Excel</span></div>
     </div>
     <div class="sk-card">
-      <div class="sk-lbl">dim.ml</div>
       <div class="sk-title">Machine Learning & Forecasting</div>
       <div class="sk-desc">Training and evaluating models from time-series forecasting to customer segmentation — with documented metrics that actually mean something.</div>
       <div class="sk-tags"><span class="stag">Scikit-learn</span><span class="stag">XGBoost</span><span class="stag">SARIMA</span><span class="stag">Prophet</span><span class="stag">K-Means</span></div>
     </div>
     <div class="sk-card">
-      <div class="sk-lbl">dim.stats</div>
       <div class="sk-title">Statistical Analysis</div>
       <div class="sk-desc">RFM models, spatial analytics, and descriptive stats to extract segments and patterns that drive targeted business decisions.</div>
       <div class="sk-tags"><span class="stag">RFM</span><span class="stag">R</span><span class="stag">tidyverse</span><span class="stag">Statsmodels</span><span class="stag">Seaborn</span></div>
     </div>
   </div>
   <div class="stack-bar reveal">
-    <div class="stack-bar-title">fact.arsenal</div>
     <div class="stack-icons" id="arsenal-row">
       <div class="sicon"><div class="sicon-bg"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2C9.5 2 8 3.1 8 4.5V7h4v1H5.5C4.1 8 3 9.5 3 12s1.1 4 2.5 4H7v-2.5C7 11.9 8.9 10 11 10h4c1.7 0 3-1.3 3-3V4.5C18 3.1 16.5 2 14 2h-2z" fill="#4B8BBE"/><path d="M12 22c2.5 0 4-1.1 4-2.5V17h-4v-1h6.5c1.4 0 2.5-1.5 2.5-4s-1.1-4-2.5-4H17v2.5c0 1.6-1.9 3.5-4 3.5h-4c-1.7 0-3 1.3-3 3v2.5C6 20.9 7.5 22 10 22h2z" fill="#d4d4d4"/><circle cx="10" cy="5" r="1" fill="#fff"/><circle cx="14" cy="19" r="1" fill="#fff"/></svg></div><span class="sicon-lbl">Python</span></div>
       <div class="sicon"><div class="sicon-bg"><svg viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="6" rx="8" ry="3" stroke="#60a5fa" stroke-width="1.5"/><path d="M4 6v4c0 1.66 3.58 3 8 3s8-1.34 8-3V6" stroke="#60a5fa" stroke-width="1.5"/><path d="M4 10v4c0 1.66 3.58 3 8 3s8-1.34 8-3v-4" stroke="#60a5fa" stroke-width="1.5"/><path d="M4 14v4c0 1.66 3.58 3 8 3s8-1.34 8-3v-4" stroke="#60a5fa" stroke-width="1.5"/></svg></div><span class="sicon-lbl">SQL</span></div>
@@ -691,7 +670,6 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
   </h2>
   <div class="proj-grid">
     <div class="proj-card">
-      <div class="proj-label">fact.city_stress</div>
       <div class="proj-title">City Stress Index</div>
       <div class="proj-desc">A multi-source urban intelligence platform scoring <strong>5 global cities</strong> across traffic, crime, weather, cost of living, and safety into a single composite index — powered by a SQLite star schema ETL pipeline with <strong>40% faster</strong> cross-city queries.</div>
       <div class="proj-metrics">
@@ -706,7 +684,6 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
       </div>
     </div>
     <div class="proj-card">
-      <div class="proj-label">fact.retail_forecast</div>
       <div class="proj-title">Retail Sales Forecasting & Demand Planning</div>
       <div class="proj-desc">Cleaned <strong>1M+ transactional records</strong> across 43 countries, built a SQL star schema warehouse, and benchmarked SARIMA vs Holt-Winters — achieving <strong>74.5% forecast accuracy</strong> with RFM segmentation identifying <strong>843 Champions</strong> from 5,861 customers.</div>
       <div class="proj-metrics">
@@ -792,7 +769,6 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
   </h2>
   <div class="edu-grid">
     <div class="edu-card">
-      <div class="glass-lbl">dim.niagara</div>
       <div class="edu-icon">🎓</div>
       <div class="edu-degree">Master of Science — Data Analytics</div>
       <div class="edu-school">University of Niagara Falls</div>
@@ -801,7 +777,6 @@ footer p{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:rgba
       <span class="edu-badge">GPA 3.89 · Honours</span>
     </div>
     <div class="edu-card">
-      <div class="glass-lbl">dim.navrachana</div>
       <div class="edu-icon">💻</div>
       <div class="edu-degree">Bachelor of Technology — Computer Science</div>
       <div class="edu-school">Navrachana University</div>
